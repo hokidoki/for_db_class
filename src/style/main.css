@@ -1,0 +1,37 @@
+.GroupNoticePage{
+    color : black;
+    box-sizing: border-box;
+    flex-basis: 20%;
+    background-color: white;
+    display: flex;
+    flex-direction: column;
+
+}
+
+.FriendsListPage{
+    color : white;
+    background-color:skyblue;
+    flex-basis: 60%;
+}
+
+.ArticlePage{
+    color : white;
+    flex-grow: 1;
+    background-color: snow;
+}
+
+.Notice{
+    flex-grow: 1;
+    background-color: snow;
+}
+
+.GroupList{
+    flex-grow: 3;
+}
+
+.myInfo{
+    flex-basis: 100px;
+    box-sizing: border-box;
+    padding-top : 10px;
+    text-align: center;
+}

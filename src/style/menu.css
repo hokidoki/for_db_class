@@ -1,0 +1,41 @@
+.MenuBar{
+    position: fixed;
+    height: 50px;
+    width: 100vw;
+    border: 1px solid black;
+}
+
+.menuLogo{
+    display: inline-block;
+    width: 150px;
+    height: 100%;
+    border: 1px solid red;
+}
+
+.loginTextBox{
+    width: 100px;
+}
+
+.loginBox{
+    display: inline-block;
+    position : absolute;
+    right: 0;
+}
+
+.helloUser{
+        display: inline-block;
+        position : absolute;
+        right: 0;
+        height: 100%;
+        line-height: 50px;
+}
+
+.search{
+    display: inline-block;
+    position: absolute;
+    right: 0;
+    height: 100%;
+    box-sizing: border-box;
+    line-height: 50px;
+    padding-right: 10px;
+}

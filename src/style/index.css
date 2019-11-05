@@ -1,0 +1,40 @@
+.AccountForm{
+    background-color: teal;
+    flex-basis: 550px;
+    
+}
+
+.Notice{
+    flex-grow:  1;
+    background-color: skyblue;
+}
+
+.AccountFormLabel{
+    display: inline-block;
+    width: 100px;
+}
+
+.AccountTextArea{
+    width: 70%;
+    height: 200px;;
+}
+.textArea{
+    margin-left: 100px;
+    max-width: 70%;
+    max-height: 200px;
+    border: 0px;
+
+}
+
+.AccountFormTextAreaDiv{
+    height: 200px;
+    /* position: relative; */
+}
+
+.AccountFormTextLabel{
+    position: absolute;
+    /* display: inline-block; */
+    width: 100px;
+    /* top : -100px; */
+    /* height: 200px; */
+}
