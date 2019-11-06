@@ -1,6 +1,6 @@
 import { combineReducers } from 'redux';
-import selected from './SELECTED';
+import postArticle from './PostArticle';
 
 export default combineReducers({
-    selected,
+    postArticle,
 })

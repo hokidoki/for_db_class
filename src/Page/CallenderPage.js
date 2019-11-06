@@ -4,8 +4,7 @@ import Callender from '../Component/callender/Callender'
 import * as moment from 'moment';
 import { connect } from 'react-redux';
 import {withRouter} from 'react-router-dom'
-// import SceduleBoard from './component/ScehduleBoard'
-
+import { changeSelectDate } from '../Store/ACTIONS/Callender';
 const Containner = styled.div`
   margin : 0 auto;
   margin-top : 15px;
@@ -35,7 +34,7 @@ class CallenderPage extends Component {
     const month = moment().month();
     const day = moment().date();
     const dateType = `${year}-${month}-${day}`;
-    this.props.history.push(`/main?ID=${this.props.user.user.NAME}&DATE=${dateType}`);  
+    this.props.history.push(`/main?ID=${this.props.user.user.ID}&DATE=${dateType}`);  
   }
 
 
@@ -56,6 +55,8 @@ class CallenderPage extends Component {
     this.setState({
       selected
     })
+    const select = selected.clone().add(1,'day');
+    this.props.changeSelectDate(select);
   }
 
   onAdd = (selected,content) =>{
@@ -82,4 +83,10 @@ class CallenderPage extends Component {
     }
   }
 
-  export default connect(null,null)(withRouter(CallenderPage));
+  const mapDispatchToProps = (dispatch) =>{
+    return {
+      changeSelectDate : (selected) =>{dispatch(changeSelectDate(selected))}
+    }
+  }
+
+  export default connect(null,mapDispatchToProps)(withRouter(CallenderPage));

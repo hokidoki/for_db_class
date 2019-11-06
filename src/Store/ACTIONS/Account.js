@@ -9,7 +9,7 @@ const signUpFailed = createAction(ActionType.SIGN_UP_FAILED);
 export const logOut = createAction(ActionType.LOGOUT);
 
 
-export const signUp = (ID,PASSWORD,BIRTH,JOB,CURRENTWEIGHT,GOALWEIGHT,COMMENT) =>{
+export const signUp = (ID,PASSWORD,NAME,BIRTH,JOB,CURRENTWEIGHT,GOALWEIGHT,COMMENT) =>{
     return (dispatch,getState) =>{
         // const dateType = BIRTH.substr(0,4)+'-'+BIRTH.substr(4,2)+'-'+BIRTH.substr(6,2);
         // console.log()
@@ -18,7 +18,7 @@ export const signUp = (ID,PASSWORD,BIRTH,JOB,CURRENTWEIGHT,GOALWEIGHT,COMMENT) =
         axios.post('http://127.0.0.1:8000/signup',{
             ID : ID,
             PASSWORD : PASSWORD,
-            NAME : "dummy",
+            NAME : NAME,
             JOB : JOB,
             CURRENT_WEIGHT : CURRENTWEIGHT,
             BIRTH : BIRTH,

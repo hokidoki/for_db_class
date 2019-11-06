@@ -4,6 +4,8 @@ import { createStore, combineReducers,applyMiddleware,compose } from 'redux';
 import { connectRouter, routerMiddleware } from 'connected-react-router';
 //리듀서
 import USER from './REDUCER/USER/REDUCER';
+import CALLENDER from './REDUCER/Callender/REDUCER';
+import ARTICLE from './REDUCER/Article/REDUCER';
 
 export function configureStore(history){
     const middleware = applyMiddleware(thunk,routerMiddleware(history));
@@ -18,6 +20,8 @@ export function configureStore(history){
     return createStore(
         combineReducers({ 
             USER,
+            CALLENDER,
+            ARTICLE,
             router : connectRouter(history)
         }),
         composed

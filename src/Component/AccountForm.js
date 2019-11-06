@@ -10,6 +10,7 @@ class AccountForm extends Component {
 
     state = {
         ID : "",
+        NAME : "",
         PASSWORD : "",
         PASSWORDVALI : "",
         FLAG : 0,
@@ -23,6 +24,7 @@ class AccountForm extends Component {
     reset = ()=>{
         this.setState({
             ID : "",
+            NAME : "",
             PASSWORD : "",
             PASSWORDVALI : "",
             FLAG : 0,
@@ -115,7 +117,7 @@ class AccountForm extends Component {
 
     signUp=()=>{
         // console.log(this.state);
-        const {ID,PASSWORD,PASSWORDVALI,FLAG,BIRTH,JOB,CURRENTWEIGHT,GOALWEIGHT,COMMENT} = this.state;
+        const {ID,PASSWORD,PASSWORDVALI,NAME,FLAG,BIRTH,JOB,CURRENTWEIGHT,GOALWEIGHT,COMMENT} = this.state;
         if(FLAG === 0){
             alert("아이디 중복체크를 해주세요.");
             return;
@@ -134,7 +136,7 @@ class AccountForm extends Component {
 
         const dateType = BIRTH.substr(0,4)+'-'+BIRTH.substr(4,2)+'-'+BIRTH.substr(6,2);
         // const accountJson = JSON.stringify(account)
-        this.props.signUp(ID,PASSWORD,dateType,JOB,CURRENTWEIGHT,GOALWEIGHT,COMMENT)
+        this.props.signUp(ID,PASSWORD,NAME,dateType,JOB,CURRENTWEIGHT,GOALWEIGHT,COMMENT)
     }
 
     render() {
@@ -147,6 +149,9 @@ class AccountForm extends Component {
                 </div>
                 <div>
                     <label className="AccountFormLabel" >PASSWORD</label><input onChange={this.onChangeValue} name="PASSWORD" value={this.state.PASSWORD}type="password" placeholder="password1"></input><input onChange={this.onChangeValue} name="PASSWORDVALI" type="password" placeholder="password2"></input>{PASSWORD === PASSWORDVALI ? "비밀번호 일치" : "비밀번호 불일치"}
+                </div>
+                <div>
+                    <label className="AccountFormLabel">이름</label><input name="NAME"  value={this.state.NAME} onChange={this.onChangeValue} placeholder="name"></input>
                 </div>
                 <div>
                     <label className="AccountFormLabel">직업</label><input name="JOB"  value={this.state.JOB} onChange={this.onChangeValue} placeholder="job"></input>
