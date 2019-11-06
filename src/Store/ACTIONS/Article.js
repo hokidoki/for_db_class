@@ -32,9 +32,18 @@ const getArticleThisMonthRequest = createAction(ActionType.GET_ARTICLE_THIS_MONT
 const getArticleThisMonthSuccess = createAction(ActionType.GET_ARTICLE_THIS_MONTH_SUCCESS);
 const getArticleThisFailed = createAction(ActionType.GET_ARTICLE_THIS_MONTH_FAILED);
 
-export const getArticle = (ID) =>{
+export const getArticleThisMonth = (ID) =>{
     return (dispatch,getState) => {
-        const firstDateOfthisMonth = getState().CALLENDER.selected.selected.clone().startOf('month');
-        const lastDateOfThisMonth = getState().CALLENDER.selected.selected.clone().endOf('month');
+        dispatch(getArticleThisMonthRequest());
+        const firstDateOfthisMonth = (getState().CALLENDER.selected.selected.clone().startOf('month')).clone().format('YYYY[-]MM[-]DD');
+        const lastDateOfThisMonth = (getState().CALLENDER.selected.selected.clone().endOf('month')).clone().format('YYYY[-]MM[-]DD');
+        console.log(firstDateOfthisMonth);
+        console.log(lastDateOfThisMonth);
+        axios.get(`http://127.0.0.1:8000/article?ID=${ID}&FIRST_DATE=${firstDateOfthisMonth}&LAST_DATE=${lastDateOfThisMonth}`).then((result)=>{
+            console.log(result);
+        }).catch((err)=>{
+            console.log(err);
+        })
+
     }
 }

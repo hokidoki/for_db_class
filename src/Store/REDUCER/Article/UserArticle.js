@@ -8,7 +8,7 @@ const initialState = {
 }
 
 export default handleActions({
-    [type.POST_ARTICLE_REQUEST ] : (state,action) => Object.assign({},state, {isLoading : true}),
-    [type.POST_ARTICLE_SUCCESS ] : (state,action) => Object.assign({},state, {isLoading : false}),
-    [type.POST_ARTICLE_FAILED ] : (state,action) => Object.assign({},state, {isLoading : true, error : action.payload}),
+    [type.GET_ARTICLE_THIS_MONTH_REQUEST] : (state,action) => Object.assign({},state, {isLoading : true}),
+    [type.GET_ARTICLE_THIS_MONTH_SUCCESS ] : (state,action) => Object.assign({},state, {isLoading : false}),
+    [type.GET_ARTICLE_THIS_MONTH_FAILED ] : (state,action) => Object.assign({},state, {isLoading : true, error : action.payload}),
 }, initialState)

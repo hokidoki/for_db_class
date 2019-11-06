@@ -5,6 +5,7 @@ import * as moment from 'moment';
 import { connect } from 'react-redux';
 import {withRouter} from 'react-router-dom'
 import { changeSelectDate } from '../Store/ACTIONS/Callender';
+import {getArticleThisMonth} from '../Store/ACTIONS/Article';
 const Containner = styled.div`
   margin : 0 auto;
   margin-top : 15px;
@@ -30,11 +31,14 @@ class CallenderPage extends Component {
     selected: null,
   }
   componentDidMount(){
+    const {user} = this.props;
     const year = moment().year();
     const month = moment().month();
     const day = moment().date();
-    const dateType = `${year}-${month}-${day}`;
-    this.props.history.push(`/main?ID=${this.props.user.user.ID}&DATE=${dateType}`);  
+    const dateType = `${year}-${month}-${day}`;    
+    this.props.getArticleThisCallender(user.user.ID);
+    this.props.history.push(`/main?ID=${this.props.user.user.ID}&DATE=${dateType}`);
+    
   }
 
 
@@ -85,7 +89,8 @@ class CallenderPage extends Component {
 
   const mapDispatchToProps = (dispatch) =>{
     return {
-      changeSelectDate : (selected) =>{dispatch(changeSelectDate(selected))}
+      changeSelectDate : (selected) =>{dispatch(changeSelectDate(selected))},
+      getArticleThisCallender : (ID) =>{dispatch(getArticleThisMonth(ID))}
     }
   }
 
