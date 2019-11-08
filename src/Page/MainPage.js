@@ -2,10 +2,12 @@ import React, { Component } from 'react'
 
 import GroupNoticePage from './GroupNoticePage'
 import ArticlePage from './ArticlePage'
-import FriendsListPage from './FriendsListPage';
+import SearchResultPage from './SearchResultPage';
+// import FriendsListPage from './FriendsListPage';
 
 import '../style/main.css';
 import { connect } from 'react-redux';
+import {Switch, Route} from 'react-router-dom';
 
 
 class MainPage extends Component {
@@ -13,7 +15,10 @@ class MainPage extends Component {
         return (
             <div className="MainPage">
                 <GroupNoticePage USER={this.props.USER}></GroupNoticePage>
-                <FriendsListPage user={this.props.USER}></FriendsListPage>
+                {/* <FriendsListPage user={this.props.USER}></FriendsListPage> */}
+                <Switch>
+                    <Route path="/main/search" component={SearchResultPage}/>
+                </Switch>
                 <ArticlePage></ArticlePage>
             </div>
         )

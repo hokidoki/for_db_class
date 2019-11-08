@@ -3,6 +3,7 @@ import * as type from '../../ACTIONS/ActionType';
 
 const initialState = {
     user : null,
+    friends :[],
     isLoading : false,
     error : null
 }

@@ -7,6 +7,7 @@ import { connect } from 'react-redux';
 import {Switch, Route} from 'react-router-dom';
 //
 import './style/App.css'
+import SearchResultPage from './Page/SearchResultPage';
 class App extends Component {
   render() {
     return (
@@ -15,6 +16,7 @@ class App extends Component {
         {!this.props.user.user ? <IndexPage></IndexPage> : 
         <Switch>
           <Route path="/main" component={MainPage}></Route>
+          <Route path="/search" component={SearchResultPage}></Route>
         </Switch>
         }
         

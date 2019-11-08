@@ -30,7 +30,7 @@ export const postArticle = (MORNING, LUNCH, DINNER, COMMENT) =>{
 
 const getArticleThisMonthRequest = createAction(ActionType.GET_ARTICLE_THIS_MONTH_REQUEST);
 const getArticleThisMonthSuccess = createAction(ActionType.GET_ARTICLE_THIS_MONTH_SUCCESS);
-const getArticleThisFailed = createAction(ActionType.GET_ARTICLE_THIS_MONTH_FAILED);
+const getArticleThisMonthFailed = createAction(ActionType.GET_ARTICLE_THIS_MONTH_FAILED);
 
 export const getArticleThisMonth = (ID) =>{
     return (dispatch,getState) => {
@@ -40,9 +40,12 @@ export const getArticleThisMonth = (ID) =>{
         console.log(firstDateOfthisMonth);
         console.log(lastDateOfThisMonth);
         axios.get(`http://127.0.0.1:8000/article?ID=${ID}&FIRST_DATE=${firstDateOfthisMonth}&LAST_DATE=${lastDateOfThisMonth}`).then((result)=>{
-            console.log(result);
+            dispatch(getArticleThisMonthSuccess({
+                userId : ID,
+                article : result
+            }));
         }).catch((err)=>{
-            console.log(err);
+            dispatch(getArticleThisMonthFailed(err));
         })
 
     }
