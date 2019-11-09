@@ -6,6 +6,7 @@ import { connectRouter, routerMiddleware } from 'connected-react-router';
 import USER from './REDUCER/USER/REDUCER';
 import CALLENDER from './REDUCER/Callender/REDUCER';
 import ARTICLE from './REDUCER/Article/REDUCER';
+import SEARCH from './REDUCER/Search/REDUCER';
 
 export function configureStore(history){
     const middleware = applyMiddleware(thunk,routerMiddleware(history));
@@ -22,6 +23,7 @@ export function configureStore(history){
             USER,
             CALLENDER,
             ARTICLE,
+            SEARCH,
             router : connectRouter(history)
         }),
         composed

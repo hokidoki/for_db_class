@@ -1,20 +1,24 @@
 .GroupNoticePage{
     color : black;
     box-sizing: border-box;
-    flex-basis: 20%;
+    width: 20%;
+    height: 100%;
     background-color: white;
     display: flex;
     flex-direction: column;
+    position: fixed;
 
 }
 
 .FriendsListPage{
+    margin-left: 20%;
     color : white;
     background-color:skyblue;
     flex-basis: 60%;
 }
 
 .ArticlePage{
+    margin-left: 20%;
     color : white;
     flex-grow: 1;
     background-color: snow;

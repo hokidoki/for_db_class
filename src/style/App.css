@@ -1,5 +1,6 @@
 .App{
     height: 100vh;
+    max-height: 100vh;
     display: flex;
 }
 
@@ -13,7 +14,16 @@
 
 .MainPage{
     display: flex;
+    box-sizing: border-box;
     margin-top: 50px;
     background-color: black;
+    /* height: 90vh; */
+    /* overflow: auto; */
     flex-grow: 1;
+}
+
+.dummyDiv{
+    width : 100px;
+    height: 10012px;
+    background: gray;
 }

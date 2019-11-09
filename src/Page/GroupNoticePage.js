@@ -8,7 +8,6 @@ export default class GroupNoticePage extends Component {
         console.log(this.props)
         return (
             <div className="GroupNoticePage">
-                
                 <Myinfo user={this.props.USER.user}></Myinfo>
                 <GroupList></GroupList>
                 <Notice></Notice>

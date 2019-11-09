@@ -17,9 +17,10 @@ class MainPage extends Component {
                 <GroupNoticePage USER={this.props.USER}></GroupNoticePage>
                 {/* <FriendsListPage user={this.props.USER}></FriendsListPage> */}
                 <Switch>
-                    <Route path="/main/search" component={SearchResultPage}/>
+                    <Route path="/main" exact component={ArticlePage}></Route>
+                    <Route path="/main/search" exact component={SearchResultPage}/>
                 </Switch>
-                <ArticlePage></ArticlePage>
+                {/* <ArticlePage></ArticlePage> */}
             </div>
         )
     }

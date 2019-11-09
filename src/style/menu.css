@@ -15,6 +15,9 @@
 .loginTextBox{
     width: 100px;
 }
+.menuLogo:hover{
+    cursor: pointer;
+}
 
 .loginBox{
     display: inline-block;

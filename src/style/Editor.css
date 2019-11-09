@@ -1,0 +1,29 @@
+.articleInput{
+    display: inline-block;
+    width: 20%;
+    margin-left: 20px;
+}
+
+.articleInputComment{
+    width: 80%;
+    margin-left: 20px;
+}
+label{
+    color : gray;
+}
+.Editor{
+    width: 90%;
+    margin : 0 auto;
+    background-color: snow;
+    border-radius: 20px;
+    border-color: gray;
+    margin-top: 20px;
+    height: 35%;
+    max-height: 100%;
+}
+
+.imageDiv{
+    height: 50%;
+    padding-top: 10px;
+    margin-top: -10px;
+}

@@ -1,5 +1,8 @@
 import React, { Component } from 'react'
 import { connect } from 'react-redux';
+import { search } from '../Store/ACTIONS/Search';
+import {bindActionCreators} from 'redux';
+
 class Search extends Component {
 
     state = {
@@ -12,13 +15,27 @@ class Search extends Component {
         })
     }
 
+    Search = ()=>{
+        const {searchText} = this.state;
+        if(searchText.length < 0){
+            alert("검색어를 작성해주세요.");
+            return;
+        }
+        this.props.Search(searchText);
+    }
+
     render() {
         return (
             <div className="search">
-                <input name="searchText" value={this.state.searchText} onChange={this.onChangeValue}></input><button>검색</button>
+                <input name="searchText" value={this.state.searchText} onChange={this.onChangeValue}></input><button onClick={this.Search}>검색</button>
             </div>
         )
     }
 }
 
-export default connect(null,null)(Search)
+const mapDispatchToProps = (dispach) =>{
+    return {
+        Search : bindActionCreators(search, dispach)
+    }
+}
+export default connect(null,mapDispatchToProps)(Search)
