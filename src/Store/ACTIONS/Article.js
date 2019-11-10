@@ -1,30 +1,51 @@
 import * as ActionType from'../ACTIONS/ActionType';
 import axios from 'axios';
 import { createAction } from 'redux-actions'
+import {getStoreImageUrl} from '../../API/firebase';
 
 const postArticleRequest = createAction(ActionType.POST_ARTICLE_REQUEST);
 const postArticleSuccess = createAction(ActionType.POST_ARTICLE_SUCCESS);
 const postArticleFailed = createAction(ActionType.POST_ARTICLE_FAILED);
 
-export const postArticle = (MORNING, LUNCH, DINNER, COMMENT) =>{
+export const postArticle = (MORNING, LUNCH, DINNER, COMMENT,IMAGE) =>{
     return (dispatch, getState) =>{
         const writer = getState().USER.sign_in.user.ID;
         const selectedDate = getState().CALLENDER.selected.selected;
         const dateType = selectedDate.format('YYYY[-]MM[-]DD');
         dispatch(postArticleRequest());
-        axios.post('http://127.0.0.1:8000/article',{
-            WRITER : writer,
-            DATE : dateType,
-            MORNING : MORNING,
-            LUNCH : LUNCH,
-            DINNER : DINNER,
-            COMMENT : COMMENT,
-        }).then((result)=>{
-            console.log(result);
-            dispatch(postArticleSuccess());
-        }).catch((err)=>{
-            dispatch(postArticleFailed());
-        })
+        if(IMAGE){
+            getStoreImageUrl(IMAGE).then((url)=>{
+                console.log(url)
+                axios.post('http://127.0.0.1:8000/article',{
+                    WRITER : writer,
+                    DATE : dateType,
+                    MORNING : MORNING,
+                    LUNCH : LUNCH,
+                    DINNER : DINNER,
+                    COMMENT : COMMENT,
+                    IMAGE_URL : url
+                    }).then((result)=>{
+                        console.log(result);
+                        dispatch(postArticleSuccess());
+                    }).catch((err)=>{
+                        dispatch(postArticleFailed());
+                    })
+            });            
+        }else{
+            axios.post('http://127.0.0.1:8000/article',{
+                WRITER : writer,
+                DATE : dateType,
+                MORNING : MORNING,
+                LUNCH : LUNCH,
+                DINNER : DINNER,
+                COMMENT : COMMENT,
+                }).then((result)=>{
+                    console.log(result);
+                    dispatch(postArticleSuccess());
+                }).catch((err)=>{
+                    dispatch(postArticleFailed());
+                })
+        }
     }
 }
 

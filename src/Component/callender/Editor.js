@@ -40,8 +40,8 @@ class Editor extends Component {
     }
 
     addArticle = () =>{
-        const {BREAKFAST,LUNCH,DINNER,COMMENT} = this.state;
-        this.props.postArticle(BREAKFAST,LUNCH,DINNER,COMMENT);
+        const {BREAKFAST,LUNCH,DINNER,COMMENT,IMAGES} = this.state;
+        this.props.postArticle(BREAKFAST,LUNCH,DINNER,COMMENT,IMAGES[0]);
     }
 
     onImageChage = (e) =>{
