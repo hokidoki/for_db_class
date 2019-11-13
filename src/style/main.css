@@ -9,7 +9,30 @@
     position: fixed;
 
 }
+.commentInput{
+    width: 100%;
+    background-color: none;
+    border-top: none;
+    border-left: none;
+    border-right: none;
+}
+.commentInputDiv{
+    height: 30px;
+    line-height: 30px;
 
+}
+.articleCard{
+
+    margin-top: 30px;
+    margin-left: auto;
+    margin-right: auto;
+    width: 80%;
+    background-color: black;
+    
+}
+.userIcon{
+    border-radius: 15px;
+}
 .FriendsListPage{
     margin-left: 20%;
     color : white;

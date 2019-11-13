@@ -14,8 +14,8 @@ const InvisibleUploadButton = styled.input`
 const Preview = styled.div`
     margin-left : 20px;
     margin-top : 10px;
-    width : 10%
-    height : 90%;
+    width : 100%
+    height : 100%;
     border-radius : 5px;
     background-image : url(${props=>props.src});
     background-repeat : no-repeat;
@@ -94,17 +94,22 @@ class Editor extends Component {
         }) 
         return (
             <div className="Editor">
-                <div className="imageDiv">
-                    <InvisibleUploadButton ref="image" type="file" onChange={this.onImageChage}/>
-                    {list}
+                <div className="EditorInputBox">
+                    <div className="imageDiv">
+                        <InvisibleUploadButton ref="image" type="file" onChange={this.onImageChage}/>
+                        {list}
+                    </div>
+                    <div className="whatEatInput">
+                        <Form.Input className="articleInput" fluid name="BREAKFAST" placeholder='breakfast' value={this.state.BREAKFAST} onChange={this.onChangeValue} />    
+                        <Form.Input className="articleInput" fluid name="LUNCH" placeholder='lunch' value={this.state.LUNCH} onChange={this.onChangeValue} />    
+                        <Form.Input className="articleInput" fluid name="DINNER"  placeholder='dinner' value={this.state.DINNER} onChange={this.onChangeValue} /> 
+                        <div className = "imageButton" >
+                        <Button style={{'marginLeft' : "7px",'width' : '100px'}} onClick={this.onHandleChane}>이미지 추가</Button>
+                        </div>
+                    </div>
                 </div>
-                <div className="">
-                <Form.Input className="articleInput" fluid name="BREAKFAST" label='아침' placeholder='breakfast' value={this.state.BREAKFAST} onChange={this.onChangeValue} />    
-                <Form.Input className="articleInput" fluid name="LUNCH" label='점심' placeholder='lunch' value={this.state.LUNCH} onChange={this.onChangeValue} />    
-                <Form.Input className="articleInput" fluid name="DINNER" label='저녁' placeholder='dinner' value={this.state.DINNER} onChange={this.onChangeValue} /> 
-                <Button style={{ 'height' : '100%' ,'marginLeft' : '20px', 'marginTop' : '20px'}} onClick={this.onHandleChane}>이미지 추가</Button>
-                </div>
-                <div>
+                
+                <div className="articleInputDiv">
                     <Form>
                     <TextArea style={{ 'width' : '80%', 'maxHeight' : '100px','marginLeft' : '20px', 'marginTop' : '20px'}}className="articleInputComment" name="COMMENT" onChange={this.onChangeValue} value={this.state.COMMENT} placeholder='Tell us more' />
                     <Button style={{ 'height' : '100%' ,'marginLeft' : '20px', 'marginTop' : '20px'}} onClick={this.addArticle}>등록</Button>

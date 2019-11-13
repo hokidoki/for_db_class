@@ -1,5 +1,5 @@
 import React, { Component } from 'react'
-import { Button } from 'semantic-ui-react'
+import { Button , Select} from 'semantic-ui-react'
 import axios from 'axios';
 import { connect } from 'react-redux';
 // import * as actionType from '../Store/ACTIONS/ActionType';
@@ -18,8 +18,11 @@ class AccountForm extends Component {
         BIRTH : "",
         CURRENTWEIGHT : "",
         GOALWEIGHT : "",
-        COMMENT : ""
+        COMMENT : "",
+        GENDER : 0
     }
+
+    
 
     reset = ()=>{
         this.setState({
@@ -32,7 +35,8 @@ class AccountForm extends Component {
             BIRTH : "",
             CURRENTWEIGHT : "",
             GOALWEIGHT : "",
-            COMMENT : ""
+            COMMENT : "",
+            GENDER : 0
         })
     }
     birthValidCheck(value){
@@ -65,6 +69,7 @@ class AccountForm extends Component {
     }
 
     onChangeValue = (e)=>{
+        console.log(e);
         if((e.target.name === "BIRTH" || e.target.name === "CURRENTWEIGHT" || e.target.name === "GOALWEIGHT" ) &&isNaN(e.target.value) === true){
             alert("숫자만 입력해주세요");
             return;
@@ -79,6 +84,8 @@ class AccountForm extends Component {
             alert("생년월일은 8자를 넘길수 없습니다.");
             return;
         }
+        console.log(e.target.name);
+        console.log(e.target.value)
         this.setState({
             [e.target.name] : e.target.value
         })
@@ -117,7 +124,7 @@ class AccountForm extends Component {
 
     signUp=()=>{
         // console.log(this.state);
-        const {ID,PASSWORD,PASSWORDVALI,NAME,FLAG,BIRTH,JOB,CURRENTWEIGHT,GOALWEIGHT,COMMENT} = this.state;
+        const {ID,PASSWORD,PASSWORDVALI,NAME,FLAG,BIRTH,JOB,CURRENTWEIGHT,GOALWEIGHT,COMMENT,GENDER} = this.state;
         if(FLAG === 0){
             alert("아이디 중복체크를 해주세요.");
             return;
@@ -136,11 +143,16 @@ class AccountForm extends Component {
 
         const dateType = BIRTH.substr(0,4)+'-'+BIRTH.substr(4,2)+'-'+BIRTH.substr(6,2);
         // const accountJson = JSON.stringify(account)
-        this.props.signUp(ID,PASSWORD,NAME,dateType,JOB,CURRENTWEIGHT,GOALWEIGHT,COMMENT)
+        this.props.signUp(ID,PASSWORD,NAME,dateType,JOB,CURRENTWEIGHT,GOALWEIGHT,COMMENT,GENDER)
     }
 
     render() {
         const {PASSWORD,PASSWORDVALI} = this.state;
+        const options = [
+            { key: 'af', value: 'MAN', text: 'MAN' },
+            { key: 'ax', value: 'WOMAN', text: 'WOMAN' }
+        ]
+        console.log(this.state);
         return (
             <div className="AccountForm">
                 <h1>회원 가입</h1>
@@ -152,6 +164,9 @@ class AccountForm extends Component {
                 </div>
                 <div>
                     <label className="AccountFormLabel">이름</label><input name="NAME"  value={this.state.NAME} onChange={this.onChangeValue} placeholder="name"></input>
+                </div>
+                <div>
+                    <Select placeholder='Select your country' name="GENDER" value="MAN"  options={options} />
                 </div>
                 <div>
                     <label className="AccountFormLabel">직업</label><input name="JOB"  value={this.state.JOB} onChange={this.onChangeValue} placeholder="job"></input>

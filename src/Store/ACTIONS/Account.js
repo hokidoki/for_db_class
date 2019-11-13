@@ -9,7 +9,7 @@ const signUpFailed = createAction(ActionType.SIGN_UP_FAILED);
 export const logOut = createAction(ActionType.LOGOUT);
 
 
-export const signUp = (ID,PASSWORD,NAME,BIRTH,JOB,CURRENTWEIGHT,GOALWEIGHT,COMMENT) =>{
+export const signUp = (ID,PASSWORD,NAME,BIRTH,JOB,CURRENTWEIGHT,GOALWEIGHT,COMMENT,GENDER) =>{
     return (dispatch,getState) =>{
         // const dateType = BIRTH.substr(0,4)+'-'+BIRTH.substr(4,2)+'-'+BIRTH.substr(6,2);
         // console.log()
@@ -23,7 +23,8 @@ export const signUp = (ID,PASSWORD,NAME,BIRTH,JOB,CURRENTWEIGHT,GOALWEIGHT,COMME
             CURRENT_WEIGHT : CURRENTWEIGHT,
             BIRTH : BIRTH,
             GOAL_WEIGHT : GOALWEIGHT,
-            COMMENT : COMMENT
+            COMMENT : COMMENT,
+            GENDER : GENDER
         }).then((result)=>{
             dispatch(signUpSuccess());
             console.log(result);
