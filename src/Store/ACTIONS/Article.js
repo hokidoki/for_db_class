@@ -71,3 +71,20 @@ export const getArticleThisMonth = (ID) =>{
 
     }
 }
+
+const getArticleRequest = createAction(ActionType.GET_ARTICLE_REQUEST);
+const getArticleSuccess = createAction(ActionType.GET_ARTICLE_SUCCESS);
+const getArticleFailed = createAction(ActionType.GET_ARTICLE_FAILED);
+
+export const getArticle = () =>{
+    return (dispatch, getState)=>{
+        const friends = getState().USER.sign_in.user.friends;
+        const userId = getState().USER.sign_in.user.ID;
+        const friendsJson = JSON.stringify(friends);
+        dispatch(getArticleRequest());
+
+            axios.get(`http://127.0.0.1:8000/article?userId=${userId}&friends=${friendsJson}`).then((article)=>{
+                dispatch(getArticleSuccess(article));
+            })
+    }
+}
