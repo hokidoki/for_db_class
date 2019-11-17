@@ -53,6 +53,7 @@ const getArticleThisMonthRequest = createAction(ActionType.GET_ARTICLE_THIS_MONT
 const getArticleThisMonthSuccess = createAction(ActionType.GET_ARTICLE_THIS_MONTH_SUCCESS);
 const getArticleThisMonthFailed = createAction(ActionType.GET_ARTICLE_THIS_MONTH_FAILED);
 
+
 export const getArticleThisMonth = (ID) =>{
     return (dispatch,getState) => {
         dispatch(getArticleThisMonthRequest());
@@ -75,6 +76,12 @@ export const getArticleThisMonth = (ID) =>{
 const getArticleRequest = createAction(ActionType.GET_ARTICLE_REQUEST);
 const getArticleSuccess = createAction(ActionType.GET_ARTICLE_SUCCESS);
 const getArticleFailed = createAction(ActionType.GET_ARTICLE_FAILED);
+export const getArticleReset = createAction(ActionType.GET_ARTICLE_RESET);
+
+//나중을 위한 분리.
+const getCommentSuccess = createAction(ActionType.GET_COMMENT_SUCCESS);
+const getCommentFailed = createAction(ActionType.GET_COMMENT_FAILED);
+
 
 export const getArticle = () =>{
     return (dispatch, getState)=>{
@@ -83,8 +90,37 @@ export const getArticle = () =>{
         const friendsJson = JSON.stringify(friends);
         dispatch(getArticleRequest());
 
-            axios.get(`http://127.0.0.1:8000/article?userId=${userId}&friends=${friendsJson}`).then((article)=>{
+            axios.get(`http://127.0.0.1:8000/article?mod=full&userId=${userId}&friends=${friendsJson}`).then((article)=>{
                 dispatch(getArticleSuccess(article));
+
+                const comment = article.data.map((article)=>{
+                    return article.comment;
+                })
+
+                dispatch(getCommentSuccess(comment));
+            }).catch((err)=>{
+                dispatch(getArticleFailed(err));
+                dispatch(getCommentFailed(err));
             })
     }
 }
+const getUpdatedArticle = createAction(ActionType.GET_UPDATED_ARTICLE);
+const getUpdatedComment = createAction(ActionType.GET_UPDATED_COMMENT);
+
+export const updatedArticle = (articleRowId,index) =>{
+    return (dispatch,getState)=>{
+    
+        axios.get(`http://127.0.0.1:8000/article?mod=updatedArticle&articleRowId=${articleRowId}`).then((result)=>{
+        dispatch(getUpdatedArticle({
+            index : index,
+            updatedArticle : result.data[0]
+        }))    
+        const comment = result.data[0].comment;
+        dispatch(getUpdatedComment({
+            index : index,
+            updatedComment : comment
+        }))
+        })
+    }
+}
+

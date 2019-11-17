@@ -1,7 +1,6 @@
 import React, { Component } from 'react'
 import { connect } from 'react-redux';
 import { search } from '../Store/ACTIONS/Search';
-import {getArticle} from '../Store/ACTIONS/Article';
 import {bindActionCreators} from 'redux';
 
 class Search extends Component {
@@ -22,8 +21,7 @@ class Search extends Component {
             alert("검색어를 작성해주세요.");
             return;
         }
-        // this.props.Search(searchText);
-        this.props.getArticle();
+        this.props.Search(searchText);
     }
 
     render() {
@@ -38,7 +36,6 @@ class Search extends Component {
 const mapDispatchToProps = (dispatch) =>{
     return {
         Search : bindActionCreators(search, dispatch),
-        getArticle : bindActionCreators(getArticle,dispatch)
     }
 }
 export default connect(null,mapDispatchToProps)(Search)

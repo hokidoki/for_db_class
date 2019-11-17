@@ -7,6 +7,8 @@ import USER from './REDUCER/USER/REDUCER';
 import CALLENDER from './REDUCER/Callender/REDUCER';
 import ARTICLE from './REDUCER/Article/REDUCER';
 import SEARCH from './REDUCER/Search/REDUCER';
+import MODAL from './REDUCER/Modal';
+import GROUP from './REDUCER/Group/REDUCER';
 
 export function configureStore(history){
     const middleware = applyMiddleware(thunk,routerMiddleware(history));
@@ -24,6 +26,8 @@ export function configureStore(history){
             CALLENDER,
             ARTICLE,
             SEARCH,
+            GROUP,
+            MODAL,
             router : connectRouter(history)
         }),
         composed

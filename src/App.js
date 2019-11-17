@@ -3,15 +3,23 @@ import MenuBar from './Component/MenuBar'
 import IndexPage from './Page/IndexPage'
 import MainPage from './Page/MainPage'
 import { connect } from 'react-redux';
+import ModalPotal from './Component/modal';
 
 import {Switch, Route} from 'react-router-dom';
-//
+import CreateGroup from './Component/Group/createGroup';
+
 import './style/App.css'
 import SearchResultPage from './Page/SearchResultPage';
 class App extends Component {
   render() {
     return (
       <div className="App">
+        {this.props.modal ? 
+          <ModalPotal>
+            <CreateGroup>
+            </CreateGroup>
+          </ModalPotal> : null
+        }
         <MenuBar user={this.props.user}></MenuBar>
         {!this.props.user.user ? <IndexPage></IndexPage> : 
         <Switch>
@@ -27,6 +35,7 @@ class App extends Component {
 
 const mapStateToProps = (state)=>{
   return {
+      modal : state.MODAL.modalIsOpen,
       user : state.USER.sign_in
   }
 }
