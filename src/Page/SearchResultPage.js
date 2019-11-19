@@ -13,7 +13,9 @@ class SearchResultPage extends Component {
         }) : null;  
         return (
             <div className='FriendsListPage'>
+                <h2>사람</h2>
                 {card}
+                <h2>그룹</h2>
             </div>
         )
     }
