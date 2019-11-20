@@ -4,7 +4,6 @@ import uuid from 'uuid';
 export function getStoreImageUrl(dataUrl){
 
     const fileName = uuid.v1();
-    console.log(dataUrl);
     let extension = dataUrl.src.split(';')[0].split('/')[1];
     switch(extension){
         case '/' :

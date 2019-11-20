@@ -4,24 +4,26 @@ import { createAction } from 'redux-actions'
 import { push } from 'connected-react-router';
 
 
-const postArticleRequest = createAction(ActionType.SEARCH_REQUEST);
-const postArticleSuccess = createAction(ActionType.SEARCH_SUCCESS);
-const postArticleFailed = createAction(ActionType.SEARCH_FAILED);
+const searchRequest = createAction(ActionType.SEARCH_REQUEST);
+const searchSuccess = createAction(ActionType.SEARCH_SUCCESS);
+const searchFailed = createAction(ActionType.SEARCH_FAILED);
 
 export const search = (searchKeword) =>{
     return (dispatch, getState) =>{
         const user = getState().USER.sign_in.user.ID;
-        dispatch(postArticleRequest());
+        dispatch(searchRequest());
         axios.get(`http://127.0.0.1:8000/search?USER=${user}&SEARCH_KEWORD=${searchKeword}`
         ).then((result)=>{
-            console.log(result);
-            for(var i = 0; i < result.data.length; i++){
-                result.data[i].isLoading = false;
+            for(var i = 0; i < result.data.user.length; i++){
+                result.data.user[i].isLoading = false;
             }
-            dispatch(postArticleSuccess(result.data));
+            for(var i = 0; i < result.data.group.length; i++){
+                result.data.group[i].isLoading = false;
+            }
+            dispatch(searchSuccess(result));
             dispatch(push('/main/search'));
         }).catch((err)=>{
-            dispatch(postArticleFailed(err));
+            dispatch(searchFailed(err));
         })
     }
 }

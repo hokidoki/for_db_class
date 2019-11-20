@@ -69,7 +69,6 @@ class AccountForm extends Component {
     }
 
     onChangeValue = (e)=>{
-        console.log(e);
         if((e.target.name === "BIRTH" || e.target.name === "CURRENTWEIGHT" || e.target.name === "GOALWEIGHT" ) &&isNaN(e.target.value) === true){
             alert("숫자만 입력해주세요");
             return;
@@ -84,8 +83,6 @@ class AccountForm extends Component {
             alert("생년월일은 8자를 넘길수 없습니다.");
             return;
         }
-        console.log(e.target.name);
-        console.log(e.target.value)
         this.setState({
             [e.target.name] : e.target.value
         })
@@ -103,15 +100,11 @@ class AccountForm extends Component {
             alert("id는 4글자 이상이여야만 합니다.");
             return;
         }
-        // console.log(ID);
         axios.get(`http://127.0.0.1:8000/valid/?id=${ID}&mode=id`).then((result)=>{
             if(result.data[0].VALID){
-                console.log(result)
                 alert(`${ID}는 현재 사용중인 아이디 입니다.`);
                 return;
             }else{
-                console.log(result)
-
                 alert(`${ID}는 사용가능한 아이디 입니다.`);
                 this.setState({
                     FLAG : 1
@@ -152,7 +145,6 @@ class AccountForm extends Component {
             { key: 'af', value: 'MAN', text: 'MAN' },
             { key: 'ax', value: 'WOMAN', text: 'WOMAN' }
         ]
-        console.log(this.state);
         return (
             <div className="AccountForm">
                 <h1>회원 가입</h1>

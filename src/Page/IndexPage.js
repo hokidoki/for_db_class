@@ -5,7 +5,6 @@ import '../style/index.css'
 
 export default class IndexPage extends Component {
     render() {
-        console.log(this.props)
         return (
             <div className="IndexPage">
                 <Notice></Notice>

@@ -7,7 +7,7 @@ const createGroupRequest = createAction(ActionType.CREATE_GROUP_REQUEST);
 const createGroupSuccess = createAction(ActionType.CREATE_GROUP_SUCCESS);
 const createGroupFailed = createAction(ActionType.CREATE_GROUP_FAILED);
 
-const getAdminGroupSuccess = createAction(ActionType.GET_ADMIN_GROUP_SUCCESS);
+export const getAdminGroupSuccess = createAction(ActionType.GET_ADMIN_GROUP_SUCCESS);
 // const getNewAdminGroupSuccess = createAction(ActionType.GET_NEW_ADMIN_GROUP_SUCCESS);
 
 export const createGroup = (groupName, groupComment) =>{
@@ -30,3 +30,4 @@ export const createGroup = (groupName, groupComment) =>{
         })
     }
 }
+

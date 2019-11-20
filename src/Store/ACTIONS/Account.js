@@ -2,6 +2,7 @@ import * as ActionType from'../ACTIONS/ActionType';
 import axios from 'axios';
 import { createAction } from 'redux-actions'
 import { push } from 'connected-react-router'
+import { getAdminGroupSuccess } from './Group';
 
 const signUpRequest = createAction(ActionType.SIGN_UP_REQUEST);
 const signUpSuccess = createAction(ActionType.SIGN_UP_SUCCESS);
@@ -27,9 +28,11 @@ export const signUp = (ID,PASSWORD,NAME,BIRTH,JOB,CURRENTWEIGHT,GOALWEIGHT,COMME
             GENDER : GENDER
         }).then((result)=>{
             dispatch(signUpSuccess());
-            console.log(result);
             dispatch(signInSuccess(result.data[0]));
             dispatch(push('/main'));
+            dispatch(getAdminGroupSuccess({
+                data : result.data[0].manageGroup
+            }))
         }).catch((err)=>{
             dispatch(signUpFailed());
         })
@@ -46,10 +49,12 @@ export const signIn = (ID,PASSWORD)=>{
             ID : ID,
             PASSWORD : PASSWORD
         }).then((result)=>{
-            console.log(result)
             if(result.data[0]){
                 dispatch(signInSuccess(result.data[0]));
                 dispatch(push('/main'));
+                dispatch(getAdminGroupSuccess({
+                    data : result.data[0].manageGroup
+                }))
             }else{
                 dispatch(signInFailed(result));
                 alert("ID혹은 비밀번호가 틀렸습니다.");

@@ -15,7 +15,6 @@ class MyInfo extends Component {
     }
 
     render() {
-        console.log(this.props.user.GENDER);
         return (
             <div className="myInfo">
                 <p>

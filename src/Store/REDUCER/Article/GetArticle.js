@@ -13,7 +13,6 @@ export default handleActions({
     [type.GET_ARTICLE_FAILED ] : (state,action) => Object.assign({},state, {isLoading : false, error : action.payload}),
     [type.GET_ARTICLE_RESET] : (state) => Object.assign({}, {}, { article : [],isLoading : false, error : false}),
     [type.GET_UPDATED_ARTICLE] : (state,action) =>{
-        console.log(action.payload)
         const articleIndex = action.payload.index;
         const updatedArticle = action.payload.updatedArticle
 

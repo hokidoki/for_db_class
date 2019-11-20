@@ -15,7 +15,6 @@ export const postArticle = (MORNING, LUNCH, DINNER, COMMENT,IMAGE) =>{
         dispatch(postArticleRequest());
         if(IMAGE){
             getStoreImageUrl(IMAGE).then((url)=>{
-                console.log(url)
                 axios.post('http://127.0.0.1:8000/article',{
                     WRITER : writer,
                     DATE : dateType,
@@ -104,19 +103,19 @@ export const getArticle = () =>{
             })
     }
 }
-const getUpdatedArticle = createAction(ActionType.GET_UPDATED_ARTICLE);
-const getUpdatedComment = createAction(ActionType.GET_UPDATED_COMMENT);
+const getUpdatedArticleSuccess= createAction(ActionType.GET_UPDATED_ARTICLE);
+const getUpdatedCommentSuccess = createAction(ActionType.GET_UPDATED_COMMENT);
 
 export const updatedArticle = (articleRowId,index) =>{
     return (dispatch,getState)=>{
     
         axios.get(`http://127.0.0.1:8000/article?mod=updatedArticle&articleRowId=${articleRowId}`).then((result)=>{
-        dispatch(getUpdatedArticle({
+        dispatch(getUpdatedArticleSuccess({
             index : index,
             updatedArticle : result.data[0]
         }))    
         const comment = result.data[0].comment;
-        dispatch(getUpdatedComment({
+        dispatch(getUpdatedCommentSuccess({
             index : index,
             updatedComment : comment
         }))
@@ -124,3 +123,50 @@ export const updatedArticle = (articleRowId,index) =>{
     }
 }
 
+const putPrivateUpdateArticleRequest = createAction(ActionType.UPDATE_PRIVATE_ARTICLE_REQUEST);
+const putPrivateUpdateArticleSuccess = createAction(ActionType.UPDATE_PRIVATE_ARTICLE_SUCCESS);
+const putPrivateUpdateArticleFailed = createAction(ActionType.UPDATE_PRIVATE_ARTICLE_FAILED);
+
+export const putUpdateArticle = (articleRowId,{imageRowId,preventImage,nextImage},writer,breakFast,lunch,dinner,comment)=>{
+    return (dispatch,getState)=>{
+        let image =preventImage;
+        let imageState = "default";
+        if(imageRowId && nextImage && preventImage !== nextImage){
+            imageState= "update";
+        } else if(imageRowId && !nextImage){
+            imageState = "delete";
+        }else if(!imageRowId && nextImage){
+            imageState = "new";
+        }
+
+        if(imageState === "update" || imageState === "new" ){
+            getStoreImageUrl(nextImage).then((imageSrc)=>{
+                axios.put(`http://127.0.0.1:8000/article?where=privateArticle&imageState=${imageState}`,{
+                    articleRowId : articleRowId,
+                    writer : writer,
+                    breakFast : breakFast,
+                    lunch : lunch,
+                    dinner : dinner,
+                    comment : comment,
+                    image : {
+                        image : imageSrc,
+                        imageRowId : imageRowId
+                    }
+                })
+            })
+        }else{
+            axios.put(`http://127.0.0.1:8000/article?where=privateArticle&imageState=${imageState}`,{
+                    articleRowId : articleRowId,
+                    writer : writer,
+                    breakFast : breakFast,
+                    lunch : lunch,
+                    dinner : dinner,
+                    comment : comment,
+                    image : {
+                        image : preventImage,
+                        imageRowId : imageRowId
+                    }
+            })
+        }
+    }  
+};

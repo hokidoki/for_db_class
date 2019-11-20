@@ -1,7 +1,8 @@
-import React,{Component} from 'react'
+import React,{Component,Fragment} from 'react'
 import { Form,Button,Image,TextArea } from 'semantic-ui-react'
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
+import UpdateEditor from './ArticleUpdateForm';
 // import styled from 'styled-components';
 
 import {postComment,postReComment} from '../../Store/ACTIONS/Comment.js';
@@ -22,6 +23,7 @@ class ArticleCard extends Component {
 
     state = {
       COMMENT : "",
+      MODE : "수정",
       COMMENT_SHOW : false
     }
 
@@ -29,6 +31,17 @@ class ArticleCard extends Component {
       this.setState({
         [e.target.name] : e.target.value
       })
+    }
+    setMode = (e) =>{
+      if(this.state.MODE === "수정"){
+          this.setState({
+            MODE : "되돌리기"
+          })
+      }else{
+        this.setState({
+          MODE : "수정"
+        })
+      }
     }
 
     commentShowStateChange = ()=>{
@@ -49,11 +62,19 @@ class ArticleCard extends Component {
     }
     render(){
       const comment = this.props.comment.map((item)=>{
-        console.log(item);
       return <Comment writer={item.WRITER}  createdAt={item.CREATED_AT} comment={item.COMMENT} addRecomment={this.addRecomment}comment_row_id={item.COMMENT_ROW_ID} DELETEAED={item.DELETEAED} recomment={item.recomment}></Comment>
       })
+      const manageButton = this.props.user === this.props.id ? <Fragment>
+            <label onClick={this.setMode}>{this.state.MODE}</label>
+            <label>삭제</label>
+      </Fragment> : null;
+
         return(
+          
           <div className="articleCard">
+            {manageButton}
+            { this.state.MODE === "수정" ? 
+            <Fragment>
             <div>
               {this.props.writer}
               <label>{this.props.date}</label>
@@ -79,7 +100,14 @@ class ArticleCard extends Component {
             </div>>
               {this.state.COMMENT_SHOW ? comment : null}
             </div>
+            </Fragment>: <UpdateEditor breakFast={this.props.breakFast} 
+                                       lunch={this.props.lunch} 
+                                       dinner={this.props.dinner} 
+                                       image={this.props.image} 
+                                       comment={this.props.contents}
+                                       writer={this.props.writer}></UpdateEditor>} 
           </div>
+         
         )
     }
 }

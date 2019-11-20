@@ -24,13 +24,20 @@ const Preview = styled.div`
         cursor : pointer;
     }
 `
-class Editor extends Component {
-    state = {
-        BREAKFAST : "",
-        LUNCH : "",
-        DINNER : "",
-        COMMENT : "",
-        IMAGES : [],
+class UpdateEditor extends Component {
+
+    constructor(props){
+        super(props);
+        this.state = {
+            BREAKFAST : this.props.breakFast,
+            LUNCH : this.props.lunch,
+            DINNER : this.props.dinner,
+            COMMENT : this.props.comment,
+            IMAGES : [{
+                src : this.props.image
+            }],
+        }
+        
     }
 
     onChangeValue = (e)=>{
@@ -78,6 +85,7 @@ class Editor extends Component {
     }
     render() {
         const { IMAGES } = this.state; 
+        const {user,writer} = this.props;
         const list = IMAGES.map((image,index)=>{
             return (
                 <Preview
@@ -123,4 +131,4 @@ const mapDispacthToProps = (dispatch) =>{
     }
 }
 
-export default connect(null,mapDispacthToProps)(Editor)
+export default connect(null,mapDispacthToProps)(UpdateEditor)

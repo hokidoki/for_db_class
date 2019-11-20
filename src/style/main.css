@@ -36,6 +36,7 @@
 }
 .FriendsListPage{
     margin-left: 20%;
+    overflow-y: auto;
     color : white;
     background-color:skyblue;
     flex-basis: 60%;

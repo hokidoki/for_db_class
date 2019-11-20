@@ -6,7 +6,6 @@ import '../style/menu.css';
 
 class MenuBar extends Component {
     render() {
-        // console.log(this.props.user)
         return (
             <div className="MenuBar">
                 <LoGo></LoGo>

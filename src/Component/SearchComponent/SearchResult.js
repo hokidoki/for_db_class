@@ -17,8 +17,10 @@ class SearchResult extends Component {
       if(isLoading){
         return;
       }
-      console.log(index);
-      this.props.friendRequest(id,rowId,check,index);
+      if(this.props.mode === "groupCard"){
+      }else{
+        this.props.friendRequest(id,rowId,check,index);
+      }
     }
     render() {
         return (
@@ -32,14 +34,16 @@ class SearchResult extends Component {
           src='https://react.semantic-ui.com/images/avatar/large/steve.jpg'
         />
         <Card.Header>{this.props.name}</Card.Header>
-        <Card.Meta>{this.props.id}</Card.Meta>
+        <Card.Meta>{this.props.mode === "groupCard" ? `개설 일자 : ${this.props.created_at}` :this.props.id}</Card.Meta>
         <Card.Description>
           {this.props.comment}
         </Card.Description>
       </Card.Content>
       <Card.Content extra>
         <div className='ui two buttons'>
-        친구 : <Radio toggle checked={this.props.check} onClick={this.onClick}/> 
+          ${this.props.mode === "groupCard" && this.props.user === this.props.group_master ? 
+                null :  <Radio toggle checked={this.props.check} onClick={this.onClick}/> 
+          }
         </div>
       </Card.Content>
               </Card>

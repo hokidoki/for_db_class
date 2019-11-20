@@ -20,10 +20,12 @@ class ArticlePage extends Component {
     }
     
     render() {
-        const {ARTICLE, COMMENT} = this.props;
+        const {ARTICLE, COMMENT,USER} = this.props;
         console.log(this.props)
         const card = ARTICLE.map((item,index)=>{
             return <ArticleCard 
+                        user={USER}
+                        id={item.ID}
                         writer={item.NAME} 
                         breakFast={item.MORNING} 
                         lunch={item.LUNCH}
@@ -56,7 +58,8 @@ const mapDispatchToProps = (dispatch) =>{
 const mapStateToProps = (state)=>{
     return {
         ARTICLE : state.ARTICLE.getArticle.article.data,
-        COMMENT : state.ARTICLE.getComment.comment
+        COMMENT : state.ARTICLE.getComment.comment,
+        USER : state.USER.sign_in.user.ID
     }
 }
 
