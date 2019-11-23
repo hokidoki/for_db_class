@@ -101,6 +101,7 @@ class ArticleCard extends Component {
               {this.state.COMMENT_SHOW ? comment : null}
             </div>
             </Fragment>: <UpdateEditor breakFast={this.props.breakFast} 
+                                       articleRowId = {this.props.articleRowId}
                                        lunch={this.props.lunch} 
                                        dinner={this.props.dinner} 
                                        image={this.props.image} 

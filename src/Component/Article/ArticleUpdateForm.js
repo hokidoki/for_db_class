@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import { Button, Form, TextArea} from 'semantic-ui-react';
 
-import {postArticle} from '../../Store/ACTIONS/Article';
+import {putUpdateArticle} from '../../Store/ACTIONS/Article';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 import styled from 'styled-components';
@@ -46,9 +46,10 @@ class UpdateEditor extends Component {
         })
     }
 
-    addArticle = () =>{
+    updateArticle = () =>{
         const {BREAKFAST,LUNCH,DINNER,COMMENT,IMAGES} = this.state;
-        this.props.postArticle(BREAKFAST,LUNCH,DINNER,COMMENT,IMAGES[0]);
+        const {articleRowId,image} = this.props;
+        this.props.updateArticle(articleRowId,image,IMAGES,BREAKFAST,LUNCH,DINNER,COMMENT)
     }
 
     onImageChage = (e) =>{
@@ -85,7 +86,7 @@ class UpdateEditor extends Component {
     }
     render() {
         const { IMAGES } = this.state; 
-        const {user,writer} = this.props;
+        // const {user,writer} = this.props;
         const list = IMAGES.map((image,index)=>{
             return (
                 <Preview
@@ -117,7 +118,7 @@ class UpdateEditor extends Component {
                 <div className="articleInputDiv">
                     <Form>
                     <TextArea style={{ 'width' : '80%', 'maxHeight' : '100px','marginLeft' : '20px', 'marginTop' : '20px'}}className="articleInputComment" name="COMMENT" onChange={this.onChangeValue} value={this.state.COMMENT} placeholder='Tell us more' />
-                    <Button style={{ 'height' : '100%' ,'marginLeft' : '20px', 'marginTop' : '20px'}} onClick={this.addArticle}>등록</Button>
+                    <Button style={{ 'height' : '100%' ,'marginLeft' : '20px', 'marginTop' : '20px'}} onClick={this.updateArticle}>등록</Button>
                     </Form>
                 </div>
             </div>
@@ -127,7 +128,7 @@ class UpdateEditor extends Component {
 
 const mapDispacthToProps = (dispatch) =>{
     return {
-        postArticle : bindActionCreators(postArticle,dispatch)
+        updateArticle : bindActionCreators(putUpdateArticle,dispatch)
     }
 }
 

@@ -127,46 +127,43 @@ const putPrivateUpdateArticleRequest = createAction(ActionType.UPDATE_PRIVATE_AR
 const putPrivateUpdateArticleSuccess = createAction(ActionType.UPDATE_PRIVATE_ARTICLE_SUCCESS);
 const putPrivateUpdateArticleFailed = createAction(ActionType.UPDATE_PRIVATE_ARTICLE_FAILED);
 
-export const putUpdateArticle = (articleRowId,{imageRowId,preventImage,nextImage},writer,breakFast,lunch,dinner,comment)=>{
+export const putUpdateArticle = (articleRowId,preventImage,nextImage,breakFast,lunch,dinner,comment)=>{
     return (dispatch,getState)=>{
         let image =preventImage;
         let imageState = "default";
-        if(imageRowId && nextImage && preventImage !== nextImage){
+        if(preventImage !== null && preventImage !== nextImage){
             imageState= "update";
-        } else if(imageRowId && !nextImage){
+        } else if(preventImage && !nextImage){
             imageState = "delete";
-        }else if(!imageRowId && nextImage){
+        }else if(!preventImage && nextImage){
             imageState = "new";
         }
+        console.log(imageState)
 
-        if(imageState === "update" || imageState === "new" ){
-            getStoreImageUrl(nextImage).then((imageSrc)=>{
-                axios.put(`http://127.0.0.1:8000/article?where=privateArticle&imageState=${imageState}`,{
-                    articleRowId : articleRowId,
-                    writer : writer,
-                    breakFast : breakFast,
-                    lunch : lunch,
-                    dinner : dinner,
-                    comment : comment,
-                    image : {
-                        image : imageSrc,
-                        imageRowId : imageRowId
-                    }
-                })
-            })
-        }else{
-            axios.put(`http://127.0.0.1:8000/article?where=privateArticle&imageState=${imageState}`,{
-                    articleRowId : articleRowId,
-                    writer : writer,
-                    breakFast : breakFast,
-                    lunch : lunch,
-                    dinner : dinner,
-                    comment : comment,
-                    image : {
-                        image : preventImage,
-                        imageRowId : imageRowId
-                    }
-            })
-        }
+        // if(imageState === "update" || imageState === "new" ){
+        //     getStoreImageUrl(nextImage).then((imageSrc)=>{
+        //         axios.put(`http://127.0.0.1:8000/article?where=privateArticle&imageState=${imageState}`,{
+        //             articleRowId : articleRowId,
+        //             breakFast : breakFast,
+        //             lunch : lunch,
+        //             dinner : dinner,
+        //             comment : comment,
+        //             image : {
+        //                 image : imageSrc,
+        //             }
+        //         })
+        //     })
+        // }else{
+        //     axios.put(`http://127.0.0.1:8000/article?where=privateArticle&imageState=${imageState}`,{
+        //             articleRowId : articleRowId,
+        //             breakFast : breakFast,
+        //             lunch : lunch,
+        //             dinner : dinner,
+        //             comment : comment,
+        //             image : {
+        //                 image : preventImage,
+        //             }
+        //     })
+        // }
     }  
 };
