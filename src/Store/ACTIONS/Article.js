@@ -106,7 +106,7 @@ export const getArticle = () =>{
 const getUpdatedArticleSuccess= createAction(ActionType.GET_UPDATED_ARTICLE);
 const getUpdatedCommentSuccess = createAction(ActionType.GET_UPDATED_COMMENT);
 
-export const updatedArticle = (articleRowId,index) =>{
+export const updatedArticle = (articleRowId,index,setMode) =>{
     return (dispatch,getState)=>{
     
         axios.get(`http://127.0.0.1:8000/article?mod=updatedArticle&articleRowId=${articleRowId}`).then((result)=>{
@@ -114,12 +114,16 @@ export const updatedArticle = (articleRowId,index) =>{
             index : index,
             updatedArticle : result.data[0]
         }))    
+        console.log(result)
         const comment = result.data[0].comment;
         dispatch(getUpdatedCommentSuccess({
             index : index,
             updatedComment : comment
         }))
         })
+        if(setMode !== null){
+            setMode();
+        }
     }
 }
 
@@ -127,43 +131,58 @@ const putPrivateUpdateArticleRequest = createAction(ActionType.UPDATE_PRIVATE_AR
 const putPrivateUpdateArticleSuccess = createAction(ActionType.UPDATE_PRIVATE_ARTICLE_SUCCESS);
 const putPrivateUpdateArticleFailed = createAction(ActionType.UPDATE_PRIVATE_ARTICLE_FAILED);
 
-export const putUpdateArticle = (articleRowId,preventImage,nextImage,breakFast,lunch,dinner,comment)=>{
+export const putUpdateArticle = (articleRowId,preventImage,nextImage,breakFast,lunch,dinner,comment,index,setMode)=>{
     return (dispatch,getState)=>{
+        let writer = getState().USER.sign_in.user.ID;
         let image =preventImage;
         let imageState = "default";
-        if(preventImage !== null && preventImage !== nextImage){
-            imageState= "update";
-        } else if(preventImage && !nextImage){
-            imageState = "delete";
-        }else if(!preventImage && nextImage){
+        if(preventImage && !nextImage){
+            imageState= "delete";
+        } else if(preventImage &&  preventImage !== nextImage.src && nextImage.src){
+            imageState = "update";
+        }else if(!preventImage && nextImage.src){
             imageState = "new";
         }
-        console.log(imageState)
+        console.log(index)
 
-        // if(imageState === "update" || imageState === "new" ){
-        //     getStoreImageUrl(nextImage).then((imageSrc)=>{
-        //         axios.put(`http://127.0.0.1:8000/article?where=privateArticle&imageState=${imageState}`,{
-        //             articleRowId : articleRowId,
-        //             breakFast : breakFast,
-        //             lunch : lunch,
-        //             dinner : dinner,
-        //             comment : comment,
-        //             image : {
-        //                 image : imageSrc,
-        //             }
-        //         })
-        //     })
-        // }else{
-        //     axios.put(`http://127.0.0.1:8000/article?where=privateArticle&imageState=${imageState}`,{
-        //             articleRowId : articleRowId,
-        //             breakFast : breakFast,
-        //             lunch : lunch,
-        //             dinner : dinner,
-        //             comment : comment,
-        //             image : {
-        //                 image : preventImage,
-        //             }
-        //     })
-        // }
+        if(imageState === "update" || imageState === "new" ){
+            getStoreImageUrl(nextImage).then((imageSrc)=>{
+                axios.put(`http://127.0.0.1:8000/article/privateArticle?imageState=${imageState}`,{
+                    articleRowId : articleRowId,
+                    writer : writer,
+                    breakFast : breakFast,
+                    lunch : lunch,
+                    dinner : dinner,
+                    comment : comment,
+                    image : {
+                        image : imageSrc,
+                    }
+                }).then((result)=>{
+                    dispatch(updatedArticle(articleRowId,index,setMode));
+                })
+            })
+        }else{
+            axios.put(`http://127.0.0.1:8000/article/privateArticle?imageState=${imageState}`,{
+                    articleRowId : articleRowId,
+                    breakFast : breakFast,
+                    writer : writer,
+                    lunch : lunch,
+                    dinner : dinner,
+                    comment : comment,
+                    image : {
+                        image : preventImage,
+                    }
+            }).then((result)=>{
+                dispatch(updatedArticle(articleRowId,index,setMode));
+            })
+        }
     }  
 };
+
+export const deleteArticle = (articleRowId,index)=>{
+    return (dispatch,getState) =>{
+        axios.delete(`http://127.0.0.1:8000/article/privateArticle?articleRowId=${articleRowId}`).then(()=>{
+
+        })
+    }
+}

@@ -32,7 +32,7 @@ class ArticleCard extends Component {
         [e.target.name] : e.target.value
       })
     }
-    setMode = (e) =>{
+    setMode = () =>{
       if(this.state.MODE === "수정"){
           this.setState({
             MODE : "되돌리기"
@@ -106,7 +106,9 @@ class ArticleCard extends Component {
                                        dinner={this.props.dinner} 
                                        image={this.props.image} 
                                        comment={this.props.contents}
-                                       writer={this.props.writer}></UpdateEditor>} 
+                                       writer={this.props.writer}
+                                       index={this.props.index}
+                                       setMode = {this.setMode}></UpdateEditor>} 
           </div>
          
         )

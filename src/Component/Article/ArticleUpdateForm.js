@@ -48,8 +48,8 @@ class UpdateEditor extends Component {
 
     updateArticle = () =>{
         const {BREAKFAST,LUNCH,DINNER,COMMENT,IMAGES} = this.state;
-        const {articleRowId,image} = this.props;
-        this.props.updateArticle(articleRowId,image,IMAGES,BREAKFAST,LUNCH,DINNER,COMMENT)
+        const {articleRowId,image,index,setMode} = this.props;
+        this.props.updateArticle(articleRowId,image,IMAGES[0],BREAKFAST,LUNCH,DINNER,COMMENT,index,setMode);
     }
 
     onImageChage = (e) =>{

@@ -20,5 +20,14 @@ export default handleActions({
             article : { data : [
             ...state.article.data.slice(0,articleIndex),updatedArticle,...state.article.data.slice(articleIndex +1,state.article.length) 
         ]},isLoading : false, error : false})
-    } 
+    },
+    [type.DELETE_ARTICLE] : (state,action) =>{
+        const articleIndex = action.payload.index;
+        return Object.assign({}, {}, {
+            article : { data : [
+            ...state.article.data.slice(0,articleIndex),{
+                delted : true
+            },...state.article.data.slice(articleIndex +1,state.article.length) 
+        ]},isLoading : false, error : false})
+    }
 }, initialState)
