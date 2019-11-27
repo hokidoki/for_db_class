@@ -24,8 +24,9 @@ export const postArticle = (MORNING, LUNCH, DINNER, COMMENT,IMAGE) =>{
                     COMMENT : COMMENT,
                     IMAGE_URL : url
                     }).then((result)=>{
-                        console.log(result);
-                        dispatch(postArticleSuccess());
+                        axios.get(`http://127.0.0.1:8000/article?mod=updatedArticle&articleRowId=${result.data}`).then((article)=>{
+                            dispatch(postArticleSuccess(article.data[0]));
+                        })
                     }).catch((err)=>{
                         dispatch(postArticleFailed());
                     })
@@ -39,8 +40,9 @@ export const postArticle = (MORNING, LUNCH, DINNER, COMMENT,IMAGE) =>{
                 DINNER : DINNER,
                 COMMENT : COMMENT,
                 }).then((result)=>{
-                    console.log(result);
-                    dispatch(postArticleSuccess());
+                    axios.get(`http://127.0.0.1:8000/article?mod=updatedArticle&articleRowId=${result.data}`).then((article)=>{
+                        dispatch(postArticleSuccess(article.data[0]));
+                    })
                 }).catch((err)=>{
                     dispatch(postArticleFailed());
                 })
@@ -127,14 +129,13 @@ export const updatedArticle = (articleRowId,index,setMode) =>{
     }
 }
 
-const putPrivateUpdateArticleRequest = createAction(ActionType.UPDATE_PRIVATE_ARTICLE_REQUEST);
-const putPrivateUpdateArticleSuccess = createAction(ActionType.UPDATE_PRIVATE_ARTICLE_SUCCESS);
-const putPrivateUpdateArticleFailed = createAction(ActionType.UPDATE_PRIVATE_ARTICLE_FAILED);
+// const putPrivateUpdateArticleRequest = createAction(ActionType.UPDATE_PRIVATE_ARTICLE_REQUEST);
+// const putPrivateUpdateArticleSuccess = createAction(ActionType.UPDATE_PRIVATE_ARTICLE_SUCCESS);
+// const putPrivateUpdateArticleFailed = createAction(ActionType.UPDATE_PRIVATE_ARTICLE_FAILED);
 
 export const putUpdateArticle = (articleRowId,preventImage,nextImage,breakFast,lunch,dinner,comment,index,setMode)=>{
     return (dispatch,getState)=>{
         let writer = getState().USER.sign_in.user.ID;
-        let image =preventImage;
         let imageState = "default";
         if(preventImage && !nextImage){
             imageState= "delete";
@@ -179,10 +180,18 @@ export const putUpdateArticle = (articleRowId,preventImage,nextImage,breakFast,l
     }  
 };
 
+const deleteArticleSuccess = createAction(ActionType.DELETE_ARTICLE);
+
 export const deleteArticle = (articleRowId,index)=>{
     return (dispatch,getState) =>{
-        axios.delete(`http://127.0.0.1:8000/article/privateArticle?articleRowId=${articleRowId}`).then(()=>{
-
+        axios.delete(`http://127.0.0.1:8000/article/privateArticle`,{
+            data : {
+                articleRowId : articleRowId
+            }
+        }).then(()=>{
+            dispatch(deleteArticleSuccess({
+                index : index
+            }));
         })
     }
 }

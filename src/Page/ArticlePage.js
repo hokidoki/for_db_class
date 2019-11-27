@@ -23,21 +23,28 @@ class ArticlePage extends Component {
         const {ARTICLE, COMMENT,USER} = this.props;
         console.log(this.props)
         const card = ARTICLE.map((item,index)=>{
-            return <ArticleCard 
-                        user={USER}
-                        id={item.ID}
-                        writer={item.NAME} 
-                        breakFast={item.MORNING} 
-                        lunch={item.LUNCH}
-                        dinner={item.DINNER}
-                        contents={item.CONTENTS}
-                        date={item.CREATED_DATE}
-                        image={item.IMAGE_URL}
-                        imageRowId={item.IMAGE_ROW_ID}
-                        articleRowId={item.ARTICLE_ROW_ID}
-                        comment = {COMMENT[index]}
-                        index = {index}
-                        ></ArticleCard>
+
+            if(item.deleted){
+                return <div className="articleCard">
+                    삭제된 게시물입니다.
+                </div>
+            }else{
+                return <ArticleCard 
+                user={USER}
+                id={item.ID}
+                writer={item.NAME} 
+                breakFast={item.MORNING} 
+                lunch={item.LUNCH}
+                dinner={item.DINNER}
+                contents={item.CONTENTS}
+                date={item.CREATED_DATE}
+                image={item.IMAGE_URL}
+                imageRowId={item.IMAGE_ROW_ID}
+                articleRowId={item.ARTICLE_ROW_ID}
+                comment = {COMMENT[index]}
+                index = {index}
+                ></ArticleCard>
+            }
         })
         return (
             <div className="FriendsListPage" style={{'overflowY' : 'auto'}}>

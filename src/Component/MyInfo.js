@@ -14,6 +14,10 @@ class MyInfo extends Component {
         this.props.back();
     }
 
+    myinfo = () =>{
+        this.props.goToInfo()
+    }
+
     render() {
         return (
             <div className="myInfo">
@@ -30,7 +34,7 @@ class MyInfo extends Component {
                         />}
                     {this.props.user.NAME} 님 환영합니다.
                 </p>
-                <button className="myInfoButton">내 정보</button>
+                <button className="myInfoButton" onClick={this.myinfo}>내 정보</button>
                 <button className="logoutButton" onClick={this.logOut}>로그아웃</button>
             </div>
         )
@@ -43,6 +47,9 @@ const mapDispatchToProps = (dispatch) => {
         },
         back: () => {
             dispatch(push('/'))
+        },
+        goToInfo : ()=>{
+            dispatch(push('/main/myinfo'))
         }
     }
 }

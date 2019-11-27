@@ -14,11 +14,11 @@ export const search = (searchKeword) =>{
         dispatch(searchRequest());
         axios.get(`http://127.0.0.1:8000/search?USER=${user}&SEARCH_KEWORD=${searchKeword}`
         ).then((result)=>{
-            for(var i = 0; i < result.data.user.length; i++){
-                result.data.user[i].isLoading = false;
+            for(let ui = 0; ui < result.data.user.length; ui++){
+                result.data.user[ui].isLoading = false;
             }
-            for(var i = 0; i < result.data.group.length; i++){
-                result.data.group[i].isLoading = false;
+            for(let gi = 0; gi < result.data.group.length; gi++){
+                result.data.group[gi].isLoading = false;
             }
             dispatch(searchSuccess(result));
             dispatch(push('/main/search'));

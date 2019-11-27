@@ -6,6 +6,7 @@ import UpdateEditor from './ArticleUpdateForm';
 // import styled from 'styled-components';
 
 import {postComment,postReComment} from '../../Store/ACTIONS/Comment.js';
+import {deleteArticle} from '../../Store/ACTIONS/Article';
 
 
 class ArticleCard extends Component {
@@ -60,13 +61,18 @@ class ArticleCard extends Component {
       const {articleRowId,index} =this.props;
       this.props.postRecomment(articleRowId,forCommentId,comment,index);
     }
+
+    deleteArticle = () => {
+      const {articleRowId,index } = this.props;
+      this.props.deleteArticle(articleRowId,index);
+    }
     render(){
       const comment = this.props.comment.map((item)=>{
       return <Comment writer={item.WRITER}  createdAt={item.CREATED_AT} comment={item.COMMENT} addRecomment={this.addRecomment}comment_row_id={item.COMMENT_ROW_ID} DELETEAED={item.DELETEAED} recomment={item.recomment}></Comment>
       })
       const manageButton = this.props.user === this.props.id ? <Fragment>
             <label onClick={this.setMode}>{this.state.MODE}</label>
-            <label>삭제</label>
+            <label onClick={this.deleteArticle}>삭제</label>
       </Fragment> : null;
 
         return(
@@ -226,7 +232,8 @@ class Comment extends Component{
 const mapDispatchToProps = (dispatch)=>{
   return {
     postComment: bindActionCreators(postComment,dispatch),
-    postRecomment : bindActionCreators(postReComment,dispatch)
+    postRecomment : bindActionCreators(postReComment,dispatch),
+    deleteArticle : bindActionCreators(deleteArticle,dispatch)
   }
 }
 
