@@ -3,9 +3,9 @@ import { connect } from 'react-redux';
 import {withRouter} from 'react-router-dom'
 import { Image, Button} from 'semantic-ui-react';
 
-import {getArticle} from '../Store/ACTIONS/Article';
 import {bindActionCreators} from 'redux';
-import {getArticleReset} from '../Store/ACTIONS/Article';
+
+import { changeInfo } from '../Store/ACTIONS/Account';
 
 import styled from 'styled-components';
 
@@ -61,6 +61,23 @@ class MyInfoPage extends Component {
     onHandleChane = () => {
         this.refs.image.click();
     }
+    changeInfo = ()=>{
+        const {NAME, JOB, CURRENTWEIGHT, GOALWEIGHT, COMMENT,IMAGES} = this.state;
+        const { IMAGE } = this.props;
+
+        this.props.infoChange(NAME,JOB,CURRENTWEIGHT,GOALWEIGHT,COMMENT,IMAGE,IMAGES[0]);
+    }
+    onChangeValue = (e)=>{
+        if((e.target.name === "BIRTH" || e.target.name === "CURRENTWEIGHT" || e.target.name === "GOALWEIGHT" ) && isNaN(e.target.value) === true){
+            alert("숫자만 입력해주세요");
+            return;
+        }
+
+        this.setState({
+            [e.target.name] : e.target.value
+        })
+
+    }
 
 
 
@@ -77,11 +94,12 @@ class MyInfoPage extends Component {
                     onClick = {this.onDeleteImage}
                 /> 
                 <Button style={{ 'marginLeft': "7px", 'width': '100px' }} onClick={this.onHandleChane}>이미지 추가</Button>
-                별명 : <input type="text" value={this.state.NAME} />
-                직업 : <input type="text" value={this.state.JOB} />
-                현재 체중 : <input type="text" value={this.state.CURRENTWEIGHT} />
-                목표 체중 : <input type="text" value={this.state.GOALWEIGHT} />
-                자기 소개 : <input type="text" value={this.state.COMMENT} />
+                별명 : <input type="text" onChange={this.onChangeValue} name="NAME" value={this.state.NAME} />
+                직업 : <input type="text" onChange={this.onChangeValue} name="JOB" value={this.state.JOB} />
+                현재 체중 : <input type="text"  onChange={this.onChangeValue} name="CURRENTWEIGHT" value={this.state.CURRENTWEIGHT} />
+                목표 체중 : <input type="text"  onChange={this.onChangeValue} name="GOALWEIGTH" value={this.state.GOALWEIGHT} />
+                자기 소개 : <input type="text" onChange={this.onChangeValue} name="COMMENT" value={this.state.COMMENT} />
+                <button onClick={this.changeInfo}>변경</button>
             </div>
         )
     }
@@ -89,7 +107,7 @@ class MyInfoPage extends Component {
 
 const mapDispatchToProps = (dispatch) =>{
     return {
-        
+        infoChange : bindActionCreators(changeInfo,dispatch),
     }
   }
 

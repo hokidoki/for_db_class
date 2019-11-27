@@ -47,4 +47,3 @@ const mapDispachToProps = (dispatch)=>{
     }
 }
 export default connect(null,mapDispachToProps)(LoginComponent)
-
