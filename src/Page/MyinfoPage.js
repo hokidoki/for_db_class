@@ -18,17 +18,17 @@ class MyInfoPage extends Component {
     constructor(props){
 
         super(props);
-        const {NAME ,IMAGE,JOB, CURRENTWEIGHT,GOALWEIGHT,COMMENT } = this.props.USER;
+        const {NAME ,PROFILE_IMAGE,JOB, CURRENT_WEIGHT,GOAL_WEIGHT,COMMENT } = this.props.USER;
         console.log(this.props);
         this.state = {
             IMAGES : [{
-                src : IMAGE ? IMAGE :'https://react.semantic-ui.com/images/avatar/small/stevie.jpg'
+                src : PROFILE_IMAGE ? PROFILE_IMAGE :'https://react.semantic-ui.com/images/avatar/small/stevie.jpg'
             }],
-            NAME : NAME,
-            JOB : JOB,
-            CURRENTWEIGHT : CURRENTWEIGHT,
-            GOALWEIGHT : GOALWEIGHT,
-            COMMENT : COMMENT,
+            NAME : NAME ? NAME  : "",
+            JOB : JOB ? JOB : "",
+            CURRENTWEIGHT : CURRENT_WEIGHT ? CURRENT_WEIGHT : "",
+            GOALWEIGHT : GOAL_WEIGHT ? GOAL_WEIGHT : "",
+            COMMENT : COMMENT ? COMMENT : "",
         }
     }
 
@@ -63,9 +63,10 @@ class MyInfoPage extends Component {
     }
     changeInfo = ()=>{
         const {NAME, JOB, CURRENTWEIGHT, GOALWEIGHT, COMMENT,IMAGES} = this.state;
-        const { IMAGE } = this.props;
+        const { PROFILE_IMAGE } = this.props;
+        console.log(GOALWEIGHT)
 
-        this.props.infoChange(NAME,JOB,CURRENTWEIGHT,GOALWEIGHT,COMMENT,IMAGE,IMAGES[0]);
+        this.props.infoChange(NAME,JOB,CURRENTWEIGHT,GOALWEIGHT,COMMENT,PROFILE_IMAGE,IMAGES[0]);
     }
     onChangeValue = (e)=>{
         if((e.target.name === "BIRTH" || e.target.name === "CURRENTWEIGHT" || e.target.name === "GOALWEIGHT" ) && isNaN(e.target.value) === true){
@@ -97,7 +98,7 @@ class MyInfoPage extends Component {
                 별명 : <input type="text" onChange={this.onChangeValue} name="NAME" value={this.state.NAME} />
                 직업 : <input type="text" onChange={this.onChangeValue} name="JOB" value={this.state.JOB} />
                 현재 체중 : <input type="text"  onChange={this.onChangeValue} name="CURRENTWEIGHT" value={this.state.CURRENTWEIGHT} />
-                목표 체중 : <input type="text"  onChange={this.onChangeValue} name="GOALWEIGTH" value={this.state.GOALWEIGHT} />
+                목표 체중 : <input type="text"  onChange={this.onChangeValue} name="GOALWEIGHT" value={this.state.GOALWEIGHT} />
                 자기 소개 : <input type="text" onChange={this.onChangeValue} name="COMMENT" value={this.state.COMMENT} />
                 <button onClick={this.changeInfo}>변경</button>
             </div>

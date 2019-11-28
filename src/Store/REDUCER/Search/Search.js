@@ -4,13 +4,14 @@ import * as type from '../../ACTIONS/ActionType';
 const initialState = {
     result : [],
     group : [],
+    article : [],
     isLoading : false,
     error : null,
 }
 
 export default handleActions({
     [type.SEARCH_REQUEST] : (state,action) => Object.assign({},state, {isLoading : true}),
-    [type.SEARCH_SUCCESS] : (state,action) => Object.assign({},state, {result : action.payload.data.user, group : action.payload.data.group,isLoading : false}),
+    [type.SEARCH_SUCCESS] : (state,action) => Object.assign({},state, {result : action.payload.data.user, group : action.payload.data.group, article: action.payload.data.article, isLoading : false}),
     [type.SEARCH_FAILED] : (state,action) => Object.assign({},state, {isLoading : false, error : action.payload}),
     [type.FRIEND_REQUEST_REQUEST] : (state,action)=> { console.log(state , action.payload)
         return { result : [...state.result.slice(0,action.payload),{

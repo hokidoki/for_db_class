@@ -78,7 +78,7 @@ class ArticleCard extends Component {
         return(
           
           <div className="articleCard">
-            {manageButton}
+            {!this.props.mode ? manageButton : null}
             { this.state.MODE === "수정" ? 
             <Fragment>
             <div>
@@ -97,13 +97,15 @@ class ArticleCard extends Component {
               </div>
             </div>
             <div className="commentInputDiv">
+            {!this.props.mode ? 
             <Form>
                     <TextArea style={{ 'width' : '80%', 'maxHeight' : '100px','marginLeft' : '20px', 'marginTop' : '20px'}} onChange={this.onChangeValue} value={this.state.COMMENT} placeholder="Comment" className="articleInputComment" name="COMMENT"  placeholder='comment' />
                     <Button style={{ 'height' : '100%' ,'marginLeft' : '20px', 'marginTop' : '20px'}} onClick={this.addComment} >등록</Button>
             </Form>
+            : null}
             <div className="commentShowButton" onClick={this.commentShowStateChange}>
               {this.state.COMMENT_SHOW ? "댓글 가리기" : "댓글 펼치기"}
-            </div>>
+            </div>
               {this.state.COMMENT_SHOW ? comment : null}
             </div>
             </Fragment>: <UpdateEditor breakFast={this.props.breakFast} 

@@ -122,7 +122,7 @@ export const changeInfo = (nick, job, currentWeight, goalWeight, comment, propsI
         } else if (!propsImage && stateImage.src !== defaultSrc) {
             imageState = "new";
         }
-        console.log(imageState);
+        console.log(goalWeight);
         if (imageState === "update" || imageState === "new") {
             getStoreImageUrl(stateImage).then((imageSrc) => {
                 axios.put(`http://127.0.0.1:8000/user?imageState=${imageState}`, {
@@ -134,7 +134,7 @@ export const changeInfo = (nick, job, currentWeight, goalWeight, comment, propsI
                     comment: comment,
                     profileImageSrc: imageSrc
                 }).then((result) => {
-                    
+                    dispatch(signInSuccess(result.data[0]));
                 })
             })
         } else {
@@ -148,7 +148,7 @@ export const changeInfo = (nick, job, currentWeight, goalWeight, comment, propsI
                 comment: comment, 
                 profileImageSrc: imageSrc
             }).then((result) => {
-
+                dispatch(signInSuccess(result.data[0]));
             })
         }
     }

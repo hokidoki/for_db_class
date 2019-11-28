@@ -19,6 +19,7 @@ class MyInfo extends Component {
     }
 
     render() {
+        const src = this.props.user.PROFILE_IMAGE ? this.props.user.PROFILE_IMAGE : 'https://react.semantic-ui.com/images/avatar/small/stevie.jpg';
         return (
             <div className="myInfo">
                 <p>
@@ -26,11 +27,11 @@ class MyInfo extends Component {
                         <Image
                             className ="userIcon"
                             size='mini'
-                            src='https://react.semantic-ui.com/images/avatar/small/stevie.jpg'
+                            src={src}
                         /> : <Image
                             className ="userIcon"
                             size='mini'
-                            src='https://react.semantic-ui.com/images/avatar/large/steve.jpg'
+                            src={src}
                         />}
                     {this.props.user.NAME} 님 환영합니다.
                 </p>
