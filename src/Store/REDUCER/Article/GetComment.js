@@ -18,5 +18,6 @@ export default handleActions({
         return Object.assign({}, state, { comment: [
             ...state.comment.slice(0,commentIndex),updatedComment,...state.comment.slice(commentIndex+1,state.comment.length) 
         ],isLoading : false, error : false})
-    } 
+    },
+    [type.GET_ARTICLE_RESET] : () => Object.assign({} , {},{ comment : [],isLoading : false, error : false}) 
 }, initialState)

@@ -2,10 +2,11 @@ import React, { Component } from 'react'
 import { connect } from 'react-redux';
 import {withRouter} from 'react-router-dom'
 import { Image, Button} from 'semantic-ui-react';
+import '../style/myInfoPage.css';
 
 import {bindActionCreators} from 'redux';
 
-import { changeInfo } from '../Store/ACTIONS/Account';
+import { changeInfo,getWhoFollowMe } from '../Store/ACTIONS/Account';
 
 import styled from 'styled-components';
 
@@ -30,6 +31,10 @@ class MyInfoPage extends Component {
             GOALWEIGHT : GOAL_WEIGHT ? GOAL_WEIGHT : "",
             COMMENT : COMMENT ? COMMENT : "",
         }
+    }
+
+    componentDidMount(){
+        this.props.getWhoFollowMe()
     }
 
     onImageChage = (e) => {
@@ -83,7 +88,10 @@ class MyInfoPage extends Component {
 
 
     render(){
-        
+        const whoFollow = this.props.WhoFollow.whoFollowMe ? this.props.WhoFollow.whoFollowMe : [];
+        const whoUnFollow = this.props.WhoFollow.whoUnFollowMe ? this.props.WhoFollow.whoUnFollowMe : [];
+        console.log(whoUnFollow)
+        console.log(whoFollow)
         return(
             <div className="FriendsListPage" style={{'overflowY' : 'auto'}} >
                 <InvisibleUploadButton ref="image" type="file" onChange={this.onImageChage} />
@@ -101,6 +109,7 @@ class MyInfoPage extends Component {
                 목표 체중 : <input type="text"  onChange={this.onChangeValue} name="GOALWEIGHT" value={this.state.GOALWEIGHT} />
                 자기 소개 : <input type="text" onChange={this.onChangeValue} name="COMMENT" value={this.state.COMMENT} />
                 <button onClick={this.changeInfo}>변경</button>
+                <WhoFollowMe whoFollowMe={whoFollow} whoUnfollowMe={whoUnFollow}/>
             </div>
         )
     }
@@ -109,13 +118,78 @@ class MyInfoPage extends Component {
 const mapDispatchToProps = (dispatch) =>{
     return {
         infoChange : bindActionCreators(changeInfo,dispatch),
+        getWhoFollowMe : bindActionCreators(getWhoFollowMe,dispatch)
     }
   }
 
 const mapStateToProps = (state)=>{
     return {
-        USER : state.USER.sign_in.user
+        USER : state.USER.sign_in.user,
+        WhoFollow : state.SEARCH.search.whoFollow
     }
 }
 
-  export default connect(mapStateToProps,mapDispatchToProps)(withRouter(MyInfoPage));
+export default connect(mapStateToProps,mapDispatchToProps)(withRouter(MyInfoPage));
+
+class WhoFollowMe extends Component{
+
+    static defaultProps = {
+        whoFollow : [],
+        whoUnfollowMe : [],
+    }
+
+    render(){
+        const {whoFollowMe, whoUnfollowMe} = this.props;
+        const followAcconnt = whoFollowMe.map((item)=>{
+            const imageSrc = item.PROFILE_IMAGE ? item.PROFILE_IMAGE :  'https://react.semantic-ui.com/images/avatar/small/stevie.jpg';
+            return (
+                <div className="followUnfollowRow">
+                    <div className="followUnfollowRowImage">
+                        <Image size="mini" src={imageSrc}></Image>
+                    </div>
+                    <div className="followUnfollowRowID">
+                        {item.ID}
+                    </div>
+                    <div className="followUnfollowRowNAME">
+                        {item.NAME}
+                    </div>
+            </div>
+            )
+        })
+            const unfollowAcconnt = whoUnfollowMe.map((item)=>{
+                const imageSrc = item.PROFILE_IMAGE ? item.PROFILE_IMAGE :  'https://react.semantic-ui.com/images/avatar/small/stevie.jpg';
+                return (
+                    <div className="followUnfollowRow">
+                        <div className="followUnfollowRowImage">
+                            <Image size="mini" src={imageSrc}></Image>
+                        </div>
+                        <div className="followUnfollowRowAccount">
+                            <div className="followUnfollowRowID">
+                                {item.ID}
+                            </div>
+                            <div className="followUnfollowRowNAME">
+                                {item.NAME}
+                            </div>
+                        </div>
+                        
+                </div>
+                )
+        });
+        return(
+            <div className="whoFollowTable">
+                <div className="whoFollowTableHeader">
+                    <div className="whoFollowTableHeaderColumn">날 따르는자...</div>
+                    <div className="whoFollowTableHeaderColumn">날 따르지 않는자 ...</div>
+                </div>
+                <div className="whoFollow">
+                    <div className="whoFollowTableHeaderColumnFollow">
+                        {followAcconnt}
+                    </div>
+                    <div className="whoFollowTableHeaderColumnUnfollow">
+                        {unfollowAcconnt}
+                    </div>
+                </div>
+            </div>
+        )
+    }
+}

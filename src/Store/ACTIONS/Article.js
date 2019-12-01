@@ -7,7 +7,7 @@ const postArticleRequest = createAction(ActionType.POST_ARTICLE_REQUEST);
 const postArticleSuccess = createAction(ActionType.POST_ARTICLE_SUCCESS);
 const postArticleFailed = createAction(ActionType.POST_ARTICLE_FAILED);
 
-export const postArticle = (MORNING, LUNCH, DINNER, COMMENT,IMAGE) =>{
+export const postArticle = (MORNING, LUNCH, DINNER, COMMENT,IMAGE,SECRET) =>{
     return (dispatch, getState) =>{
         const writer = getState().USER.sign_in.user.ID;
         const selectedDate = getState().CALLENDER.selected.selected;
@@ -22,7 +22,8 @@ export const postArticle = (MORNING, LUNCH, DINNER, COMMENT,IMAGE) =>{
                     LUNCH : LUNCH,
                     DINNER : DINNER,
                     COMMENT : COMMENT,
-                    IMAGE_URL : url
+                    IMAGE_URL : url,
+                    SECRET : SECRET
                     }).then((result)=>{
                         axios.get(`http://127.0.0.1:8000/article?mod=updatedArticle&articleRowId=${result.data}`).then((article)=>{
                             dispatch(postArticleSuccess(article.data[0]));
@@ -39,6 +40,7 @@ export const postArticle = (MORNING, LUNCH, DINNER, COMMENT,IMAGE) =>{
                 LUNCH : LUNCH,
                 DINNER : DINNER,
                 COMMENT : COMMENT,
+                SECRET : SECRET
                 }).then((result)=>{
                     axios.get(`http://127.0.0.1:8000/article?mod=updatedArticle&articleRowId=${result.data}`).then((article)=>{
                         dispatch(postArticleSuccess(article.data[0]));
@@ -192,6 +194,31 @@ export const deleteArticle = (articleRowId,index)=>{
             dispatch(deleteArticleSuccess({
                 index : index
             }));
+        })
+    }
+}
+
+export const updateComment = (articleRowId,index,table,commentId,comment,setMode) =>{
+    return (dispatch,getState) =>{
+        axios.put(`http://127.0.0.1:8000/article/comment`,{
+            where : table,
+            comment : comment,
+            commentId : commentId
+        }).then((bool)=>{
+            dispatch(updatedArticle(articleRowId,index,setMode))
+        })
+    }
+}
+
+export const deleteComment = (articleRowId,index,table,commentId) =>{
+    return (dispatch,getState) =>{
+        axios.delete(`http://127.0.0.1:8000/article/comment`,{
+            data : {
+                where : table,
+                commentId : commentId
+            }
+        }).then((bool)=>{
+            dispatch(updatedArticle(articleRowId,index,null))
         })
     }
 }

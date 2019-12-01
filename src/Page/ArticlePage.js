@@ -41,8 +41,10 @@ class ArticlePage extends Component {
                 image={item.IMAGE_URL}
                 imageRowId={item.IMAGE_ROW_ID}
                 articleRowId={item.ARTICLE_ROW_ID}
+                profile_image={item.PROFILE_IMAGE}
                 comment = {COMMENT[index]}
                 index = {index}
+                secret = {item.SECRET}
                 ></ArticleCard>
             }
         })

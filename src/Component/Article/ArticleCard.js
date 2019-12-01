@@ -6,7 +6,7 @@ import UpdateEditor from './ArticleUpdateForm';
 // import styled from 'styled-components';
 
 import {postComment,postReComment} from '../../Store/ACTIONS/Comment.js';
-import {deleteArticle} from '../../Store/ACTIONS/Article';
+import {deleteArticle,updateComment,deleteComment} from '../../Store/ACTIONS/Article';
 
 
 class ArticleCard extends Component {
@@ -68,20 +68,26 @@ class ArticleCard extends Component {
     }
     render(){
       const comment = this.props.comment.map((item)=>{
-      return <Comment writer={item.WRITER}  createdAt={item.CREATED_AT} comment={item.COMMENT} addRecomment={this.addRecomment}comment_row_id={item.COMMENT_ROW_ID} DELETEAED={item.DELETEAED} recomment={item.recomment}></Comment>
+      return <Comment writer={item.WRITER} deleteComment={this.props.deleteComment} deleted={item.DELETED}updateComment={this.props.updateComment} articleRowId={this.props.articleRowId} articleIndex={this.props.index} user={this.props.user} createdAt={item.CERATED_AT} comment={item.COMMENT} addRecomment={this.addRecomment}comment_row_id={item.COMMENT_ROW_ID} DELETEAED={item.DELETEAED} recomment={item.recomment}></Comment>
       })
       const manageButton = this.props.user === this.props.id ? <Fragment>
             <label onClick={this.setMode}>{this.state.MODE}</label>
             <label onClick={this.deleteArticle}>삭제</label>
       </Fragment> : null;
-
+      const modeStyle = this.props.secret === 0 ?{
+        'backgroundColor' : 'gray'
+      } : {
+        'backgroundColor' : 'pink'
+      };
+      console.log(this.props)
         return(
           
-          <div className="articleCard">
+          <div className="articleCard" style={modeStyle}>
             {!this.props.mode ? manageButton : null}
             { this.state.MODE === "수정" ? 
             <Fragment>
             <div>
+              <Image size="mini" src={this.props.profile_image}></Image>
               {this.props.writer}
               <label>{this.props.date}</label>
             </div>
@@ -127,16 +133,22 @@ class ArticleCard extends Component {
 
 class Comment extends Component{
 
+  constructor(props){
+    super(props);
+    this.state.updatedComment = this.props.comment;
+  }
+
   static defaultProps = {
     writer : "dummy writer",
-    comment : "contents",
+    comment : "삭제된 게시물입니다.",
     comment_row_id : "",
-    createdAt : "2019-09-01",
+    createdAt : null,
   }
 
   state={
     reCommentInputShow : false,
     reComment : `[${this.props.writer}]님 `,
+    updateMode : false
   }
   onChange = (e)=>{
     this.setState({
@@ -158,10 +170,42 @@ class Comment extends Component{
     this.props.addRecomment(reComment,comment_row_id)
   }
 
-  
+  setUpdateMode = ()=>{
+    this.setState({
+      reCommentInputShow : false,
+      reComment : `[${this.props.writer}]님 `,
+      updateMode : !this.state.updateMode
+    })
+  }
+
+  updateComment = () =>{
+    const {user, writer, updateComment,articleRowId,articleIndex,comment_row_id} = this.props;
+    if(user !== writer) return;
+    const where = "PRIVATE_ARTICLE_COMMENT";
+    updateComment(articleRowId,articleIndex,where,comment_row_id,this.state.updatedComment,this.setUpdateMode);
+  }
+
+  deleteComment = () =>{
+    const {user, writer, deleteComment,articleRowId,articleIndex,comment_row_id} = this.props;
+    if(user !== writer) return;
+    const where = "PRIVATE_ARTICLE_COMMENT";
+    deleteComment(articleRowId,articleIndex,where,comment_row_id);
+  }
   
 
   render(){
+    console.log(this.props.deleted)
+    const updateDelete = this.props.user === this.props.writer ? 
+    <Fragment>
+      <label onClick={this.setUpdateMode}>
+          {this.state.updateMode ? "되돌리기" : "수정"}
+      </label>
+      <label onClick={this.deleteComment}>
+          삭제
+      </label>
+      </Fragment>
+      : null;
+
     const reComment = this.props.recomment.map((item)=>{
       return (<div className="commentContainer">
         <div className="commentImage">
@@ -179,9 +223,6 @@ class Comment extends Component{
             <label>
               {item.DATE}
             </label>
-            <label onClick={this.recommentShowStateChange}>
-              답글
-            </label>
           </div>
           <div className="comment">
               {item.COMMENT}
@@ -192,11 +233,15 @@ class Comment extends Component{
     return(
       <div className="commentContainer">
         <div className="commentImage">
-        <Image
+          {
+             this.props.deleted === 1? null : 
+            <Image
           floated='right'
           size='mini'
           src='https://react.semantic-ui.com/images/avatar/large/steve.jpg'
         />
+          }
+        
         </div>
         <div className="commentInfoCommentContainer">
           <div className="commentInfo">
@@ -206,13 +251,27 @@ class Comment extends Component{
             <label>
               {this.props.createdAt}
             </label>
-            <label onClick={this.recommentShowStateChange}>
+            {updateDelete}
+            {
+          this.state.updateMode ? 
+          <div className="reCommentContainer">
+              <div>
+                <Form>
+                  <TextArea name ="updatedComment" value={this.state.updatedComment} onChange={this.onChange}></TextArea>
+                  <Button onClick={this.updateComment}>전송</Button>
+                </Form>
+              </div>
+          </div> : this.props.deleted === 0 ? <label onClick={this.recommentShowStateChange}>
               답글
-            </label>
+            </label> : null
+        }
           </div>
-          <div className="comment">
+        {
+          this.state.updateMode ? 
+          null : <div className="comment">
               {this.props.comment}
           </div>
+        }
         </div>
         {
           this.state.reCommentInputShow ? 
@@ -235,7 +294,9 @@ const mapDispatchToProps = (dispatch)=>{
   return {
     postComment: bindActionCreators(postComment,dispatch),
     postRecomment : bindActionCreators(postReComment,dispatch),
-    deleteArticle : bindActionCreators(deleteArticle,dispatch)
+    deleteArticle : bindActionCreators(deleteArticle,dispatch),
+    updateComment : bindActionCreators(updateComment,dispatch),
+    deleteComment : bindActionCreators(deleteComment,dispatch)
   }
 }
 

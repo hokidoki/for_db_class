@@ -26,13 +26,17 @@
 label{
     color : gray;
 }
+
+.toUnSecret{
+    color: black;
+    background-color: gray;
+}
 .Editor{
-    
     display: flex;
     flex-direction: column;
     width: 90%;
     margin : 0 auto;
-    background-color: snow;
+    /* background-color: snow; */
     border-radius: 20px;
     border-color: gray;
     margin-top: 20px;

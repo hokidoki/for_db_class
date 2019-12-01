@@ -5,6 +5,7 @@ const initialState = {
     result : [],
     group : [],
     article : [],
+    whoFollow : {},
     isLoading : false,
     error : null,
 }
@@ -30,6 +31,6 @@ export default handleActions({
         ROW_ID : action.payload.ROW_ID,
         CHECK : action.payload.CHECK,
         isLoading : false
-    } ,...state.result.slice(action.payload.index+1,state.result.length)], isLoading : false, error : null}}
-    // [type.SEARCH_MORE] :  (state,action) => Object.assign({},state, {result : [...state.result,action.payload], isLoading : false}),
+    } ,...state.result.slice(action.payload.index+1,state.result.length)], isLoading : false, error : null}},
+    [type.GET_WHO_FOLLOW_ME_SUCCESS] : (state,action) => Object.assign({},state,{whoFollow : action.payload})
 }, initialState)

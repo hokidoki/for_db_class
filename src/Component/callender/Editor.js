@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { Button, Form, TextArea } from 'semantic-ui-react';
+import { Button, Form, TextArea,Checkbox } from 'semantic-ui-react';
 
 import { postArticle } from '../../Store/ACTIONS/Article';
 import { connect } from 'react-redux';
@@ -31,6 +31,7 @@ class Editor extends Component {
         DINNER: "",
         COMMENT: "",
         IMAGES: [],
+        SECRET : 0
     }
 
     onChangeValue = (e) => {
@@ -40,14 +41,15 @@ class Editor extends Component {
     }
 
     addArticle = () => {
-        const { BREAKFAST, LUNCH, DINNER, COMMENT, IMAGES } = this.state;
-        this.props.postArticle(BREAKFAST, LUNCH, DINNER, COMMENT, IMAGES[0]);
+        const { BREAKFAST, LUNCH, DINNER, COMMENT, IMAGES,SECRET } = this.state;
+        this.props.postArticle(BREAKFAST, LUNCH, DINNER, COMMENT, IMAGES[0],SECRET);
         this.setState({
             BREAKFAST: "",
             LUNCH: "",
             DINNER: "",
             COMMENT: "",
             IMAGES: [],
+            SECRET : 0
         })
     }
 
@@ -83,8 +85,15 @@ class Editor extends Component {
             IMAGES: this.state.IMAGES.filter((item, i) => i === index)
         })
     }
+
+    changeSecretMode= ()=>{
+        this.setState({
+            SECRET : this.state.SECRET === 0 ? 1 : 0
+        })
+    }
     render() {
-        const { IMAGES } = this.state;
+        const { IMAGES, } = this.state;
+
         const list = IMAGES.map((image, index) => {
             return (
                 <Preview
@@ -96,8 +105,14 @@ class Editor extends Component {
                 ></Preview>
             )
         })
+
+        const modeStyle = this.state.SECRET === 0 ?{
+            'backgroundColor' : 'snow'
+        } : {
+            'backgroundColor' : 'pink'
+        };
         return (
-            <div className="Editor">
+            <div className="Editor" style={modeStyle} >
                 <div className="EditorInputBox">
                     <div className="imageDiv">
                         <InvisibleUploadButton ref="image" type="file" onChange={this.onImageChage} />
@@ -109,6 +124,8 @@ class Editor extends Component {
                         <Form.Input className="articleInput" fluid name="DINNER" placeholder='dinner' value={this.state.DINNER} onChange={this.onChangeValue} />
                         <div className="imageButton" >
                             <Button style={{ 'marginLeft': "7px", 'width': '100px' }} onClick={this.onHandleChane}>이미지 추가</Button>
+                            <Checkbox style={{'marginLeft': "7px",'marginTop' : '5px'}}label="비리모드" onChange={this.changeSecretMode}></Checkbox>
+                            {/* <Button style={{ 'marginLeft': "7px", 'width': '100px' }} classNmae={this.state.SECRET === 0 ? "toSecret" : "toUnSecret"} name="SECRET" onClick={this.changeSecretMode}>비리 모드</Button> */}
                         </div>
                     </div>
                 </div>

@@ -153,3 +153,17 @@ export const changeInfo = (nick, job, currentWeight, goalWeight, comment, propsI
         }
     }
 }
+
+const getWhoFollowMeSucces = createAction(ActionType.GET_WHO_FOLLOW_ME_SUCCESS);
+
+export const getWhoFollowMe =() =>{
+    return (dispatch,getState) =>{
+        const userId = getState().USER.sign_in.user.ID;
+        axios.get(`http://127.0.0.1:8000/user/whoFollowMe?userId=${userId}`).then((peoples)=>{
+            console.log(peoples);
+            dispatch(getWhoFollowMeSucces(peoples.data));
+        }).catch((err)=>{
+            // alert(err)
+        })
+    }
+}
