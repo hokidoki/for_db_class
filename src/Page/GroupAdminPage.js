@@ -3,7 +3,7 @@ import FriendsList from '../Component/FriendsList'
 import { connect } from 'react-redux';
 import '../style/frindsList.css'
 
-class FriendsListPage extends Component {
+class GroupAdminPage extends Component {
     render() {
         return (
             <div className="FriendsListPage">
@@ -13,11 +13,11 @@ class FriendsListPage extends Component {
     }
 }
 
-const mapStateToProps = (state)=>{
-    return {
-        bothFollow : state.USER.sign_in.bothFollow
-    }
-}
+// const mapStateToProps = (state)=>{
+//     return {
+//         bothFollow : state.USER.sign_in.bothFollow
+//     }
+// }
 
 
-export default connect(mapStateToProps,null)(FriendsListPage);
+export default connect(null,null)(GroupAdminPage);

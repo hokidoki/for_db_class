@@ -9,6 +9,7 @@ import ARTICLE from './REDUCER/Article/REDUCER';
 import SEARCH from './REDUCER/Search/REDUCER';
 import MODAL from './REDUCER/Modal';
 import GROUP from './REDUCER/Group/REDUCER';
+import MESSAGE from './REDUCER/Message/REDUCER';
 
 export function configureStore(history){
     const middleware = applyMiddleware(thunk,routerMiddleware(history));
@@ -28,6 +29,7 @@ export function configureStore(history){
             SEARCH,
             GROUP,
             MODAL,
+            MESSAGE,
             router : connectRouter(history)
         }),
         composed

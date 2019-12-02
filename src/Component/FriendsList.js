@@ -13,14 +13,12 @@ class FriendsList extends Component {
     }
     render() {
         
-        const { friends } = this.props;
-        console.log(friends)
-        const myFrinds = friends.map((item)=>{
+        const { bothFollow } = this.props;
+        const myFrinds = bothFollow.map((item)=>{
             const src = item.PROFILE_IMAGE ? item.PROFILE_IMAGE : 'https://react.semantic-ui.com/images/avatar/large/matthew.png';
-            
             return (
                 <div className="friendRow">
-                    <div className="friendRowImageDiv" ><Image src={src} size="mini" style={{'display' : 'inlineBlock'}}></Image></div><div className="friendRowImageDiv" ><label onClick={() => {this.openMessageBox(item.FRIEND_ID)}} value={item.NAME}>{item.NAME}</label></div>
+                    <div className="friendRowImageDiv" ><Image src={src} size="mini" style={{'display' : 'inlineBlock'}}></Image></div><div className="friendRowImageDiv" ><label onClick={() => {this.openMessageBox(item.ID)}} value={item.NAME}>{item.NAME}</label></div>
                 </div>
             )
         })

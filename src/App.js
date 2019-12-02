@@ -19,7 +19,7 @@ class App extends Component {
             {
               this.props.modal.mode === "createGroup" ? (
                 <CreateGroup></CreateGroup>
-              ) : <MessageModal who={this.props.modal.who}></MessageModal>
+              ) : <MessageModal user={this.props.user.ID} who={this.props.modal.who}></MessageModal>
             }
           </ModalPotal> : null
         }

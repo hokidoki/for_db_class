@@ -31,3 +31,47 @@ export const createGroup = (groupName, groupComment) =>{
     }
 }
 
+const groupJoinRequest = createAction(ActionType.GROUP_JOIN_REQUEST);
+const groupJoinSuccess = createAction(ActionType.GROUP_JOIN_SUCCESS);
+const groupJoinFailed = createAction(ActionType.GROUP_JOIN_FAILED);
+
+export const groupJoin = (GROUP_KEY, MEMBER_ROW_ID ,CHECK, index) => {
+    return (dispatch, getState) => {
+
+        const userId = getState().USER.sign_in.user.ID;
+        dispatch(groupJoinRequest(index))
+
+
+        if (!MEMBER_ROW_ID) {
+            axios.post('http://127.0.0.1:8000/group/join', {
+                USER_ID: userId,
+                GROUP_KEY: GROUP_KEY
+            }).then((result) => {
+                var action = {
+                    index: index,
+                    CHECK: true,
+                    ROW_ID: result.data,
+                }
+                console.log(result)
+                dispatch(groupJoinSuccess(action));
+            }).catch((err) => {
+                dispatch(groupJoinFailed(err));
+            })
+        } else {
+            axios.put('http://127.0.0.1:8000/group/join', {
+                MEMBER_ROW_ID: MEMBER_ROW_ID,
+                REQUEST_CHECK_STATE: !CHECK
+            }).then(() => {
+                var action = {
+                    index: index,
+                    CHECK: !CHECK,
+                    MEMBER_ROW_ID: MEMBER_ROW_ID,
+                }
+                console.log('a')
+                dispatch(groupJoinSuccess(action));
+            }).catch((err) => {
+                dispatch(groupJoinFailed(err));
+            })
+        }
+    }
+}

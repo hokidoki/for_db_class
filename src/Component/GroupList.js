@@ -6,7 +6,7 @@ class GroupList extends Component {
     render() {
         const myAdminGroup = this.props.myAdminGroup.map((item)=>{
             return(<div>
-                {item.group_name}
+                {item.group_name}<label>관리</label>
             </div>)
         })
         return (

@@ -1,6 +1,7 @@
 import React, { Component } from 'react'
 import { Card, Image,Radio } from 'semantic-ui-react'
 import { friendRequest } from '../../Store/ACTIONS/Account';
+import { groupJoin } from '../../Store/ACTIONS/Group';
 import { connect } from 'react-redux';
 
 class SearchResult extends Component {
@@ -13,13 +14,15 @@ class SearchResult extends Component {
     }
 
     onClick = ()=>{
-      const {id,rowId,index,check,isLoading} =this.props;
-      if(isLoading){
-        return;
-      }
-      if(this.props.mode === "groupCard"){
-      }else{
-        this.props.friendRequest(id,rowId,check,index);
+        const {id,rowId,index,check,isLoading} =this.props;
+        const {member_row_id} = this.props;
+        if(isLoading){
+          return;
+        }
+        if(this.props.mode === "groupCard"){
+          this.props.groupJoin(id,member_row_id,check,index);
+        }else{
+          this.props.friendRequest(id,rowId,check,index);
       }
     }
     render() {
@@ -56,6 +59,8 @@ class SearchResult extends Component {
 const mapDispatchToProps = (dispatch) =>{
   return {
     friendRequest : (FRIEND_REQUEST_ID,ROW_ID,FRIEND_STATE,index) =>{dispatch(friendRequest(FRIEND_REQUEST_ID,ROW_ID,FRIEND_STATE,index))},
+    groupJoin : (GROUP_KEY,MEMBER_ROW_ID,CHECK,index) =>{dispatch(groupJoin(GROUP_KEY,MEMBER_ROW_ID,CHECK,index))},
+
   }
 }
 

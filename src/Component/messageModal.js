@@ -1,6 +1,6 @@
 import React, { Component } from 'react'
-import axios from 'axios';
 import {connect} from 'react-redux';
+import { sendMessage,getMessage } from '../Store/ACTIONS/Message';
 import { Form,TextArea, Button} from 'semantic-ui-react';
 import { modal_close } from '../Store/REDUCER/Modal';
 import {bindActionCreators} from 'redux'
@@ -10,7 +10,11 @@ import '../style/modal.css'
 class MessageModal extends Component {
 
     static defaultProps = {
-        conversasion : []
+        conversation : []
+    }
+
+    componentDidMount(){
+        this.props.getMessage(this.props.who);
     }
 
     state ={
@@ -18,7 +22,6 @@ class MessageModal extends Component {
     }
 
     onChangeValue = (e)=>{
-        
             const value = e.target.value;
             const name = e.target.name;
             this.setState({
@@ -28,19 +31,44 @@ class MessageModal extends Component {
     }
 
 
-    addGroup = ()=>{
-
-        if(!this.state.valid){
-            alert("이름을 확인해주세요");
-            return;
-        }
-        const {groupName,groupComment} = this.state;
-        this.props.createGroup(groupName,groupComment);
+    sendMessage = () =>{
+        const { message } = this.state;
+        const { who } = this.props; 
+        this.props.sendMessage(who,message);
+        this.setState({
+            message : ""
+        })
     }
 
-
-
     render() {
+
+        const conversation = this.props.conversation.map((item)=>{
+            const {who, user} = this.props;
+            const check = item.RECIEVE_DATE ? item.RECIEVE_DATE : "읽지 않음";
+            if(who === user){
+                return (
+                    <div className ="sendToMeContainner">
+                        <div>
+                            <label className="sendToLabel">{item.SENDER}</label><label className="sendToLabelDate">{item.SEND_DATE}</label>
+                        </div>
+                        <div>
+                            {item.MESSAGE}
+                        </div>
+                    </div>
+                )
+            }else{
+                return (
+                    <div className ="sendToWhoContainner">
+                        <div>
+                            <label className="sendToLabel">{item.SENDER}</label><label className="sendToLabelDate">{item.SEND_DATE}</label><label className="sendToLabelDate">{check}</label>
+                        </div>
+                        <div>
+                            {item.MESSAGE}
+                        </div>
+                    </div>
+                )
+            }
+        })
         return (
             <div className="modalOverlay">
             <div className="myModal">
@@ -48,12 +76,12 @@ class MessageModal extends Component {
                     <label onClick={this.props.close_modal}>닫기</label>
                 </div>
                 <div className="messageList">
-
+                    {conversation}
                 </div>
                 <div>
                 <Form>
-                    <TextArea style={{'width' : '80%','display' : 'inlineBlock'}}name="groupComment" value={this.state.message} onChange={this.onChangeValue} maxLength="150"></TextArea>
-                    <Button style={{'width' : '20%','display' : 'inlineBlock'}}onClick={this.addGroup}>그룹 생성하기</Button>
+                    <TextArea style={{'width' : '80%','display' : 'inlineBlock'}}name="message" value={this.state.message} onChange={this.onChangeValue} maxLength="150"></TextArea>
+                    <Button style={{'width' : '20%','display' : 'inlineBlock'}} onClick={this.sendMessage}>전송</Button>
                 </Form>
                 </div>
             </div>
@@ -61,12 +89,19 @@ class MessageModal extends Component {
         )
     }
 }
+const mapStateToProps = (state)=>{
+    return {
+        conversation : state.MESSAGE.GetMessage.conversation
+    }
+}
 
 const mapDispatchToProps = (dispatch) =>{
     return {
-        close_modal : () => dispatch(modal_close())
+        close_modal : () => dispatch(modal_close()),
+        sendMessage : bindActionCreators(sendMessage,dispatch),
+        getMessage : bindActionCreators(getMessage,dispatch)
     }
 }
 
 
-export default connect(null,mapDispatchToProps)(MessageModal)
+export default connect(mapStateToProps,mapDispatchToProps)(MessageModal)
