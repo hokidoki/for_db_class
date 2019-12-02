@@ -1,0 +1,16 @@
+.FriendsListPage {
+    flex-basis: 20%;
+    width: 20%;
+    background-color : blue;
+}
+
+.friendRowImageDiv {
+    display: inline-block;
+}
+
+.friendRow{
+    height: 40px;
+    margin-top: 10px;
+    margin-left: 5px;
+
+}

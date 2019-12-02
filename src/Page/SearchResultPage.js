@@ -36,7 +36,7 @@ class SearchResultPage extends Component {
                 ></ArticleCard>;
         }) : null;
         return (
-            <div className='FriendsListPage'>
+            <div className='SearchResultPage'>
                 <h2>사람</h2>
                 {card}
                 <h2>그룹</h2>

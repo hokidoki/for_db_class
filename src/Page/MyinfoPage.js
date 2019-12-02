@@ -93,7 +93,7 @@ class MyInfoPage extends Component {
         console.log(whoUnFollow)
         console.log(whoFollow)
         return(
-            <div className="FriendsListPage" style={{'overflowY' : 'auto'}} >
+            <div className="MyinfoPage" style={{'overflowY' : 'auto'}} >
                 <InvisibleUploadButton ref="image" type="file" onChange={this.onImageChage} />
                 <h1>회원정보 수정 </h1>
                 <Image

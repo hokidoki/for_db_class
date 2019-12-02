@@ -34,7 +34,7 @@
 .userIcon{
     border-radius: 15px;
 }
-.FriendsListPage{
+.ArticlePage, .MyinfoPage, .SearchResultPage{
     margin-left: 20%;
     overflow-y: auto;
     color : white;
@@ -42,12 +42,7 @@
     flex-basis: 60%;
 }
 
-.ArticlePage{
-    margin-left: 20%;
-    color : white;
-    flex-grow: 1;
-    background-color: snow;
-}
+
 
 .Notice{
     flex-grow: 1;

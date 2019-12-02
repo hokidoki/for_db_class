@@ -49,7 +49,7 @@ class ArticlePage extends Component {
             }
         })
         return (
-            <div className="FriendsListPage" style={{'overflowY' : 'auto'}}>
+            <div className="ArticlePage" style={{'overflowY' : 'auto'}}>
                 <Editor></Editor>
                 {card}
             </div>

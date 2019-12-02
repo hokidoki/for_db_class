@@ -7,17 +7,20 @@ import ModalPotal from './Component/modal';
 
 import {Switch, Route} from 'react-router-dom';
 import CreateGroup from './Component/Group/createGroup';
-
+import MessageModal from './Component/messageModal';
 import './style/App.css'
 import SearchResultPage from './Page/SearchResultPage';
 class App extends Component {
   render() {
     return (
       <div className="App">
-        {this.props.modal ? 
+        {this.props.modal.modalIsOpen ? 
           <ModalPotal>
-            <CreateGroup>
-            </CreateGroup>
+            {
+              this.props.modal.mode === "createGroup" ? (
+                <CreateGroup></CreateGroup>
+              ) : <MessageModal who={this.props.modal.who}></MessageModal>
+            }
           </ModalPotal> : null
         }
         <MenuBar user={this.props.user}></MenuBar>
@@ -35,7 +38,7 @@ class App extends Component {
 
 const mapStateToProps = (state)=>{
   return {
-      modal : state.MODAL.modalIsOpen,
+      modal : state.MODAL,
       user : state.USER.sign_in
   }
 }
