@@ -34,7 +34,8 @@
 .userIcon{
     border-radius: 15px;
 }
-.ArticlePage, .MyinfoPage, .SearchResultPage{
+
+.ArticlePage, .MyinfoPage, .SearchResultPage,.groupAdminPage{
     margin-left: 20%;
     overflow-y: auto;
     color : white;
