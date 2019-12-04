@@ -13,6 +13,7 @@ class SearchResultPage extends Component {
             return <SearchResult name={NAME} id={ID} rowId={ROW_ID} comment={COMMENT} isLoading={isLoading} index={index} check={CHECK}></SearchResult>
         }) : null;  
         const groupCard = this.props.GroupResult? this.props.GroupResult.map((item,index)=>{
+            console.log(item);
             const {group_id,group_name,group_master,group_comment,created_at,isLoading,check,member_row_id} = item;
             const {user} = this.props;
             return <SearchResult user={user} 

@@ -20,17 +20,13 @@ class DeleteGroup extends Component {
     render() {
         return (
             <div className="deleteGroupContainner">
-                <input value={this.state.checkGroupName}></input>
+                <input value={this.state.checkGroupName} placeholder="삭제하시려는 그룹의 이름을 작성해주세요"></input>
                 <button>삭제</button>
             </div>
         )
     }
 }
 
-const mapDispatchToProps = (dispatch) =>{
-    return {
-        messageModal : (who) => dispatch(messageModalOpen(who))
-    }
-}
+
 
 export default DeleteGroup;

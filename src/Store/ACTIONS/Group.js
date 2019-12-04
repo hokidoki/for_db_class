@@ -50,7 +50,7 @@ export const groupJoin = (GROUP_KEY, MEMBER_ROW_ID ,CHECK, index) => {
                 var action = {
                     index: index,
                     CHECK: true,
-                    ROW_ID: result.data,
+                    ROW_ID: result.data[0],
                 }
                 console.log(result)
                 dispatch(groupJoinSuccess(action));
@@ -75,3 +75,23 @@ export const groupJoin = (GROUP_KEY, MEMBER_ROW_ID ,CHECK, index) => {
         }
     }
 }
+
+const searchGroupMemberRequest = createAction(ActionType.SEARCH_GROUP_MEMBER_REQUEST);
+const searchGroupMemberSuccess = createAction(ActionType.SEARCH_GROUP_MEMBER_SUCCESS);
+const searchGroupMemberFailed = createAction(ActionType.SEARCH_GROUP_MEMBER_FAILED);
+
+export const searchMembers = (GROUP_KEY, SEARCH_KEWORD) => {
+    return (dispatch, getState) => {
+
+        dispatch(searchGroupMemberRequest())
+        
+        axios.get(`http://127.0.0.1:8000/group/members?groupKey=${GROUP_KEY}&searchMemberKeword=${SEARCH_KEWORD}`).then((members) => {
+                
+                console.log(members)
+                dispatch(searchGroupMemberSuccess(members.data));
+            }).catch((err) => {
+                dispatch(searchGroupMemberFailed(err));
+            })
+        }
+    }
+

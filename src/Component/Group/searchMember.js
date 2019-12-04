@@ -1,30 +1,29 @@
 import React, { Component } from 'react'
 
-class DeleteGroup extends Component {
+class SearchGroupMember extends Component {
     
     state = {
-        searchMemberId : ""
+        searchMemberKeyword : ""
     }
     
     search = () => {
-        const { searchMemberId } = this.state;
-        const { groupName } = this.props; 
-
-        if(checkGroupName === groupName ){
-            alert("삭제하시려는 그룹의 이름을 제대로 작성해주세요");
-            return;
-        }
-        
-        
+        const { searchMemberKeyword } = this.state;
+        console.log("hello");   
+        this.props.search(searchMemberKeyword);
+    }
+    onChange = (e)=>{
+        this.setState({
+            [e.target.name] : e.target.value
+        })
     }
     render() {
         return (
             <div className="deleteGroupContainner">
-                <input value={this.state.checkGroupName}></input>
-                <button>삭제</button>
+                <input onChange={this.onChange} name="searchMemberKeyword"value={this.state.searchMemberKeyword}></input>
+                <button onClick={this.search}>검색</button>
             </div>
         )
     }
 }
 
-export default DeleteGroup;
+export default SearchGroupMember;
