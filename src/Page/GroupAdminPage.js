@@ -2,11 +2,11 @@ import React, { Component } from 'react'
 import { connect } from 'react-redux';
 import '../style/main.css'
 import { withRouter } from 'react-router-dom'
-import { searchMembers } from '../Store/ACTIONS/Group'
+import { searchMembers,changeMemberLevel,deleteGroup } from '../Store/ACTIONS/Group'
 import {bindActionCreators} from 'redux';
 import  SearchGroupMember  from '../Component/Group/searchMember'
 import DeleteGroup from '../Component/Group/deleteGroup'
-import { Button, Card, Image } from 'semantic-ui-react'
+import { Button, Card} from 'semantic-ui-react'
 
 class GroupAdminPage extends Component {
 
@@ -41,8 +41,20 @@ class GroupAdminPage extends Component {
         const {where} = match.params;
         this.props.searchMembers(where,searchKeyword);
     }
+    changeMemberLevelsUp = (group_member_id,id) =>{
+        const {match} = this.props;
+        const {where} = match.params;
+        this.props.changeMemberLevel(group_member_id,1,where,id)
+    }
+    changeMemberLevelsDown = (group_member_id,id) =>{
+        const {match} = this.props;
+        const {where} = match.params;
+        this.props.changeMemberLevel(group_member_id,0,where,id)
+    }
 
     render() {
+        const {match} = this.props;
+        const {where} = match.params;
         console.log(this.props.SEARCH_GROUP_MEMBER)
         const searchResult = this.props.SEARCH_GROUP_MEMBER.map((item)=>{
             console.log(this.props.SEARCH_GROUP_MEMBER)
@@ -52,10 +64,10 @@ class GroupAdminPage extends Component {
       <Card.Content>
         <Card.Header>{item.member_id}</Card.Header>
         <div className='ui two buttons'>
-          <Button basic color='green'>
+          <Button basic color='green' onClick={()=> {this.changeMemberLevelsUp(item.member_row_id,item.member_id)}}>
             관리자 임명
           </Button>
-          <Button basic color='red'>
+          <Button basic color='red' onClick={()=> {this.changeMemberLevelsDown(item.member_row_id,item.member_id)}}>
             회원으로 임명
           </Button>
         </div>
@@ -75,7 +87,7 @@ class GroupAdminPage extends Component {
                 </div>
                 {
                     this.state.mode === "searchGroupMembers" ? 
-                        <SearchGroupMember search={this.searchMembers}></SearchGroupMember> : <DeleteGroup></DeleteGroup>
+                        <SearchGroupMember search={this.searchMembers}></SearchGroupMember> : <DeleteGroup where={where} deleteFunction={this.props.deleteGroup}></DeleteGroup>
                 }
                 <div className="groupSearchResults">
                     <div className="dummyRow"></div>
@@ -97,7 +109,9 @@ const mapStateToProps = (state)=>{
 
   const mapDispatchToProps = (dispatch) =>{
     return {
-        searchMembers : bindActionCreators(searchMembers,dispatch)
+        searchMembers : bindActionCreators(searchMembers,dispatch),
+        changeMemberLevel : bindActionCreators(changeMemberLevel,dispatch),
+        deleteGroup : bindActionCreators(deleteGroup,dispatch)
     }
   }
 

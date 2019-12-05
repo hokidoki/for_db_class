@@ -3,7 +3,7 @@
     box-sizing: border-box;
     width: 20%;
     height: 100%;
-    background-color: white;
+    background-color: #222629;
     display: flex;
     flex-direction: column;
     position: fixed;
@@ -11,7 +11,6 @@
 }
 .commentInput{
     width: 90%;
-
     background-color: none;
     border-top: none;
     border-left: none;
@@ -42,6 +41,19 @@
     background-color:skyblue;
     flex-basis: 60%;
 }
+.userImage{
+    position: relative;
+    top : 40px;
+    left : 20px;
+    width: 40px;
+    height: 40px;
+}
+.userNick{
+    position: relative;
+    right : 0;
+    display: inline-block;
+    margin-right: 20px;
+}
 
 
 
@@ -55,8 +67,10 @@
 }
 
 .myInfo{
-    flex-basis: 100px;
+    position: relative;
+    flex-basis: 80px;
+    color : snow;
     box-sizing: border-box;
-    padding-top : 10px;
-    text-align: center;
+    /* padding-top : 10px; */
+    text-align: right;
 }

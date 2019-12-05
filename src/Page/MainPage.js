@@ -7,6 +7,7 @@ import MyinfoPage from './MyinfoPage';
 import GroupAdminPage from './GroupAdminPage';
 
 import FriendsListPage from './FriendsListPage';
+import GroupPage from './GroupPage';
 // import FriendsListPage from './FriendsListPage';
 
 import '../style/main.css';
@@ -26,6 +27,7 @@ class MainPage extends Component {
                     <Route path="/main/search" exact component={SearchResultPage}/>
                     <Route path="/main/myinfo" exact component={MyinfoPage}/>
                     <Route path="/main/group/admin/:where/:index" component={GroupAdminPage}></Route>
+                    <Route path="/main/group/:where" component={GroupPage}></Route>
                 </Switch>
                 <FriendsListPage></FriendsListPage>
             </div>

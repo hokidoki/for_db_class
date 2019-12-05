@@ -1,5 +1,6 @@
 import React, { Component } from 'react'
 import FriendsList from '../Component/FriendsList'
+import GroupList from '../Component/Group/groupList'
 import { connect } from 'react-redux';
 import '../style/frindsList.css'
 
@@ -8,6 +9,8 @@ class FriendsListPage extends Component {
         return (
             <div className="FriendsListPage">
                 <FriendsList bothFollow={this.props.bothFollow}></FriendsList>
+                <GroupList group={this.props.adminGroup}></GroupList>
+                <GroupList group={this.props.joinedGroup}></GroupList>
             </div>
         )
     }
@@ -15,7 +18,10 @@ class FriendsListPage extends Component {
 
 const mapStateToProps = (state)=>{
     return {
-        bothFollow : state.USER.sign_in.bothFollow
+        bothFollow : state.USER.sign_in.bothFollow,
+        adminGroup : state.GROUP.adminGroup.groupInfo,
+        joinedGroup : state.GROUP.joinedGroup.joinedGroup
+
     }
 }
 

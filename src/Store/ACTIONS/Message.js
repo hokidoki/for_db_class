@@ -39,3 +39,33 @@ export const getMessage = (who) => {
         })
     }
 }
+
+const getGroupMessageRequest = createAction(ActionType.GET_GROUP_MESSAGE_REQUEST);
+const getGroupMessageSuccess = createAction(ActionType.GET_GROUP_MESSAGE_SUCCESS);
+const getGroupMessageFailed = createAction(ActionType.GET_GROUP_MESSAGE_FAILED);
+
+export const getGroupMessage = (where) => {
+    return (dispatch,getState) => {
+        dispatch(getGroupMessageRequest());
+        axios.get(`http://127.0.0.1:8000/group/message?where=${where}`).then((conversation)=>{
+            dispatch(getGroupMessageSuccess(conversation.data));
+        }).catch((err)=>{
+            dispatch(getGroupMessageFailed(err));    
+        })
+    }
+}
+
+export const sendGroupMessage = (where,message,user) => {
+    return (dispatch,getState) => {
+        axios.post(`http://127.0.0.1:8000/group/message`,{
+            from : user,
+            group_key : where,
+            message : message
+        }).then((conversation)=>{
+            // dispatch(getGroupMessageSuccess(conversation.data));
+            dispatch(getGroupMessage(where));
+        }).catch((err)=>{
+            // dispatch(getGroupMessageFailed(err));    
+        })
+    }
+}

@@ -1,7 +1,5 @@
 .AccountForm{
-    background-color: teal;
-    flex-basis: 550px;
-    
+    flex-grow: 1;    
 }
 
 .Notice{

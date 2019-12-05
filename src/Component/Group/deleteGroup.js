@@ -3,25 +3,31 @@ import React, { Component } from 'react'
 class DeleteGroup extends Component {
     
     state = {
-        checkGroupName : ""
+        checkGroupName : "",
+        iagree : "이 그룹을 삭제하도록 하겠습니다."
     }
     
     deleteGroup = () => {
-        const { checkGroupName } = this.state;
-        const { groupName } = this.props; 
+        const { checkGroupName,iagree } = this.state;
 
-        if(checkGroupName === groupName ){
-            alert("삭제하시려는 그룹의 이름을 제대로 작성해주세요");
+        if(checkGroupName !== iagree ){
+            alert("삭제 확인 문구를 작성해주세요");
             return;
         }
         
-        
+        this.props.deleteFunction(this.props.where);
+    }
+    onChange = (e)=>{
+        this.setState({
+            [e.target.name] : e.target.value
+        })
     }
     render() {
         return (
             <div className="deleteGroupContainner">
-                <input value={this.state.checkGroupName} placeholder="삭제하시려는 그룹의 이름을 작성해주세요"></input>
-                <button>삭제</button>
+                이 그룹을 삭제하도록 하겠습니다. 를 작성해주세요.
+                <input value={this.state.checkGroupName} name="checkGroupName" onChange={this.onChange}></input>
+                <button onClick={this.deleteGroup}>삭제</button>
             </div>
         )
     }

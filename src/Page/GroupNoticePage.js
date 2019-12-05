@@ -1,6 +1,5 @@
 import React, { Component } from 'react'
 import GroupList from '../Component/GroupList'
-import Notice from '../Component/Notice'
 import Myinfo from '../Component/MyInfo'
 
 export default class GroupNoticePage extends Component {
@@ -9,7 +8,7 @@ export default class GroupNoticePage extends Component {
             <div className="GroupNoticePage">
                 <Myinfo user={this.props.USER.user}></Myinfo>
                 <GroupList></GroupList>
-                <Notice></Notice>
+                {/* <Notice></Notice> */}
             </div>
         )
     }

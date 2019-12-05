@@ -1,10 +1,12 @@
-import React, { Component } from 'react'
+import React, { Component,Fragment } from 'react'
 import { Button , Select} from 'semantic-ui-react'
 import axios from 'axios';
 import { connect } from 'react-redux';
 // import * as actionType from '../Store/ACTIONS/ActionType';
 import { bindActionCreators } from 'redux';
 import { signUp } from '../Store/ACTIONS/Account';
+import indexImage from '../image/form-img.jpg'
+
 
 class AccountForm extends Component {
 
@@ -19,6 +21,7 @@ class AccountForm extends Component {
         CURRENTWEIGHT : "",
         GOALWEIGHT : "",
         COMMENT : "",
+        PAGE : 1,
         GENDER : 0
     }
 
@@ -93,25 +96,51 @@ class AccountForm extends Component {
             })
         }
     }
-
-    idValidCheck = ()=>{
-        const{ ID } =this.state;
+    nextButtonClick = (e)=>{
+        const{ ID,PASSWORD, PASSWORDVALI,BIRTH} =this.state;
         if(ID.length < 5){
-            alert("id는 4글자 이상이여야만 합니다.");
+            this.setState({
+                warning : "아이디를 확인해주세요"
+            })
             return;
         }
         axios.get(`http://127.0.0.1:8000/valid/?id=${ID}&mode=id`).then((result)=>{
             if(result.data[0].VALID){
-                alert(`${ID}는 현재 사용중인 아이디 입니다.`);
+                this.setState({
+                    warning : `${ID}는 현재 사용중인 아이디 입니다.`
+                })
                 return;
             }else{
                 alert(`${ID}는 사용가능한 아이디 입니다.`);
-                this.setState({
-                    FLAG : 1
-                })
+                if(PASSWORD === PASSWORDVALI || PASSWORD.length < 5 ||PASSWORD.length < 5 ){
+                    if(!(this.birthValidCheck(BIRTH))){
+                        this.setState({
+                            warning : "생년월일은 YYYY-MM-DD 형식에 맞춰주세요."
+                        })
+                        return;
+                    }                    
+                    this.setState({
+                        PAGE : 2,
+                        FLAG : 1,
+                        warning : ""
+                    })
+                }else{
+                    this.setState({
+                        warning : "비밀번호를 확인해주세요"
+                    })
+                }
+                
             }
         }).catch((err)=>{
             console.log(err);
+        })
+
+
+    }
+
+    preventPage = ()=>{
+        this.setState({
+            PAGE : 1
         })
     }
 
@@ -147,37 +176,65 @@ class AccountForm extends Component {
         ]
         return (
             <div className="AccountForm">
-                <h1>회원 가입</h1>
-                <div>
-                    <label className="AccountFormLabel">ID : </label><input onChange={this.onChangeValue} name="ID"value={this.state.ID}placeholder="id"></input><button onClick={this.idValidCheck}>중복체크</button>
+                <div class="main">
+        <div class="container">
+            <div class="booking-content">
+                <div class="booking-image">
+                    <img class="booking-img" src={indexImage} alt="Booking Image"/>
                 </div>
-                <div>
-                    <label className="AccountFormLabel" >PASSWORD</label><input onChange={this.onChangeValue} name="PASSWORD" value={this.state.PASSWORD}type="password" placeholder="password1"></input><input onChange={this.onChangeValue} name="PASSWORDVALI" type="password" placeholder="password2"></input>{PASSWORD === PASSWORDVALI ? "비밀번호 일치" : "비밀번호 불일치"}
+                <div class="booking-form">
+                    <form id="booking-form">
+                        <h2>It's not only for you. for ALL !</h2>
+                        { this.state.PAGE === 1 ?<Fragment><div class="form-group form-input">
+                            <input type="text" id="name"  onChange={this.onChangeValue} name="ID"value={this.state.ID} required/>
+                            <label for="name" class="form-label">아이디</label>
+                        </div>
+                        <div class="form-group form-input">
+                            <input id="phone" onChange={this.onChangeValue} name="PASSWORD" value={this.state.PASSWORD} type="password" required />
+                            <label for="phone" class="form-label">비밀번호</label>
+                        </div>
+                        <div class="form-group form-input">
+                            <input id="phone" onChange={this.onChangeValue} name="PASSWORDVALI" type="password" value={this.state.PASSWORDVALI} required />
+                            <label for="phone" class="form-label">{PASSWORD === PASSWORDVALI ? "비밀번호 일치" : "비밀번호 불일치"}</label>
+                        </div>
+                        <div class="form-group form-input">
+                            <input id="phone"  name="JOB"  value={this.state.JOB} onChange={this.onChangeValue}  required />
+                            <label for="phone" class="form-label">직업</label>
+                        </div>
+                        <div class="form-group form-input">
+                            <input id="phone" onChange={this.onChangeValue} value={this.state.BIRTH}name="BIRTH"  required />
+                            <label for="phone" class="form-label">생년월일</label>
+                        </div>
+                        <div class="form-submit">
+                            <input type="button" value="다음 질문으로" class="submit" id="submit" name="submit" onClick={this.nextButtonClick}/>
+                            <a href="#" class="vertify-booking">{this.state.warning}</a>
+                        </div> </Fragment>:<Fragment> 
+                        <div class="form-group form-input">
+                            <input id="phone" onChange={this.onChangeValue}  value={this.state.NAME} name="NAME" required />
+                            <label for="phone" class="form-label">닉네임</label>
+                        </div>
+                        <div class="form-group form-input">
+                            <input id="phone" onChange={this.onChangeValue}  value={this.state.GOALWEIGHT} name="GOALWEIGHT" required />
+                            <label for="phone" class="form-label">목표체중</label>
+                        </div>
+                        <div class="form-group form-input">
+                            <input type="text"  onChange={this.onChangeValue} value={this.state.CURRENTWEIGHT} name="CURRENTWEIGHT"  required/>
+                            <label for="name" class="form-label">현재체중</label>
+                        </div>
+                        <div class="form-group form-input">
+                            <input id="phone" value={this.state.COMMENT} onChange={this.onChangeValue} name="COMMENT" required />
+                            <label for="phone" class="form-label">한줄 소개</label>
+                        </div>
+                        <div class="form-submit">
+                            <input type="button" value="회원가입" class="submit" id="submit" style={{'display':'inlineBlock'}}name="submit" onClick={this.signUp}/>
+                            <a href="#" class="vertify-booking" onClick={this.preventPage}>이전으로 돌아가기</a>
+                        </div></Fragment>}
+                    </form>
                 </div>
-                <div>
-                    <label className="AccountFormLabel">이름</label><input name="NAME"  value={this.state.NAME} onChange={this.onChangeValue} placeholder="name"></input>
-                </div>
-                <div>
-                    <Select placeholder='Select your country' name="GENDER" value="MAN"  options={options} />
-                </div>
-                <div>
-                    <label className="AccountFormLabel">직업</label><input name="JOB"  value={this.state.JOB} onChange={this.onChangeValue} placeholder="job"></input>
-                </div>
-                <div>
-                    <label className="AccountFormLabel" >생년월일</label><input onChange={this.onChangeValue} value={this.state.BIRTH}name="BIRTH" placeholder="YYYYMMDD" type="text"></input>
-                </div>
-                <div>
-                    <label className="AccountFormLabel">현재체중</label><input onChange={this.onChangeValue} value={this.state.CURRENTWEIGHT} name="CURRENTWEIGHT" placeholder="xx"></input><label>KG</label>
-                </div>            
-                <div>
-                    <label className="AccountFormLabel">목표체중</label><input onChange={this.onChangeValue}  value={this.state.GOALWEIGHT} name="GOALWEIGHT" placeholder="xx"></input><label>KG</label>
-                </div>
-                <div className="AccountFormTextAreaDiv">
-                    <label className="AccountFormTextLabel">코멘트</label><textarea value={this.state.COMMENT} onChange={this.onChangeValue} className="textArea" name="COMMENT" cols="50" rows="11"></textarea>
-                </div>
-                <Button onClick={this.signUp}>회원가입</Button>
-                <Button onClick={this.reset}>리셋</Button>
             </div>
+        </div>
+    </div>                
+</div>
         )
     }
 }

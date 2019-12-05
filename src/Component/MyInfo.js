@@ -25,15 +25,18 @@ class MyInfo extends Component {
                 <p>
                     {this.props.user.GENDER ?
                         <Image
-                            className ="userIcon"
-                            size='mini'
+                            // style="userImage"
+                            className="userImage"
+                            // size='mini'
                             src={src}
                         /> : <Image
-                            className ="userIcon"
-                            size='mini'
+                        className="userImage"
+
+                            // style="userImage"
+                            // size='mini'
                             src={src}
                         />}
-                    {this.props.user.NAME} 님 환영합니다.
+                    <h2 className="userNick">{this.props.user.NAME}</h2>
                 </p>
                 <button className="myInfoButton" onClick={this.myinfo}>내 정보</button>
                 <button className="logoutButton" onClick={this.logOut}>로그아웃</button>

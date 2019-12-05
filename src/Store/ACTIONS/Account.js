@@ -3,7 +3,7 @@ import axios from 'axios';
 import {createAction} from 'redux-actions'
 import { push } from 'connected-react-router'
 import {getStoreImageUrl} from '../../API/firebase';
-import {getAdminGroupSuccess} from './Group';
+import {getAdminGroupSuccess,getJoinedGroupSuccess} from './Group';
 
 const signUpRequest = createAction(ActionType.SIGN_UP_REQUEST);
 const signUpSuccess = createAction(ActionType.SIGN_UP_SUCCESS);
@@ -29,11 +29,10 @@ export const signUp = (ID, PASSWORD, NAME, BIRTH, JOB, CURRENTWEIGHT, GOALWEIGHT
             GENDER: GENDER
         }).then((result) => {
             dispatch(signUpSuccess());
-            dispatch(signInSuccess(result.data[0]));
+            dispatch(signIn(ID,PASSWORD))
+            // dispatch(signInSuccess(result.data[0]));
+            console.log(result)
             dispatch(push('/main'));
-            dispatch(getAdminGroupSuccess({
-                data: result.data[0].manageGroup
-            }))
         }).catch((err) => {
             dispatch(signUpFailed());
         })
@@ -56,6 +55,7 @@ export const signIn = (ID, PASSWORD) => {
                 dispatch(getAdminGroupSuccess({
                     data: result.data[0].manageGroup
                 }))
+                dispatch(getJoinedGroupSuccess(result.data[0].joinedGroup))
             } else {
                 dispatch(signInFailed(result));
                 alert("ID혹은 비밀번호가 틀렸습니다.");

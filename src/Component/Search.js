@@ -2,6 +2,7 @@ import React, { Component } from 'react'
 import { connect } from 'react-redux';
 import { search } from '../Store/ACTIONS/Search';
 import {bindActionCreators} from 'redux';
+import { Icon } from 'semantic-ui-react';
 
 class Search extends Component {
 
@@ -26,12 +27,17 @@ class Search extends Component {
 
     render() {
         return (
-            <div className="search">
-                <input name="searchText" value={this.state.searchText} onChange={this.onChangeValue}></input><button onClick={this.Search}>검색</button>
-            </div>
+        <div className="search">
+            <input name="searchText" id = "searchTextBox" value={this.state.searchText} placeholder="검색"onChange={this.onChangeValue}></input><Icon id="search"name="search" onClick={this.Search}></Icon> 
+        </div>
         )
     }
 }
+
+// {/* // <div className="search"> */}
+//                 {/* <input name="searchText" id = "searchTextBox" value={this.state.searchText} onChange={this.onChangeValue}></input><button onClick={this.Search}>검색</button> */}
+                
+//             {/* </div> */}
 
 const mapDispatchToProps = (dispatch) =>{
     return {

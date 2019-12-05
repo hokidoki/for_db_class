@@ -33,8 +33,8 @@ class LoginComponent extends Component {
         const {ID, PASSWORD} = this.state;
         return (
             <div className="loginBox">
-                <input placeholder="ID" name="ID" value={ID} onChange={this.onChangeValue} className="loginTextBox" maxLength="15" ></input>
-                <input placeholder="PASSWORD" name="PASSWORD" value={PASSWORD} onChange={this.onChangeValue} className="loginTextBox" maxLength="15" ></input>
+                <input placeholder="ID" id="loginIdBox" name="ID" value={ID} onChange={this.onChangeValue} className="loginTextBox" maxLength="15" ></input>
+                <input placeholder="PASSWORD" id="loginPasswordBox"name="PASSWORD" value={PASSWORD} onChange={this.onChangeValue} className="loginTextBox" maxLength="15" ></input>
                 <button onClick={this.signIn}className="loginButton">로그인</button>
             </div>
         )
