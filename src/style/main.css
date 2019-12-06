@@ -89,10 +89,13 @@
     height: 200px;
     /* flex-grow: 1; */
 }
+#groupAticleDate{
+    color: rgb(189, 186, 186);
+}
 .articleImageDiv{
-    flex-basis: 300px;
+    flex-basis: 90%;
     display: flex;
-    margin-left: 5px;
+    margin : 0 auto;
 }
 .articleSection{
     flex-grow: 1;
@@ -118,6 +121,39 @@
 .articleManageFunctions{
     color:  gray;
     margin-left: 10px;
+}
+.adminFunctions{
+    display: flex;
+    flex-direction: row;
+    flex-basis: 50%;
+}
+#groupMemberButton{
+    color: rgb(212, 195, 95);
+}
+#groupMemberButton:hover{
+    color: rgb(218, 190, 35);
+    border-bottom: 1px rgb(218, 190, 35) solid;
+}
+#groupDeleteButton{
+    color: rgb(102, 86, 86);
+}
+#groupDeleteButton:hover{
+    color: rgb(221, 96, 96);
+    border-bottom: 1px rgb(221, 96, 96) solid;
+}
+
+#adminH2{
+    /* float: right; */
+    /* position: relative; */
+    margin-left: 30px;
+   
+    /* right: 0; */
+}
+.groupAdminMid{
+    width: 80%;
+    display: flex;
+    flex-direction: column;
+    margin: 0 auto;
 }
 .articleManageFunctions:hover{
     color:  wheat;
@@ -266,9 +302,29 @@
     position: relative;
     right: 2px;
 }
+#forGroupArticleDiv{
+    flex-direction: column;
+    flex-grow: 1;
+    margin : 0 auto;
+    width: 90%;
+
+}
+#forGroupArticlePost{
+    flex-basis: 60%;
+    border : 1px tan solid;
+    margin-bottom: 20px;
+}
 
 .myGroupDiv :hover{
     background-color: #454a5e;
+    color : tan;
+}
+#forGroupArticleEditor{
+    padding-top: 120px;
+    padding-right: 10px;
+}
+#forGroupArticleUpdateEditor{
+    padding-top: 105px;
 }
 .HOVER {
 	--width: 100%;

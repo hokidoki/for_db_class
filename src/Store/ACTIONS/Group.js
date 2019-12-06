@@ -11,7 +11,7 @@ const createGroupFailed = createAction(ActionType.CREATE_GROUP_FAILED);
 export const getJoinedGroupSuccess = createAction(ActionType.GET_JOINED_GROUP_SUCCESS);
 export const getAdminGroupSuccess = createAction(ActionType.GET_ADMIN_GROUP_SUCCESS);
 // const getNewAdminGroupSuccess = createAction(ActionType.GET_NEW_ADMIN_GROUP_SUCCESS);
-
+export const groupMemberReset = createAction(ActionType.GROUP_MEMBER_RESET);
 export const createGroup = (groupName, groupComment) =>{
     
     return (dispatch,getState) =>{

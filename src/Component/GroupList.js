@@ -4,11 +4,13 @@ import { modal_open } from  '../Store/REDUCER/Modal';
 import {getGroupArticle} from '../Store/ACTIONS/Group';
 import { withRouter } from 'react-router-dom'
 import {bindActionCreators} from 'redux';
+import { groupMemberReset } from '../Store/ACTIONS/Group';
 
 class GroupList extends Component {
 
 
     goAdminSite = (groupKey,index) =>{
+        this.props.memberReset()
         this.props.history.push(`/main/group/admin/${groupKey}/${index}`)
     }
 
@@ -51,7 +53,8 @@ class GroupList extends Component {
 const mapDispatchToProps = (dispatch)=>{
     return {
         open_modal : () => dispatch(modal_open()),
-        getGroupArticle : bindActionCreators(getGroupArticle,dispatch)
+        getGroupArticle : bindActionCreators(getGroupArticle,dispatch),
+        memberReset : ()=> dispatch(groupMemberReset())
     }
 }
 

@@ -26,8 +26,8 @@ class DeleteGroup extends Component {
         return (
             <div className="deleteGroupContainner">
                 이 그룹을 삭제하도록 하겠습니다. 를 작성해주세요.
-                <input value={this.state.checkGroupName} name="checkGroupName" onChange={this.onChange}></input>
-                <button onClick={this.deleteGroup}>삭제</button>
+                <input placeholder="이 그룹을 삭제하도록 하겠습니다." value={this.state.checkGroupName} name="checkGroupName" onChange={this.onChange}></input>
+                <button className="changeInfoButton" onClick={this.deleteGroup}>삭제</button>
             </div>
         )
     }

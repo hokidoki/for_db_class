@@ -11,4 +11,5 @@ export default handleActions({
     [type.SEARCH_GROUP_MEMBER_REQUEST] : (state) => Object.assign({},state, {isLoading : true}),
     [type.SEARCH_GROUP_MEMBER_SUCCESS] : (state,action) => Object.assign({},state, {members : [...action.payload],isLoading : false}),
     [type.SEARCH_GROUP_MEMBER_FAILED] : (state,action) => Object.assign({},state, {isLoading : false, error : action.payload}),
+    [type.GROUP_MEMBER_RESET] : (state) => Object.assign({},state,{members : []})
 }, initialState)

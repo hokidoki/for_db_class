@@ -13,6 +13,7 @@
 
 .myInfoButton:hover{
     cursor: pointer;
+    color: white;
 }
 
 #loginIdBox, #loginPasswordBox{

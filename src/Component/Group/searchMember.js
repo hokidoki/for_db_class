@@ -19,8 +19,8 @@ class SearchGroupMember extends Component {
     render() {
         return (
             <div className="deleteGroupContainner">
-                <input onChange={this.onChange} name="searchMemberKeyword"value={this.state.searchMemberKeyword}></input>
-                <button onClick={this.search}>검색</button>
+                <input onChange={this.onChange}  placeholder="아이디를 검색해주세요" name="searchMemberKeyword"value={this.state.searchMemberKeyword}></input>
+                <button className="changeInfoButton" onClick={this.search}>검색</button>
             </div>
         )
     }
