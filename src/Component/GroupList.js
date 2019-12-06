@@ -17,6 +17,9 @@ class GroupList extends Component {
     goGroupSite = (groupKey) =>{
         this.props.getGroupArticle(groupKey)
     }
+    goDataSite = () =>{
+        this.props.history.push(`/main/publicdata`)
+    }
 
     render() {
         console.log(this.props)
@@ -39,7 +42,8 @@ class GroupList extends Component {
 
         return (
             <div className="GroupList">
-                <h1 className="GroupH1">Group</h1>                
+                <h1 className="GroupH1" id="publicData" onClick={this.goDataSite}>Publc Data</h1>                                
+                <h1 className="GroupH1">Group</h1>
                 <label onClick={this.props.open_modal}>
                     그룹 생성하기
                 </label>

@@ -141,6 +141,17 @@
     color: rgb(221, 96, 96);
     border-bottom: 1px rgb(221, 96, 96) solid;
 }
+#publicData:hover{
+    color: tan;
+    cursor: pointer;
+}
+.DataPage{
+    margin-left: 20%;
+    overflow-y: auto;
+    color : white;
+    background-color:#6b6c6d;
+    flex-basis: 60%;
+}
 
 #adminH2{
     /* float: right; */

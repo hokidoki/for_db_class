@@ -10,6 +10,7 @@ import SEARCH from './REDUCER/Search/REDUCER';
 import MODAL from './REDUCER/Modal';
 import GROUP from './REDUCER/Group/REDUCER';
 import MESSAGE from './REDUCER/Message/REDUCER';
+import PUBLICDATA from './REDUCER/publicData'
 
 export function configureStore(history){
     const middleware = applyMiddleware(thunk,routerMiddleware(history));
@@ -30,7 +31,8 @@ export function configureStore(history){
             GROUP,
             MODAL,
             MESSAGE,
-            router : connectRouter(history)
+            router : connectRouter(history),
+            PUBLICDATA
         }),
         composed
     )

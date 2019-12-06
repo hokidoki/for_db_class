@@ -8,6 +8,7 @@ import GroupAdminPage from './GroupAdminPage';
 
 import FriendsListPage from './FriendsListPage';
 import GroupPage from './GroupPage';
+import DataPage from './DataPage';
 // import FriendsListPage from './FriendsListPage';
 
 import '../style/main.css';
@@ -28,6 +29,7 @@ class MainPage extends Component {
                     <Route path="/main/myinfo" exact component={MyinfoPage}/>
                     <Route path="/main/group/admin/:where/:index" component={GroupAdminPage}></Route>
                     <Route path="/main/group/:where" component={GroupPage}></Route>
+                    <Route path="/main/publicdata" exact component={DataPage}/>
                 </Switch>
                 <FriendsListPage></FriendsListPage>
             </div>
