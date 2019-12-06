@@ -107,7 +107,7 @@ class Editor extends Component {
         })
 
         const modeStyle = this.state.SECRET === 0 ?{
-            'backgroundColor' : 'snow'
+            'backgroundColor' : 'gray'
         } : {
             'backgroundColor' : 'pink'
         };
@@ -119,22 +119,21 @@ class Editor extends Component {
                         {list}
                     </div>
                     <div className="whatEatInput">
-                        <Form.Input className="articleInput" fluid name="BREAKFAST" placeholder='breakfast' value={this.state.BREAKFAST} onChange={this.onChangeValue} />
-                        <Form.Input className="articleInput" fluid name="LUNCH" placeholder='lunch' value={this.state.LUNCH} onChange={this.onChangeValue} />
-                        <Form.Input className="articleInput" fluid name="DINNER" placeholder='dinner' value={this.state.DINNER} onChange={this.onChangeValue} />
+                        <input className="articleInput" fluid name="BREAKFAST" placeholder='breakfast' value={this.state.BREAKFAST} onChange={this.onChangeValue} />
+                        <input className="articleInput" fluid name="LUNCH" placeholder='lunch' value={this.state.LUNCH} onChange={this.onChangeValue} />
+                        <input className="articleInput" fluid name="DINNER" placeholder='dinner' value={this.state.DINNER} onChange={this.onChangeValue} />
                         <div className="imageButton" >
-                            <Button style={{ 'marginLeft': "7px", 'width': '100px' }} onClick={this.onHandleChane}>이미지 추가</Button>
-                            <Checkbox style={{'marginLeft': "7px",'marginTop' : '5px'}}label="비리모드" onChange={this.changeSecretMode}></Checkbox>
+                            <label id="imageInputButton" style={{ 'backgroundColor' : 'none', 'marginLeft': "7px", 'width': '100px' }} onClick={this.onHandleChane}>이미지 추가</label>
+                            <Checkbox style={{'marginLeft': "7px",'marginTop' : '5px','color' : 'snow'}}label="cheat mode" onChange={this.changeSecretMode}></Checkbox>
                             {/* <Button style={{ 'marginLeft': "7px", 'width': '100px' }} classNmae={this.state.SECRET === 0 ? "toSecret" : "toUnSecret"} name="SECRET" onClick={this.changeSecretMode}>비리 모드</Button> */}
+                            {/* <button style={{ 'height': '38px', 'marginLeft': '0', 'marginTop': '-20px' }} id="addArticleButton"onClick={this.addArticle}>등록</button> */}
+                            <button id="addArticleButton"style={{'padding':'0','height' : '50px'}}className="changeInfoButton"onClick={this.addArticle}>글쓰기</button>
                         </div>
                     </div>
                 </div>
 
                 <div className="articleInputDiv">
-                    <Form>
-                        <TextArea style={{ 'width': '80%', 'maxHeight': '100px', 'marginLeft': '20px', 'marginTop': '20px' }} className="articleInputComment" name="COMMENT" onChange={this.onChangeValue} value={this.state.COMMENT} placeholder='Tell us more' />
-                        <Button style={{ 'height': '100%', 'marginLeft': '20px', 'marginTop': '20px' }} onClick={this.addArticle}>등록</Button>
-                    </Form>
+                        <textarea style={{  'maxHeight': '38px' }} className="articleInputComment" name="COMMENT" onChange={this.onChangeValue} value={this.state.COMMENT} placeholder='Tell us more' />
                 </div>
             </div>
         )

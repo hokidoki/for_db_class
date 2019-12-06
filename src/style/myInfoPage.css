@@ -1,21 +1,28 @@
 .whoFollowTable{
     display: flex;
-    border : 1px solid green;
+    border: 1px solid #959595;
     width: 80%;
     margin: 0 auto;
+    margin-top: 15px;
     /* min-height: 300px; */
     flex-direction: column;
 }
 .whoFollowTableHeader{
     width: 100%;
-    height: 50px;
-    border-bottom: 1px solid green;
+    height: 30px;
+    border-bottom: 1px solid #aaa8a8;
 }
 .whoFollowTableHeaderColumn{
     display: inline-block;
     /* flex-grow: 1; */
     width: 50%;
     overflow-y: auto;
+}
+.followUnfollowRowImage{
+    flex-basis: 50px;
+}
+.followUnfollowRowID{
+    flex-basis: 60%;
 }
 
 .whoFollow{
@@ -24,13 +31,17 @@
 
 .followUnfollowRow{
     display: flex;
-    width: 100%;
-    height: 30px;
+    width: 90%;
+    margin-left: 10%;
+    height: 35px;
     margin: 10px 0;
+}
+.followUnfollowRowNAME{
+
 }
 .followUnfollowRowAccount{
     display: flex;
-    flex-direction: column;
+    flex-direction: row;
 }
 
 .whoFollowTableHeaderColumnFollow{
@@ -38,7 +49,7 @@
     /* flex-grow: 1; */
     width: 50%;
     overflow-y: auto;
-    height: 300px;
+    height: 250px;
 }
 
 .whoFollowTableHeaderColumnUnfollow{
@@ -46,5 +57,5 @@
     /* flex-grow: 1; */
     width: 50%;
     overflow-y: auto;
-    height: 300px;
+    height: 250px;
 }

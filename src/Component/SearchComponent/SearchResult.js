@@ -25,7 +25,10 @@ class SearchResult extends Component {
           this.props.friendRequest(id,rowId,check,index);
       }
     }
+    
     render() {
+      const src = this.props.profile_image ? this.props.profile_image : 'https://react.semantic-ui.com/images/avatar/large/steve.jpg';
+
         return (
             <div className="SearchCard">
                 <Card.Group>
@@ -34,7 +37,7 @@ class SearchResult extends Component {
         <Image
           floated='right'
           size='mini'
-          src='https://react.semantic-ui.com/images/avatar/large/steve.jpg'
+          src={src}
         />
         <Card.Header>{this.props.name}</Card.Header>
         <Card.Meta>{this.props.mode === "groupCard" ? `개설 일자 : ${this.props.created_at}` :this.props.id}</Card.Meta>

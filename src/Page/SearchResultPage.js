@@ -5,12 +5,20 @@ import ArticleCard from '../Component/Article/ArticleCard';
 import '../style/searchCard.css';
 
 class SearchResultPage extends Component {
+    state = {
+        function : "user"
+    }
+    changeFuncion(mode){
+        this.setState({
+            function : mode
+        })
+    }
     render() {
         console.log(this.props)
         const card = this.props.SearchResult? this.props.SearchResult.map((item,index)=>{
             const {NAME, ID,COMMENT,CHECK,ROW_ID,isLoading} = item;
             
-            return <SearchResult name={NAME} id={ID} rowId={ROW_ID} comment={COMMENT} isLoading={isLoading} index={index} check={CHECK}></SearchResult>
+            return <SearchResult profile_image = {item.PROFILE_IMAGE} name={NAME} id={ID} rowId={ROW_ID} comment={COMMENT} isLoading={isLoading} index={index} check={CHECK}></SearchResult>
         }) : null;  
         const groupCard = this.props.GroupResult? this.props.GroupResult.map((item,index)=>{
             console.log(item);
@@ -30,6 +38,7 @@ class SearchResultPage extends Component {
         }) : null;  
         const articleCard = this.props.ArticleResult ? this.props.ArticleResult.map((item,index)=>{
             return <ArticleCard 
+                profile_image = {item.PROFILE_IMAGE}
                 user={this.props.user}
                 id={item.ID}
                 writer={item.NAME} 
@@ -46,14 +55,18 @@ class SearchResultPage extends Component {
                 mode = "search"
                 ></ArticleCard>;
         }) : null;
+       
         return (
             <div className='SearchResultPage'>
-                <h2>사람</h2>
-                {card}
-                <h2>그룹</h2>
-                {groupCard}
-                <h2>게시물</h2>
-                {articleCard}
+                <h2 className="searchFunctions" onClick={()=>{this.changeFuncion('user')}}>사람</h2>
+                <h2 className="searchFunctions" onClick={()=>{this.changeFuncion('group')}}>그룹</h2>
+                <h2 className="searchFunctions" onClick={()=>{this.changeFuncion('article')}}>게시물</h2>
+                <div>
+                    {this.state.function === 'user' ? card : 
+                        this.state.function ==='group' ? groupCard :
+                        this.state.function === 'article' ? articleCard : `검색에 실패하였습니다.`
+                    }
+                </div>
             </div>
         )
     }

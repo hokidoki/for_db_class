@@ -1,4 +1,4 @@
-import React, { Component } from 'react'
+import React, { Component,Fragment } from 'react'
 import {connect} from 'react-redux';
 import { sendGroupMessage,getGroupMessage } from '../Store/ACTIONS/Message';
 import { Form,TextArea, Button} from 'semantic-ui-react';
@@ -47,12 +47,13 @@ class GroupMessageModal extends Component {
     render() {
 
         const conversation = this.props.conversation.map((item)=>{
+            const date = item.send_date.substring(0,11)
                 return (
-                    <div className ="sendToMeContainner">
+                    <div className="sendToYouContainner">
                         <div>
-                            <label className="sendToLabel">{item.sender}</label><label className="sendToLabelDate">{item.send_date}</label>
+                            <label className="sendToLabel">{item.sender}</label><label className="sendToMeLabelDate">{date}</label>
                         </div>
-                        <div>
+                        <div className="receiveMessage">
                             {item.message}
                         </div>
                     </div>
@@ -63,25 +64,28 @@ class GroupMessageModal extends Component {
         console.log(this.props);
         return (
             <div className="modalOverlay">
-            <div className="myModal">
-                <div>
-                    <label onClick={this.props.close_modal}>닫기</label>
+            <div className="messageModal">
+                <div className="modalHeader">
+                    <label className="closeModal" onClick={this.props.close_modal}>닫기</label>
                 </div>
                 <div className="messageList">
                     {conversation}
                 </div>
-                <div>
-                    {
-                        where.group_master === this.props.user|| where.level === 1?
-                        <Form>
-                            <TextArea style={{'width' : '80%','display' : 'inlineBlock'}}name="message" value={this.state.message} onChange={this.onChangeValue} maxLength="150"></TextArea>
-                            <Button style={{'width' : '20%','display' : 'inlineBlock'}} onClick={this.sendMessage}>전송</Button>
-                        </Form> : null
-                    }
-                
-                </div>
+            <div>
+            {
+                where.group_master === this.props.user|| where.level === 1?
+                <Fragment>
+                    <div >
+                        <TextArea id="groupTextArea" style={{ 'width': '100%', 'maxHeight': '100px' }} onChange={this.onChangeValue} value={this.state.message} placeholder="작성해주세요" className="articleInputComment" name="message"  />
+                    </div>
+                    <div >
+                        <Button id="groupTextButton" style={{ 'height': '80%' }} onClick={this.sendMessage} >등록</Button>
+                    </div>
+                </Fragment > :null
+            }
             </div>
             </div>
+        </div>
         )
     }
 }

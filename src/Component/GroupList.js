@@ -19,25 +19,25 @@ class GroupList extends Component {
     render() {
         console.log(this.props)
         const myAdminGroup = this.props.myAdminGroup.map((item,index)=>{
-            return(<div>
+            return(<div className="myGroupDiv">
                 <label className="groupNameLabel" onClick={()=>{this.goGroupSite(item.group_id)}}>
                     {item.group_name}
                 </label>
-                <label onClick={()=>{this.goAdminSite(item.group_id,index)}}>관리</label>
+                <label className="goToadmin"onClick={()=>{this.goAdminSite(item.group_id,index)}}>관리</label>
             </div>)
         })
         const joinedGroup = this.props.joinedGroup.map((item,index)=>{
-            return(<div>
-                <label className="groupNameLabel" onClick={()=>{this.goGroupSite(item.group_id)}}>
-                    {item.group_name}
-                </label>
+            return(<div className="myGroupDiv">
+                        <label className="groupNameLabel" onClick={()=>{this.goGroupSite(item.group_id)}}>
+                        {item.group_name}
+                        </label>
             </div>)
         })
 
 
         return (
             <div className="GroupList">
-                <h1 className="group">그룹</h1>                
+                <h1 className="GroupH1">Group</h1>                
                 <label onClick={this.props.open_modal}>
                     그룹 생성하기
                 </label>

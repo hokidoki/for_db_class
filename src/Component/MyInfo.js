@@ -19,10 +19,10 @@ class MyInfo extends Component {
     }
 
     render() {
-        const src = this.props.user.PROFILE_IMAGE ? this.props.user.PROFILE_IMAGE : 'https://react.semantic-ui.com/images/avatar/small/stevie.jpg';
+        const src = this.props.user.PROFILE_IMAGE ? this.props.user.PROFILE_IMAGE : 'https://react.semantic-ui.com/images/avatar/large/steve.jpg';
         return (
+            <div>
             <div className="myInfo">
-                <p>
                     {this.props.user.GENDER ?
                         <Image
                             // style="userImage"
@@ -37,9 +37,11 @@ class MyInfo extends Component {
                             src={src}
                         />}
                     <h2 className="userNick">{this.props.user.NAME}</h2>
-                </p>
-                <button className="myInfoButton" onClick={this.myinfo}>내 정보</button>
-                <button className="logoutButton" onClick={this.logOut}>로그아웃</button>
+                </div>
+                <div >
+                <label className="myInfoButton" onClick={this.logOut}>로그아웃</label>
+                <label className="myInfoButton" onClick={this.myinfo}>내 정보</label>   
+                </div>
             </div>
         )
     }

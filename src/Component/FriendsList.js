@@ -18,7 +18,7 @@ class FriendsList extends Component {
             const src = item.PROFILE_IMAGE ? item.PROFILE_IMAGE : 'https://react.semantic-ui.com/images/avatar/large/matthew.png';
             return (
                 <div className="friendRow">
-                    <div className="friendRowImageDiv" ><Image src={src} size="mini" style={{'display' : 'inlineBlock'}}></Image></div><div className="friendRowImageDiv" ><label onClick={() => {this.openMessageBox(item.ID)}} value={item.NAME}>{item.NAME}</label></div>
+                    <div className="friendRowImageDiv" ><Image src={src} size="mini" style={{'display' : 'inlineBlock'}}></Image></div><div className="friendRowImageName" ><label clsaaName="friendRowLabelName"style={{'color' : 'wheat'}} onClick={() => {this.openMessageBox(item.ID)}} value={item.NAME}>{item.NAME}</label></div>
                 </div>
             )
         })

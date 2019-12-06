@@ -68,51 +68,61 @@ class ArticleCard extends Component {
     }
     render(){
       const comment = this.props.comment.map((item)=>{
-      return <Comment writer={item.WRITER} deleteComment={this.props.deleteComment} deleted={item.DELETED}updateComment={this.props.updateComment} articleRowId={this.props.articleRowId} articleIndex={this.props.index} user={this.props.user} createdAt={item.CERATED_AT} comment={item.COMMENT} addRecomment={this.addRecomment}comment_row_id={item.COMMENT_ROW_ID} DELETEAED={item.DELETEAED} recomment={item.recomment}></Comment>
+      return <Comment profile_image = {item.PROFILE_IMAGE}writer={item.WRITER} deleteComment={this.props.deleteComment} deleted={item.DELETED}updateComment={this.props.updateComment} articleRowId={this.props.articleRowId} articleIndex={this.props.index} user={this.props.user} createdAt={item.CERATED_AT} comment={item.COMMENT} addRecomment={this.addRecomment}comment_row_id={item.COMMENT_ROW_ID} DELETEAED={item.DELETEAED} recomment={item.recomment}></Comment>
       })
       const manageButton = this.props.user === this.props.id ? <Fragment>
-            <label onClick={this.setMode}>{this.state.MODE}</label>
-            <label onClick={this.deleteArticle}>삭제</label>
+            <label className="articleManageFunctions" onClick={this.setMode}>{this.state.MODE}</label>
+            <label className="articleManageFunctions" onClick={this.deleteArticle}>삭제</label>
       </Fragment> : null;
       const modeStyle = this.props.secret === 0 ?{
-        'backgroundColor' : 'gray'
+        'backgroundColor' : '#1a1c22'
       } : {
-        'backgroundColor' : 'pink'
+        'backgroundColor' : '#324268'
       };
+      const src = this.props.profile_image ? this.props.profile_image : 'https://react.semantic-ui.com/images/avatar/large/steve.jpg';
         return(
-          
+          <div>
           <div className="articleCard" style={modeStyle}>
-            {!this.props.mode ? manageButton : null}
             { this.state.MODE === "수정" ? 
             <Fragment>
-            <div>
-              <Image size="mini" src={this.props.profile_image}></Image>
-              {this.props.writer}
-              <label>{this.props.date}</label>
-            </div>
-            <div className="articleImageDiv">
-              <Image src={this.props.image} size="medium" style={{'display' : 'inlineBlock'}}></Image>
-              <div className="articleSection">
-                <div>{this.props.breakFast}</div>
-                <div>{this.props.lunch}</div>
-                <div>{this.props.dinner}</div>
+            <div className="articleCardHeader">
+              <div className="articleUserImageDiv">
+              <Image id="articleProfileImage" size="mini" src={src}></Image>
+              </div>
+              <div className="articleCardInfo">
                 <div>
+                {this.props.writer}{!this.props.mode ? manageButton : null}
+                </div>
+              <label>{this.props.date}</label>
+              </div>
+            </div>
+            <div className="articleImageDiv" id="articleImageDiv">
+              <div className="articleImageSections">
+              <Image src={this.props.image} size="medium" style={{'display' : 'inlineBlock'}}></Image>
+              </div>
+              <div className="articleSection">
+                <div>아침 : {this.props.breakFast}</div>
+                <div>점심 : {this.props.lunch}</div>
+                <div>저녁 : {this.props.dinner}</div>
+              <div>
                   {this.props.contents}
                 </div>
               </div>
             </div>
             <div className="commentInputDiv">
-            {!this.props.mode ? 
-            <Form>
-                    <TextArea style={{ 'width' : '80%', 'maxHeight' : '100px','marginLeft' : '20px', 'marginTop' : '20px'}} onChange={this.onChangeValue} value={this.state.COMMENT} placeholder="Comment" className="articleInputComment" name="COMMENT"  placeholder='comment' />
-                    <Button style={{ 'height' : '100%' ,'marginLeft' : '20px', 'marginTop' : '20px'}} onClick={this.addComment} >등록</Button>
-            </Form>
-            : null}
+            <Fragment>
+              <div className="commentTextArea">
+                <TextArea style={{ 'width' : '100%', 'maxHeight' : '100px','marginLeft' : '20px', 'marginTop' : '20px'}} onChange={this.onChangeValue} value={this.state.COMMENT} placeholder="Comment" className="articleInputComment" name="COMMENT"  placeholder='comment' />
+              </div>
+              <div className="commentButton">
+                <Button style={{ 'height' : '80%' ,'marginLeft' : '20px'}} onClick={this.addComment} >등록</Button> 
+              </div>
+            </Fragment>
+            </div>
             <div className="commentShowButton" onClick={this.commentShowStateChange}>
               {this.state.COMMENT_SHOW ? "댓글 가리기" : "댓글 펼치기"}
             </div>
-              {this.state.COMMENT_SHOW ? comment : null}
-            </div>
+            {/* {this.state.COMMENT_SHOW ? comment : null} */}
             </Fragment>: <UpdateEditor breakFast={this.props.breakFast} 
                                        articleRowId = {this.props.articleRowId}
                                        lunch={this.props.lunch} 
@@ -121,7 +131,13 @@ class ArticleCard extends Component {
                                        comment={this.props.contents}
                                        writer={this.props.writer}
                                        index={this.props.index}
-                                       setMode = {this.setMode}></UpdateEditor>} 
+                                       date = {this.props.date}
+                                       setMode = {this.setMode}
+                                       src ={src}></UpdateEditor>} 
+            </div>
+            <div className="articleCommentContainer">
+              {this.state.COMMENT_SHOW ? comment : null}
+            </div>
           </div>
          
         )
@@ -206,12 +222,13 @@ class Comment extends Component{
       : null;
 
     const reComment = this.props.recomment.map((item)=>{
+      const src = item.PROFILE_IMAGE ? item.PROFILE_IMAGE : 'https://react.semantic-ui.com/images/avatar/large/steve.jpg';
       return (<div className="commentContainer">
         <div className="commentImage">
         <Image
-          floated='right'
+          floated='left'
           size='mini'
-          src='https://react.semantic-ui.com/images/avatar/large/steve.jpg'
+          src={src}
         />
         </div>
         <div className="commentInfoCommentContainer">
@@ -229,15 +246,17 @@ class Comment extends Component{
         </div>
       </div>)
     }) 
+    const {profile_image} = this.props;
+    const src = profile_image ? profile_image : 'https://react.semantic-ui.com/images/avatar/large/steve.jpg'
     return(
       <div className="commentContainer">
         <div className="commentImage">
           {
              this.props.deleted === 1? null : 
             <Image
-          floated='right'
+          floated='left'
           size='mini'
-          src='https://react.semantic-ui.com/images/avatar/large/steve.jpg'
+          src={src}
         />
           }
         
@@ -254,11 +273,11 @@ class Comment extends Component{
             {
           this.state.updateMode ? 
           <div className="reCommentContainer">
-              <div>
-                <Form>
-                  <TextArea name ="updatedComment" value={this.state.updatedComment} onChange={this.onChange}></TextArea>
+              <div className="updateCommentDiv">
+                  <TextArea className="reCommentTextArea" name ="updatedComment" value={this.state.updatedComment} onChange={this.onChange}></TextArea>
+              </div>
+              <div className="updateCommentButton">
                   <Button onClick={this.updateComment}>전송</Button>
-                </Form>
               </div>
           </div> : this.props.deleted === 0 ? <label onClick={this.recommentShowStateChange}>
               답글
@@ -274,12 +293,12 @@ class Comment extends Component{
         </div>
         {
           this.state.reCommentInputShow ? 
-          <div className="reCommentContainer">
-              <div>
-                <Form>
-                  <TextArea name ="reComment" value={this.state.reComment} onChange={this.onChange}></TextArea>
+          <div className="reCommentContainer rerecomment">
+              <div className="updateCommentDiv">
+                  <TextArea className="reCommentTextArea"name ="reComment" value={this.state.reComment} onChange={this.onChange}></TextArea>
+              </div>
+              <div className="updateCommentButton">
                   <Button onClick={this.addRecomment}>전송</Button>
-                </Form>
               </div>
           </div> : null
         }

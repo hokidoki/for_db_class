@@ -1,14 +1,22 @@
 .GroupNoticePage{
-    color : black;
+    color : snow;
     box-sizing: border-box;
     width: 20%;
     height: 100%;
-    background-color: #222629;
+    background-color: #333642;
     display: flex;
     flex-direction: column;
     position: fixed;
-
+    border-right: 1px solid rgba(0,0,0,0.4);
+    border-left: 1px solid rgba(255,255,255,0.05);
+    border-top: 1px solid rgba(255,255,255,0.05);
+    box-shadow:  5 5px 5px rgba(171, 165, 165, 0.5);
 }
+.rerecomment{
+    padding-left: 40px;
+}
+
+
 .commentInput{
     width: 90%;
     background-color: none;
@@ -16,30 +24,187 @@
     border-left: none;
     border-right: none;
 }
+.commentShowButton{
+    display: block;
+}
 .commentInputDiv{
-    /* height: 30px; */
     line-height: 30px;
-
+    flex-grow: 1;
+    display: flex;
+}
+.articleCommentContainer{
+    width:80%;
+    background-color: #1a1c22;
+    margin : 0 auto;
+}
+.commentTextArea{
+    flex-basis: 80%;
+}
+.reCommentContainer{
+    display: flex;
+    height: 40px;
+}
+.updateCommentDiv{
+    flex-basis: 70%;
+}
+.reCommentTextArea{
+    width: 374px;
+    height: 35px;
+}
+.updateCommentButton{
+    flex-basis: 30%;
+}
+.commentButton{
+    flex-basis: 20%;
+    padding-top: 21px;
 }
 .articleCard{
-
+    display: flex;
+    flex-direction: column;
     margin-top: 30px;
     margin-left: auto;
     margin-right: auto;
     width: 80%;
-    background-color: black;
+    height: 400px;
+    background-color:#1a1c22;
+    
+}
+#articleProfileImage{
+    width: 40px;
+    height: 40px;
+    border-radius: 40px;
+}
+.articleUserImageDiv{
+    padding-left: 10px;
+}
+.articleCardInfo{
+    padding-left: 20px;
+}
+.articleCardHeader{
+    flex-basis: 50px;
+    padding-top: 5px;
+    display: flex;
+}
+.articleImageSections{
+    height: 200px;
+    /* flex-grow: 1; */
+}
+.articleImageDiv{
+    flex-basis: 300px;
+    display: flex;
+    margin-left: 5px;
+}
+.articleSection{
+    flex-grow: 1;
+}
+#articleImageDiv{
     
 }
 .userIcon{
     border-radius: 15px;
+}
+.GroupH1{
+    background-color: #454a5e;
+    width : 90%;
 }
 
 .ArticlePage, .MyinfoPage, .SearchResultPage,.groupAdminPage{
     margin-left: 20%;
     overflow-y: auto;
     color : white;
-    background-color:skyblue;
+    background-color:#6b6c6d;
     flex-basis: 60%;
+}
+.articleManageFunctions{
+    color:  gray;
+    margin-left: 10px;
+}
+.articleManageFunctions:hover{
+    color:  wheat;
+    border-bottom: 1px gray solid;
+    cursor: pointer;
+}
+.FriendSideMenu{
+    min-height: 100px;
+    border: #333642 1px solid;
+    margin-top : 20px;
+    border-radius: 5px;
+    margin-right: 10px;
+    width: 80%;
+    max-height: 70%;
+}
+.searchFunctions{
+    display: inline-block;
+    margin-left: 30px;
+}
+.SearchResultPage::-webkit-scrollbar {
+
+    display:none;
+    
+} 
+.ArticlePage::-webkit-scrollbar {
+
+    display:none;
+    
+} 
+.myinfoTextboxContainer{
+    display: flex;
+}
+.myinfoTextboxLabelDiv{
+    flex-basis: 50px;
+    line-height: 55px;
+}
+
+.myinfoTextboxLabelDivimage{
+    flex-basis: 65px;
+    line-height: 55px;
+}
+.myinfoTextboxDiv{
+    flex-grow: 1;
+}
+.myinfoTextboxLabelDivimageLabel{
+    position: relative;
+    line-height: 55px;
+}
+#myInfoImageButton{
+   margin-left: 15px;
+}
+.myInfoimageChangeButton{
+    margin-left: 15px;
+    position: relative;
+    bottom: 0;
+}
+#myInfoImageButton:hover{
+    color: white;
+    cursor: pointer;
+}
+
+.myInfoimageChangeButton:hover{
+    border-bottom: 1px solid #cacaca;
+    color : white;
+}
+
+.myinfoImageContollerDiv{
+    display: flex;
+    border-bottom: 1px solid #cacaca;
+}
+.myInfoImageDiv{
+    flex-basis: 50px;
+}
+.myinfoTextBox{
+    margin-top: 15px;
+    margin-left: 20px;
+    width: 70%;
+}
+.myInfoImageButtonDiv{
+    flex-grow: 1;
+}
+.myinfoContainer{
+    padding-top: 10px;
+    width: 80%;
+    border-top: 1px solid #cacaca;
+    margin: 0 auto;
+    margin-top: 30px;
 }
 .userImage{
     position: relative;
@@ -64,6 +229,7 @@
 
 .GroupList{
     flex-grow: 3;
+    margin-top: 10px;
 }
 
 .myInfo{
@@ -74,3 +240,124 @@
     /* padding-top : 10px; */
     text-align: right;
 }
+
+@keyframes shake {
+	25% {
+		transform: rotate(calc(var(--angle) * -1));
+	}
+
+	50% {
+		transform: rotate(var(--angle));
+	}
+
+	100% {
+		transform: rotate(0deg);
+	}
+}
+.myGroupDiv{
+    height: 40px;
+    line-height: 40px;
+    margin-left: 5px;
+    position: relative;
+    border-bottom: 1px solid#454a5e;
+}
+.goToadmin{
+    float: right;
+    position: relative;
+    right: 2px;
+}
+
+.myGroupDiv :hover{
+    background-color: #454a5e;
+}
+.HOVER {
+	--width: 100%;
+	--time: 0.7s;
+	position: relative;
+	display: inline-block;
+	height: 1em;
+	padding: 1em;
+
+	color: white;
+	background: #222;
+	overflow: hidden;
+}
+
+.HOVER text {
+	position: relative;
+	z-index: 5;
+	transition: color var(--time);
+}
+
+.HOVER:hover text {
+	color: #222;
+}
+.HOVER span {
+	border-radius: 100%;
+	position: absolute;
+	display: block;
+	content: "";
+	z-index: 0;
+	width: 0;
+	height: 0;
+
+	background: #fff;
+	transform: translate(-50%, -50%);
+	transition: width var(--time), padding-top var(--time);
+}
+
+.HOVER:hover span {
+	width: calc(var(--width)*2.25);
+	padding-top: calc(var(--width)* 2.25);
+}
+
+.HOVER.FLASH:hover text {
+	color: white;
+}
+.HOVER.FLASH span {
+	background: #ff3b3b;
+}
+
+.animated {
+	--angle: 5deg;
+	animation: shake 0.3s;
+}
+
+.changeInfoButton{
+    background:#8d8d8d;
+    color:#fff;
+    border:none;
+    position:relative;
+    height:30px;
+    font-size:1.6em;
+    padding:0 2em;
+    cursor:pointer;
+    transition:800ms ease all;
+    outline:none;
+    width: 100%;
+  }
+  .changeInfoButton:hover{
+    background:#fff;
+    color:#1AAB8A;
+  }
+  .changeInfoButton:before,.changeInfoButton:after{
+    content:'';
+    position:absolute;
+    top:0;
+    right:0;
+    height:2px;
+    width:0;
+    background: #1AAB8A;
+    transition:400ms ease all;
+  }
+  .changeInfoButton:after{
+    right:inherit;
+    top:inherit;
+    left:0;
+    bottom:0;
+  }
+  .changeInfoButton:hover:before,.changeInfoButton:hover:after{
+    width:100%;
+    transition:800ms ease all;
+  }
+  

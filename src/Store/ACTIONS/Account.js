@@ -109,20 +109,23 @@ export const friendRequest = (FRIEND_REQUEST_ID, ROW_ID, FRIEND_STATE, index) =>
         }
     }
 }
+const change_info = createAction(ActionType.CHANGE_INFO);
 
 export const changeInfo = (nick, job, currentWeight, goalWeight, comment, propsImage, stateImage) => {
     return (dispatch, getState) => {
         const defaultSrc = 'https://react.semantic-ui.com/images/avatar/small/stevie.jpg';
         const userId = getState().USER.sign_in.user.ID;
         let imageState = 'default';
-        if (propsImage && !stateImage.src === defaultSrc) {
-            imageState = "delete";
-        } else if (propsImage && propsImage.src !== stateImage.src && stateImage.src !== defaultSrc) {
+        alert(propsImage)
+        if (propsImage !== stateImage.src && propsImage !==null) {
             imageState = "update";
-        } else if (!propsImage && stateImage.src !== defaultSrc) {
+        }
+        if (stateImage.src === defaultSrc) {
+            imageState = "delete";
+        } 
+        if (propsImage ===null && stateImage.src !== defaultSrc) {
             imageState = "new";
         }
-        console.log(goalWeight);
         if (imageState === "update" || imageState === "new") {
             getStoreImageUrl(stateImage).then((imageSrc) => {
                 axios.put(`http://127.0.0.1:8000/user?imageState=${imageState}`, {
@@ -134,7 +137,8 @@ export const changeInfo = (nick, job, currentWeight, goalWeight, comment, propsI
                     comment: comment,
                     profileImageSrc: imageSrc
                 }).then((result) => {
-                    dispatch(signInSuccess(result.data[0]));
+                    console.log(result.data[0])
+                    dispatch(change_info(result.data[0]));
                 })
             })
         } else {
@@ -148,7 +152,7 @@ export const changeInfo = (nick, job, currentWeight, goalWeight, comment, propsI
                 comment: comment, 
                 profileImageSrc: imageSrc
             }).then((result) => {
-                dispatch(signInSuccess(result.data[0]));
+                dispatch(change_info(result.data[0]));
             })
         }
     }

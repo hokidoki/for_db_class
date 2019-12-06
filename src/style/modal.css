@@ -4,7 +4,7 @@
     left: 0;
     bottom: 0;
     right: 0;
-    background-color: rgba(157, 227, 235, 0.564);
+    background-color: rgba(102, 102, 102, 0.564);
 }
 .myModal{
     position: fixed;
@@ -16,19 +16,96 @@
     background-color: white;
     box-shadow: 0px 3px 6px rgba(0,0,0,0.16);
 }
-
+.messageModal{
+        position: fixed;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+        height: 700px;
+        width: 500px;
+        border-radius: 10px;
+        background-color: rgb(87, 87, 87);
+        /* overflow: auto; */
+        box-shadow: 2px 3px 6px rgba(0,0,0,0.16);
+}
 .myModal{
     position: fixed;
     top: 50%;
     left: 50%;
     transform: translate(-50%, -50%);
+    height: 250px;
     width: 500px;
     border-radius: 10px;
-    background-color: black;
-    box-shadow: 0px 3px 6px rgba(0,0,0,0.16);
+    background-color: white;
+    box-shadow: 2px 3px 6px rgba(0,0,0,0.16);
+}
+.createGroupModalInputContainer{
+    display: flex;
+    flex-direction: row;
+}
+.createGroupModalInput{
+    flex-basis: 80%;
+}
+.createGroupModalButton{
+    flex-basis: 20%;
+}
+.messageList{
+    height :600px;
+    width: 100%;
+    background-color: white;
+    overflow: auto;
+    position: relative;
+}
+.closeModal{
+    float: right;
+    margin-right: 15px;
 }
 
-.messageList{
-    height :400px;
-    background-color: white;
+.mid{
+    width: 80%;
+    margin: 0 auto;
+    margin-top: 30px;
+}
+#groupTextArea{
+    margin: 0 0;
+    max-width: 100%;
+}
+#groupTextButton{
+    margin: 0 0;
+    width: 100%;
+}
+.sendMeContainner{
+    /* float: left; */
+    width: 80%;
+    margin-right: 20%;
+}
+.sendMessage{
+    color: gray;
+    background-color: yellowgreen;
+    border-radius: 10px;
+    padding-left: 10px;
+}
+.sendToLabelDate{
+    margin-left: 20px;
+}
+.sendToYouContainner{
+    /* float: right; */
+    width: 80%;
+    margin-left: 20%;
+    /* background-color: gainsboro; */
+    margin-top: 10px;
+
+}
+.sendToMeLabelDate{
+    margin-left: 20px;
+}
+.receiveMessage{
+        background-color: gainsboro;
+        border-radius: 10px;
+        padding-left: 10px;
+
+
+}
+.sendToLabel{
+    margin-left: 20px;
 }

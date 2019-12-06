@@ -68,9 +68,7 @@ class MyInfoPage extends Component {
     }
     changeInfo = ()=>{
         const {NAME, JOB, CURRENTWEIGHT, GOALWEIGHT, COMMENT,IMAGES} = this.state;
-        const { PROFILE_IMAGE } = this.props;
-        console.log(GOALWEIGHT)
-
+        const { PROFILE_IMAGE } = this.props.USER;
         this.props.infoChange(NAME,JOB,CURRENTWEIGHT,GOALWEIGHT,COMMENT,PROFILE_IMAGE,IMAGES[0]);
     }
     onChangeValue = (e)=>{
@@ -94,21 +92,69 @@ class MyInfoPage extends Component {
         console.log(whoFollow)
         return(
             <div className="MyinfoPage" style={{'overflowY' : 'auto'}} >
-                <InvisibleUploadButton ref="image" type="file" onChange={this.onImageChage} />
                 <h1>회원정보 수정 </h1>
-                <Image
-                    className ="userIconPrivew"
-                    style = {{'width' : '60px' , 'height' : '60px', 'borderRadius: ' : '100px',}}
-                    src= {this.state.IMAGES[0].src}
-                    onClick = {this.onDeleteImage}
-                /> 
-                <Button style={{ 'marginLeft': "7px", 'width': '100px' }} onClick={this.onHandleChane}>이미지 추가</Button>
-                별명 : <input type="text" onChange={this.onChangeValue} name="NAME" value={this.state.NAME} />
-                직업 : <input type="text" onChange={this.onChangeValue} name="JOB" value={this.state.JOB} />
-                현재 체중 : <input type="text"  onChange={this.onChangeValue} name="CURRENTWEIGHT" value={this.state.CURRENTWEIGHT} />
-                목표 체중 : <input type="text"  onChange={this.onChangeValue} name="GOALWEIGHT" value={this.state.GOALWEIGHT} />
-                자기 소개 : <input type="text" onChange={this.onChangeValue} name="COMMENT" value={this.state.COMMENT} />
-                <button onClick={this.changeInfo}>변경</button>
+                <div className="myinfoContainer">
+                    <div className="myinfoDiv">
+                        <InvisibleUploadButton ref="image" type="file" onChange={this.onImageChage} />
+                </div>
+                <div className="myinfoTextboxContainer">
+                    <div className="myinfoTextboxLabelDivimage">
+                        이미지
+                    </div> 
+                    <div className="myinfoTextboxLabelDiv">
+                    <Image
+                        className ="userIconPrivew"
+                        style = {{'width' : '60px' , 'height' : '60px', 'borderRadius: ' : '100px',}}
+                        src= {this.state.IMAGES[0].src}
+                        onClick = {this.onDeleteImage}
+                    /> 
+                    </div>
+                    <div className="myinfoTextboxLabelDivimageLabel">
+                        <label id="myInfoImageButton" className="myInfoimageChangeButton" onClick={this.onHandleChane}>이미지 추가</label>
+                    </div>
+                </div>
+                <div className="myinfoTextboxContainer">
+                    <div className="myinfoTextboxLabelDiv">
+                        별명
+                    </div> 
+                    <div className="myinfoTextboxDiv">
+                    <input type="text" className="myinfoTextBox"onChange={this.onChangeValue} name="NAME" value={this.state.NAME} />
+                    </div>
+                </div>
+                <div className="myinfoTextboxContainer">
+                    <div className="myinfoTextboxLabelDiv">
+                         직업
+                    </div> 
+                    <div className="myinfoTextboxDiv">
+                        <input type="text" className="myinfoTextBox"onChange={this.onChangeValue} name="JOB" value={this.state.JOB} />
+                    </div>
+                </div>    
+                <div className="myinfoTextboxContainer">
+                    <div className="myinfoTextboxLabelDiv">
+                        현재체중
+                    </div> 
+                    <div className="myinfoTextboxDiv">
+                    <input type="text"  className="myinfoTextBox"onChange={this.onChangeValue} name="CURRENTWEIGHT" value={this.state.CURRENTWEIGHT} />
+                    </div>
+                </div>
+                <div className="myinfoTextboxContainer">
+                    <div className="myinfoTextboxLabelDiv">
+                        목표체중
+                    </div> 
+                    <div className="myinfoTextboxDiv">
+                    <input type="text"  className="myinfoTextBox"onChange={this.onChangeValue} name="GOALWEIGHT" value={this.state.GOALWEIGHT} />
+                    </div>
+                </div>
+                <div className="myinfoTextboxContainer">
+                    <div className="myinfoTextboxLabelDiv">
+                        코멘트
+                    </div> 
+                    <div className="myinfoTextboxDiv">
+                    <input type="text" className="myinfoTextBox"onChange={this.onChangeValue} name="COMMENT" value={this.state.COMMENT} />
+                    </div>
+                </div>                        
+                <button className="changeInfoButton"onClick={this.changeInfo}>변경</button>
+                </div>
                 <WhoFollowMe whoFollowMe={whoFollow} whoUnfollowMe={whoUnFollow}/>
             </div>
         )
@@ -160,26 +206,23 @@ class WhoFollowMe extends Component{
                 const imageSrc = item.PROFILE_IMAGE ? item.PROFILE_IMAGE :  'https://react.semantic-ui.com/images/avatar/small/stevie.jpg';
                 return (
                     <div className="followUnfollowRow">
-                        <div className="followUnfollowRowImage">
-                            <Image size="mini" src={imageSrc}></Image>
-                        </div>
-                        <div className="followUnfollowRowAccount">
-                            <div className="followUnfollowRowID">
-                                {item.ID}
-                            </div>
-                            <div className="followUnfollowRowNAME">
-                                {item.NAME}
-                            </div>
-                        </div>
-                        
-                </div>
+                    <div className="followUnfollowRowImage">
+                        <Image size="mini" src={imageSrc}></Image>
+                    </div>
+                    <div className="followUnfollowRowID">
+                        {item.ID}
+                    </div>
+                    <div className="followUnfollowRowNAME">
+                        {item.NAME}
+                    </div>
+            </div>
                 )
         });
         return(
             <div className="whoFollowTable">
                 <div className="whoFollowTableHeader">
-                    <div className="whoFollowTableHeaderColumn">날 따르는자...</div>
-                    <div className="whoFollowTableHeaderColumn">날 따르지 않는자 ...</div>
+                    <div className="whoFollowTableHeaderColumn">팔로우한 사람!</div>
+                    <div className="whoFollowTableHeaderColumn">팔로우하지 않은 사람!</div>
                 </div>
                 <div className="whoFollow">
                     <div className="whoFollowTableHeaderColumnFollow">

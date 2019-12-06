@@ -19,7 +19,7 @@ class GroupList extends Component {
             const src = item.PROFILE_IMAGE ? item.PROFILE_IMAGE : 'https://png.pngtree.com/element_pic/00/16/06/23576b5b5c020c5.jpg';
             return (
                 <div className="friendRow">
-                    <div className="friendRowImageDiv" ><Image src={src} size="mini" style={{'display' : 'inlineBlock'}}></Image></div><div className="friendRowImageDiv" ><label onClick={() => {this.openMessageBox(item)}} value={item.NAME}>{item.group_name}</label></div>
+                    <div className="friendRowImageDiv" ><Image src={src} size="mini" style={{'display' : 'inlineBlock'}}></Image></div><div className="friendRowImageName"  ><label clsaaName="friendRowLabelName"style={{'color' : 'wheat'}}onClick={() => {this.openMessageBox(item)}} value={item.NAME}>{item.group_name}</label></div>
                 </div>
             )
         })

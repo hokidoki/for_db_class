@@ -8,9 +8,11 @@ class FriendsListPage extends Component {
     render() {
         return (
             <div className="FriendsListPage">
+                <div className="FriendSideMenu">
                 <FriendsList bothFollow={this.props.bothFollow}></FriendsList>
                 <GroupList group={this.props.adminGroup}></GroupList>
                 <GroupList group={this.props.joinedGroup}></GroupList>
+                </div>
             </div>
         )
     }
