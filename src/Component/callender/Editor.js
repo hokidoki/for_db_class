@@ -1,10 +1,12 @@
 import React, { Component } from 'react';
 import { Button, Form, TextArea,Checkbox } from 'semantic-ui-react';
-
+// import { PulseLoader } from 'halogen'
 import { postArticle } from '../../Store/ACTIONS/Article';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 import styled from 'styled-components';
+import { BallSpinner } from "react-spinners-kit";
+
 
 import '../../style/Editor.css'
 
@@ -61,7 +63,10 @@ class Editor extends Component {
         const file = e.target.files[0];
         const reader = new FileReader();
         reader.readAsDataURL(file);
-
+        if(file.size > 1024 * 1024 *5){
+            alert("파일 크기는 5mb 이하입니다.");
+            return;
+        }
         reader.onload = () => {
             this.setState({
                 IMAGES: [
@@ -93,7 +98,7 @@ class Editor extends Component {
     }
     render() {
         const { IMAGES, } = this.state;
-
+        const {isLoading} = this.props;
         const list = IMAGES.map((image, index) => {
             return (
                 <Preview
@@ -127,7 +132,13 @@ class Editor extends Component {
                             <Checkbox style={{'marginLeft': "7px",'marginTop' : '5px','color' : 'snow'}}label="cheat mode" onChange={this.changeSecretMode}></Checkbox>
                             {/* <Button style={{ 'marginLeft': "7px", 'width': '100px' }} classNmae={this.state.SECRET === 0 ? "toSecret" : "toUnSecret"} name="SECRET" onClick={this.changeSecretMode}>비리 모드</Button> */}
                             {/* <button style={{ 'height': '38px', 'marginLeft': '0', 'marginTop': '-20px' }} id="addArticleButton"onClick={this.addArticle}>등록</button> */}
-                            <button id="addArticleButton"style={{'padding':'0','height' : '50px'}}className="changeInfoButton"onClick={this.addArticle}>글쓰기</button>
+        <button id="addArticleButton" style={{'padding': '0','height' : '50px'}}className="changeInfoButton"onClick={this.addArticle}>{
+            isLoading === true ? <BallSpinner
+            size={30}
+            color="#686769"
+            loading={isLoading}
+        /> : '글쓰기'
+        }</button>
                         </div>
                     </div>
                 </div>
@@ -139,6 +150,11 @@ class Editor extends Component {
         )
     }
 }
+const mapStateToProps = (state)=>{
+    return {
+        isLoading : state.ARTICLE.postArticle.isLoading
+    }
+}
 
 const mapDispacthToProps = (dispatch) => {
     return {
@@ -146,4 +162,4 @@ const mapDispacthToProps = (dispatch) => {
     }
 }
 
-export default connect(null, mapDispacthToProps)(Editor)
+export default connect(mapStateToProps, mapDispacthToProps)(Editor)

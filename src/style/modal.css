@@ -80,7 +80,7 @@
     margin-right: 20%;
 }
 .sendMessage{
-    color: gray;
+    color: black;
     background-color: yellowgreen;
     border-radius: 10px;
     padding-left: 10px;
@@ -103,7 +103,7 @@
         background-color: gainsboro;
         border-radius: 10px;
         padding-left: 10px;
-
+        color: black;
 
 }
 .sendToLabel{

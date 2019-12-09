@@ -34,7 +34,7 @@ class CreateGroup extends Component {
 
     validGroupName = () => {
         if (this.state.groupName.length > 3) {
-            axios.get(`http://127.0.0.1:8000/valid/?mode=group&groupName=${this.state.groupName}`, {
+            axios.get(`http://121.150.186.143:8000/valid/?mode=group&groupName=${this.state.groupName}`, {
                 headers: {
                     'Content-Type': 'application/json;charset=UTF-8'
                 }

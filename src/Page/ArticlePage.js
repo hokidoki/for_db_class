@@ -25,7 +25,7 @@ class ArticlePage extends Component {
         const card = ARTICLE.map((item,index)=>{
 
             if(item.deleted){
-                return <div className="articleCard">
+                return <div className="deletedCard">
                     삭제된 게시물입니다.
                 </div>
             }else{

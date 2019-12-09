@@ -12,7 +12,7 @@ export const search = (searchKeword) =>{
     return (dispatch, getState) =>{
         const user = getState().USER.sign_in.user.ID;
         dispatch(searchRequest());
-        axios.get(`http://127.0.0.1:8000/search?USER=${user}&SEARCH_KEWORD=${searchKeword}`
+        axios.get(`http://121.150.186.143:8000/search?USER=${user}&SEARCH_KEWORD=${searchKeword}`
         ).then((result)=>{
             for(let ui = 0; ui < result.data.user.length; ui++){
                 result.data.user[ui].isLoading = false;

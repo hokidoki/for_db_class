@@ -104,7 +104,7 @@ class AccountForm extends Component {
             })
             return;
         }
-        axios.get(`http://127.0.0.1:8000/valid/?id=${ID}&mode=id`).then((result)=>{
+        axios.get(`http://121.150.186.143:8000/valid/?id=${ID}&mode=id`).then((result)=>{
             if(result.data[0].VALID){
                 this.setState({
                     warning : `${ID}는 현재 사용중인 아이디 입니다.`

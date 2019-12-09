@@ -59,6 +59,10 @@ class UpdateEditor extends Component {
 
         const file = e.target.files[0];
         const reader = new FileReader();
+        if(file.size > 1024 * 1024 *5){
+            alert("파일 크기는 5mb 이하입니다.");
+            return;
+        }
         reader.readAsDataURL(file);
 
         reader.onload = () => {

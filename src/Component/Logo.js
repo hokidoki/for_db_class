@@ -16,7 +16,6 @@ class Logo extends Component {
     render() {
         return (
             <div className="menuLogo" style={{'&:hover' : 'pointer'}}onClick={this.goToMain}>
-                LOGO
             </div>
         )
     }

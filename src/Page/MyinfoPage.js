@@ -1,9 +1,9 @@
 import React, { Component } from 'react'
 import { connect } from 'react-redux';
 import {withRouter} from 'react-router-dom'
-import { Image, Button} from 'semantic-ui-react';
+import { Image} from 'semantic-ui-react';
 import '../style/myInfoPage.css';
-
+import { BallSpinner } from "react-spinners-kit";
 import {bindActionCreators} from 'redux';
 
 import { changeInfo,getWhoFollowMe } from '../Store/ACTIONS/Account';
@@ -41,6 +41,10 @@ class MyInfoPage extends Component {
 
         const file = e.target.files[0];
         const reader = new FileReader();
+        if(file.size > 1024 * 1024 *5){
+            alert("파일 크기는 5mb 이하입니다.");
+            return;
+        }
         reader.readAsDataURL(file);
 
         reader.onload = () => {
@@ -88,8 +92,7 @@ class MyInfoPage extends Component {
     render(){
         const whoFollow = this.props.WhoFollow.whoFollowMe ? this.props.WhoFollow.whoFollowMe : [];
         const whoUnFollow = this.props.WhoFollow.whoUnFollowMe ? this.props.WhoFollow.whoUnFollowMe : [];
-        console.log(whoUnFollow)
-        console.log(whoFollow)
+        const { isLoading } = this.props;
         return(
             <div className="MyinfoPage" style={{'overflowY' : 'auto'}} >
                 <h1>회원정보 수정 </h1>
@@ -153,7 +156,9 @@ class MyInfoPage extends Component {
                     <input type="text" className="myinfoTextBox"onChange={this.onChangeValue} name="COMMENT" value={this.state.COMMENT} />
                     </div>
                 </div>                        
-                <button className="changeInfoButton"onClick={this.changeInfo}>변경</button>
+        <button className="changeInfoButton"onClick={this.changeInfo}>{isLoading ? <BallSpinner 
+            size = "30"
+        ></BallSpinner> : '변경'}</button>
                 </div>
                 <WhoFollowMe whoFollowMe={whoFollow} whoUnfollowMe={whoUnFollow}/>
             </div>
@@ -171,7 +176,8 @@ const mapDispatchToProps = (dispatch) =>{
 const mapStateToProps = (state)=>{
     return {
         USER : state.USER.sign_in.user,
-        WhoFollow : state.SEARCH.search.whoFollow
+        WhoFollow : state.SEARCH.search.whoFollow,
+        isLoading : state.USER.sign_in.isLoading,
     }
 }
 

@@ -44,7 +44,7 @@ class GroupList extends Component {
             <div className="GroupList">
                 <h1 className="GroupH1" id="publicData" onClick={this.goDataSite}>Publc Data</h1>                                
                 <h1 className="GroupH1">Group</h1>
-                <label onClick={this.props.open_modal}>
+                <label onClick={this.props.open_modal} className="makeGroupLabel">
                     그룹 생성하기
                 </label>
                 {myAdminGroup}

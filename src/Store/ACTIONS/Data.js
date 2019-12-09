@@ -9,7 +9,7 @@ export const getData = (keword) =>{
     console.log("12")
     console.log(keword)
     return (dispatch) =>{
-        axios.get(`http://127.0.0.1:8000/data?addressKeyword=${keword}`).then((result)=>{
+        axios.get(`http://121.150.186.143:8000/data?addressKeyword=${keword}`).then((result)=>{
             dispatch(getPublicData(result.data))
             console.log("hi")
         })

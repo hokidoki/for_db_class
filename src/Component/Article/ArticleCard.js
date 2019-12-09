@@ -80,9 +80,10 @@ class ArticleCard extends Component {
         'backgroundColor' : '#324268'
       };
       const src = this.props.profile_image ? this.props.profile_image : 'https://react.semantic-ui.com/images/avatar/large/steve.jpg';
+      const style = this.props.deleted === true ? "deletedCard" : "articleCard";
         return(
           <div>
-          <div className="articleCard" style={modeStyle}>
+          <div className={style} style={modeStyle}>
             { this.state.MODE === "수정" ? 
             <Fragment>
             <div className="articleCardHeader">
@@ -212,10 +213,10 @@ class Comment extends Component{
     console.log(this.props.deleted)
     const updateDelete = this.props.user === this.props.writer ? 
     <Fragment>
-      <label onClick={this.setUpdateMode}>
+      <label className="commentFunction"onClick={this.setUpdateMode}>
           {this.state.updateMode ? "되돌리기" : "수정"}
       </label>
-      <label onClick={this.deleteComment}>
+      <label className="commentFunction" onClick={this.deleteComment}>
           삭제
       </label>
       </Fragment>
@@ -279,7 +280,7 @@ class Comment extends Component{
               <div className="updateCommentButton">
                   <Button onClick={this.updateComment}>전송</Button>
               </div>
-          </div> : this.props.deleted === 0 ? <label onClick={this.recommentShowStateChange}>
+          </div> : this.props.deleted === 0 ? <label className="commentFunction" onClick={this.recommentShowStateChange}>
               답글
             </label> : null
         }
