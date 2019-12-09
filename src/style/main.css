@@ -152,6 +152,11 @@
     background-color:#6b6c6d;
     flex-basis: 60%;
 }
+.DataPage::-webkit-scrollbar {
+
+    display:none;
+    
+} 
 
 #adminH2{
     /* float: right; */

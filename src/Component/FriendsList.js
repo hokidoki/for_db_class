@@ -15,7 +15,7 @@ class FriendsList extends Component {
         
         const { bothFollow } = this.props;
         const myFrinds = bothFollow.map((item)=>{
-            const src = item.PROFILE_IMAGE ? item.PROFILE_IMAGE : 'https://react.semantic-ui.com/images/avatar/large/matthew.png';
+            const src = item.PROFILE_IMAGE ? item.PROFILE_IMAGE : 'https://react.semantic-ui.com/images/avatar/large/steve.jpg';
             return (
                 <div className="friendRow">
                     <div className="friendRowImageDiv" ><Image src={src} size="mini" style={{'display' : 'inlineBlock'}}></Image></div><div className="friendRowImageName" ><label clsaaName="friendRowLabelName"style={{'color' : 'wheat'}} onClick={() => {this.openMessageBox(item.ID)}} value={item.NAME}>{item.NAME}</label></div>

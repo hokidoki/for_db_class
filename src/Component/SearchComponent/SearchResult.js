@@ -34,11 +34,12 @@ class SearchResult extends Component {
                 <Card.Group>
                   <Card id="ui_card">
                   <Card.Content >
-        <Image
+                  {this.props.mode === "groupCard" ? `개설 일자 : ${this.props.created_at}` :this.props.id}
+                  {this.props.mode === "groupCard" ? null :<Image
           floated='right'
           size='mini'
           src={src}
-        />
+        />}
         <Card.Header>{this.props.name}</Card.Header>
         <Card.Meta>{this.props.mode === "groupCard" ? `개설 일자 : ${this.props.created_at}` :this.props.id}</Card.Meta>
         <Card.Description>
