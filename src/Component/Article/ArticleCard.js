@@ -18,7 +18,7 @@ class ArticleCard extends Component {
         dinner : "noodle",
         contents : "contents",
         date : "2019-09-01",
-        image : "https://react.semantic-ui.com/images/avatar/large/matthew.png",
+        image : "http://react.semantic-ui.com/images/avatar/large/matthew.png",
         comment : [],
     }
 
@@ -79,7 +79,7 @@ class ArticleCard extends Component {
       } : {
         'backgroundColor' : '#324268'
       };
-      const src = this.props.profile_image ? this.props.profile_image : 'https://react.semantic-ui.com/images/avatar/large/steve.jpg';
+      const src = this.props.profile_image ? this.props.profile_image : 'http://react.semantic-ui.com/images/avatar/large/steve.jpg';
       const style = this.props.deleted === true ? "deletedCard" : "articleCard";
         return(
           <div>
@@ -223,7 +223,7 @@ class Comment extends Component{
       : null;
 
     const reComment = this.props.recomment.map((item)=>{
-      const src = item.PROFILE_IMAGE ? item.PROFILE_IMAGE : 'https://react.semantic-ui.com/images/avatar/large/steve.jpg';
+      const src = item.PROFILE_IMAGE ? item.PROFILE_IMAGE : 'http://react.semantic-ui.com/images/avatar/large/steve.jpg';
       return (<div className="commentContainer">
         <div className="commentImage">
         <Image
@@ -248,7 +248,7 @@ class Comment extends Component{
       </div>)
     }) 
     const {profile_image} = this.props;
-    const src = profile_image ? profile_image : 'https://react.semantic-ui.com/images/avatar/large/steve.jpg'
+    const src = profile_image ? profile_image : 'http://react.semantic-ui.com/images/avatar/large/steve.jpg'
     return(
       <div className="commentContainer">
         <div className="commentImage">

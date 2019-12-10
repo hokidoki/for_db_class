@@ -6,6 +6,7 @@ import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 import { signUp } from '../Store/ACTIONS/Account';
 import indexImage from '../image/form-img.jpg'
+import { iif } from 'rxjs';
 
 
 class AccountForm extends Component {
@@ -86,9 +87,15 @@ class AccountForm extends Component {
             alert("생년월일은 8자를 넘길수 없습니다.");
             return;
         }
+        const pattern =  /[\{\}\[\]\/?.,;:|\)*~`!^\-+<>@\#$%&\\\=\(\'\"]/gi;
+        if(e.target.value.match(pattern)){
+            alert("특수문자는 사용하실 수 없습니다.");
+            return;
+        }
         this.setState({
             [e.target.name] : e.target.value
         })
+       
 
         if(this.state.FLAG && e.target.name === "ID"){
             this.setState({
@@ -104,7 +111,14 @@ class AccountForm extends Component {
             })
             return;
         }
-        axios.get(`http://121.150.186.143:8000/valid/?id=${ID}&mode=id`).then((result)=>{
+
+        if(PASSWORD.length < 4){
+            this.setState({
+                warning : "비밀번호는 5자리 이상입니다."
+            })
+            return;
+        }
+        axios.get(`https://www.hokeys.com:431/valid/?id=${ID}&mode=id`).then((result)=>{
             if(result.data[0].VALID){
                 this.setState({
                     warning : `${ID}는 현재 사용중인 아이디 입니다.`
@@ -157,6 +171,10 @@ class AccountForm extends Component {
         }
         if(!(this.birthValidCheck(BIRTH))){
             alert("생년월일을 확인해주세요");
+            return;
+        }
+        if(NAME.length < 2 ){
+            alert("별명은 3자이상입니다. ")
             return;
         }
         // const account = {

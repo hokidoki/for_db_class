@@ -18,6 +18,11 @@ class DataPage extends Component {
         searchAddressKeyword : ""
     }
 
+    onChange= (e)=>{
+        this.setState({
+            [e.target.name] : e.target.value
+        })
+    }
 
     search = () => {
         const {searchAddressKeyword} =this.state;
@@ -47,7 +52,7 @@ class DataPage extends Component {
                             </h2>
                         </div>
                     </div>
-                    <input onChange={this.onChange}  placeholder= "주소를 검색해주세요" name="searchMemberKeyword"value={this.state.searchMemberKeyword}></input>
+                    <input onChange={this.onChange}  placeholder= "주소를 검색해주세요" name="searchAddressKeyword" value={this.state.searchAddressKeyword}></input>
                     <button className="changeInfoButton" onClick={this.search}>검색</button>
                     <div className="groupSearchResults">
                         <div className="dummyRow"></div>

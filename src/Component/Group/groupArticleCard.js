@@ -50,7 +50,7 @@ class ArticleCard extends Component {
     this.props.deleteGroupArticle(rowId, match.where);
   }
   render() {
-    const src = this.props.profile_image ? this.props.profile_image : 'https://react.semantic-ui.com/images/avatar/large/steve.jpg';
+    const src = this.props.profile_image ? this.props.profile_image : 'http://react.semantic-ui.com/images/avatar/large/steve.jpg';
     const manageButton = this.props.user === this.props.writer ? <Fragment>
       <label className="articleManageFunctions" style={{'color' : 'white'}}onClick={this.setMode}>{this.state.MODE}</label>
       <label  className="articleManageFunctions" style={{'color' : 'white'}} onClick={this.deleteArticle}>삭제</label>

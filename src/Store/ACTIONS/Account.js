@@ -17,7 +17,7 @@ export const signUp = (ID, PASSWORD, NAME, BIRTH, JOB, CURRENTWEIGHT, GOALWEIGHT
         // console.log()
         dispatch(signUpRequest());
 
-        axios.post('http://121.150.186.143:8000/signup', {
+        axios.post('https://www.hokeys.com:431/signup', {
             ID: ID,
             PASSWORD: PASSWORD,
             NAME: NAME,
@@ -45,10 +45,11 @@ const signInFailed = createAction(ActionType.SIGN_IN_FAILED);
 export const signIn = (ID, PASSWORD) => {
     return (dispatch) => {
         dispatch(signInRequest())
-        axios.post('http://121.150.186.143:8000/user/signin', {
+        axios.post('https://www.hokeys.com:431/user/signin', {
             ID: ID,
             PASSWORD: PASSWORD
         }).then((result) => {
+            console.log(result)
             if (result.data[0]) {
                 dispatch(signInSuccess(result.data[0]));
                 dispatch(push('/main'));
@@ -79,7 +80,7 @@ export const friendRequest = (FRIEND_REQUEST_ID, ROW_ID, FRIEND_STATE, index) =>
 
 
         if (!ROW_ID) {
-            axios.post('http://121.150.186.143:8000/friendRequest', {
+            axios.post('https://www.hokeys.com:431/friendRequest', {
                 USER_ID: userId,
                 FRIEND_REQUEST_ID: FRIEND_REQUEST_ID
             }).then((result) => {
@@ -93,7 +94,7 @@ export const friendRequest = (FRIEND_REQUEST_ID, ROW_ID, FRIEND_STATE, index) =>
                 dispatch(friendRequestFailed(err));
             })
         } else {
-            axios.put('http://121.150.186.143:8000/friendRequest', {
+            axios.put('https://www.hokeys.com:431/friendRequest', {
                 ROW_ID: ROW_ID,
                 REQUEST_CHECK_STATE: !FRIEND_STATE
             }).then(() => {
@@ -113,7 +114,7 @@ const change_info = createAction(ActionType.CHANGE_INFO);
 
 export const changeInfo = (nick, job, currentWeight, goalWeight, comment, propsImage, stateImage) => {
     return (dispatch, getState) => {
-        const defaultSrc = 'https://react.semantic-ui.com/images/avatar/large/steve.jpg';
+        const defaultSrc = 'http://react.semantic-ui.com/images/avatar/large/steve.jpg';
         const userId = getState().USER.sign_in.user.ID;
         dispatch(signInRequest());
         let imageState = 'default';
@@ -129,7 +130,7 @@ export const changeInfo = (nick, job, currentWeight, goalWeight, comment, propsI
         }
         if (imageState === "update" || imageState === "new") {
             getStoreImageUrl(stateImage).then((imageSrc) => {
-                axios.put(`http://121.150.186.143:8000/user?imageState=${imageState}`, {
+                axios.put(`https://www.hokeys.com:431/user?imageState=${imageState}`, {
                     userId: userId,
                     nick: nick,
                     job: job,
@@ -144,7 +145,7 @@ export const changeInfo = (nick, job, currentWeight, goalWeight, comment, propsI
             })
         } else {
             let imageSrc = null;
-            axios.put(`http://121.150.186.143:8000/user?imageState=${imageState}`, {
+            axios.put(`https://www.hokeys.com:431/user?imageState=${imageState}`, {
                 userId: userId,
                 nick: nick,
                 job: job,
@@ -164,7 +165,7 @@ const getWhoFollowMeSucces = createAction(ActionType.GET_WHO_FOLLOW_ME_SUCCESS);
 export const getWhoFollowMe =() =>{
     return (dispatch,getState) =>{
         const userId = getState().USER.sign_in.user.ID;
-        axios.get(`http://121.150.186.143:8000/user/whoFollowMe?userId=${userId}`).then((peoples)=>{
+        axios.get(`https://www.hokeys.com:431/user/whoFollowMe?userId=${userId}`).then((peoples)=>{
             console.log(peoples);
             dispatch(getWhoFollowMeSucces(peoples.data));
         }).catch((err)=>{

@@ -11,7 +11,7 @@ import { createAction } from 'redux-actions'
 //     return (dispatch, getState) =>{
 //         dispatch(getSelectedArticleRequest());
 
-//         axios.get(`http://59.23.123.73:3000/getSelectedDateArticle/?ID=${ID};DATE=${DATE}`).then((result)=>{
+//         axios.get(`https://59.23.123.73:3000/getSelectedDateArticle/?ID=${ID};DATE=${DATE}`).then((result)=>{
 //             dispatch(getSelectedArticleSuccess(result));
 //         }).catch((err)=>{
 //             dispatch(GET_SELECTED_ARTICLE_FAILED(err));

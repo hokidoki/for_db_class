@@ -10,9 +10,15 @@ class LoginComponent extends Component {
         PASSWORD : ""
     }
     onChangeValue = (e)=>{
+        const pattern =  /[\{\}\[\]\/?.,;:|\)*~`!^\-+<>@\#$%&\\\=\(\'\"]/gi;
+        if(e.target.value.match(pattern)){
+            alert("특수문자는 사용하실 수 없습니다.");
+            return;
+        }
         this.setState({
             [e.target.name] : e.target.value
         })
+        
     }
 
     signIn =()=>{
@@ -23,10 +29,10 @@ class LoginComponent extends Component {
             return;
         }
         if(PASSWORD.length < 4){
-            alert("id는 4자리 이상입니다.");
+            alert("pw는 4자리 이상입니다.");
             return;
         }
-
+        
         this.props.signIn(ID,PASSWORD);
     }
     render() {
@@ -34,7 +40,7 @@ class LoginComponent extends Component {
         return (
             <div className="loginBox">
                 <input placeholder="ID" id="loginIdBox" name="ID" value={ID} onChange={this.onChangeValue} className="loginTextBox" maxLength="15" ></input>
-                <input placeholder="PASSWORD" id="loginPasswordBox"name="PASSWORD" value={PASSWORD} onChange={this.onChangeValue} className="loginTextBox" maxLength="15" ></input>
+                <input type="password" placeholder="PASSWORD" id="loginPasswordBox"name="PASSWORD" value={PASSWORD} onChange={this.onChangeValue} className="loginTextBox" maxLength="15" ></input>
                 <button onClick={this.signIn}className="loginButton">로그인</button>
             </div>
         )

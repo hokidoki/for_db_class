@@ -15,7 +15,7 @@ export const postArticle = (MORNING, LUNCH, DINNER, COMMENT,IMAGE,SECRET) =>{
         dispatch(postArticleRequest());
         if(IMAGE){
             getStoreImageUrl(IMAGE).then((url)=>{
-                axios.post('http://121.150.186.143:8000/article',{
+                axios.post('https://www.hokeys.com:431/article',{
                     WRITER : writer,
                     DATE : dateType,
                     MORNING : MORNING,
@@ -25,7 +25,7 @@ export const postArticle = (MORNING, LUNCH, DINNER, COMMENT,IMAGE,SECRET) =>{
                     IMAGE_URL : url,
                     SECRET : SECRET
                     }).then((result)=>{
-                        axios.get(`http://121.150.186.143:8000/article?mod=updatedArticle&articleRowId=${result.data}`).then((article)=>{
+                        axios.get(`https://www.hokeys.com:431/article?mod=updatedArticle&articleRowId=${result.data}`).then((article)=>{
                             dispatch(postArticleSuccess(article.data[0]));
                         })
                     }).catch((err)=>{
@@ -33,7 +33,7 @@ export const postArticle = (MORNING, LUNCH, DINNER, COMMENT,IMAGE,SECRET) =>{
                     })
             });            
         }else{
-            axios.post('http://121.150.186.143:8000/article',{
+            axios.post('https://www.hokeys.com:431/article',{
                 WRITER : writer,
                 DATE : dateType,
                 MORNING : MORNING,
@@ -42,7 +42,7 @@ export const postArticle = (MORNING, LUNCH, DINNER, COMMENT,IMAGE,SECRET) =>{
                 COMMENT : COMMENT,
                 SECRET : SECRET
                 }).then((result)=>{
-                    axios.get(`http://121.150.186.143:8000/article?mod=updatedArticle&articleRowId=${result.data}`).then((article)=>{
+                    axios.get(`https://www.hokeys.com:431/article?mod=updatedArticle&articleRowId=${result.data}`).then((article)=>{
                         dispatch(postArticleSuccess(article.data[0]));
                     })
                 }).catch((err)=>{
@@ -64,7 +64,7 @@ export const getArticleThisMonth = (ID) =>{
         const lastDateOfThisMonth = (getState().CALLENDER.selected.selected.clone().endOf('month')).clone().format('YYYY[-]MM[-]DD');
         console.log(firstDateOfthisMonth);
         console.log(lastDateOfThisMonth);
-        axios.get(`http://121.150.186.143:8000/article?ID=${ID}&FIRST_DATE=${firstDateOfthisMonth}&LAST_DATE=${lastDateOfThisMonth}`).then((result)=>{
+        axios.get(`https://www.hokeys.com:431/article?ID=${ID}&FIRST_DATE=${firstDateOfthisMonth}&LAST_DATE=${lastDateOfThisMonth}`).then((result)=>{
             dispatch(getArticleThisMonthSuccess({
                 userId : ID,
                 article : result
@@ -93,7 +93,7 @@ export const getArticle = () =>{
         const friendsJson = JSON.stringify(friends);
         dispatch(getArticleRequest());
 
-            axios.get(`http://121.150.186.143:8000/article?mod=full&userId=${userId}&friends=${friendsJson}`).then((article)=>{
+            axios.get(`https://www.hokeys.com:431/article?mod=full&userId=${userId}&friends=${friendsJson}`).then((article)=>{
                 dispatch(getArticleSuccess(article));
 
                 const comment = article.data.map((article)=>{
@@ -113,7 +113,7 @@ const getUpdatedCommentSuccess = createAction(ActionType.GET_UPDATED_COMMENT);
 export const updatedArticle = (articleRowId,index,setMode) =>{
     return (dispatch,getState)=>{
     
-        axios.get(`http://121.150.186.143:8000/article?mod=updatedArticle&articleRowId=${articleRowId}`).then((result)=>{
+        axios.get(`https://www.hokeys.com:431/article?mod=updatedArticle&articleRowId=${articleRowId}`).then((result)=>{
         dispatch(getUpdatedArticleSuccess({
             index : index,
             updatedArticle : result.data[0]
@@ -150,7 +150,7 @@ export const putUpdateArticle = (articleRowId,preventImage,nextImage,breakFast,l
 
         if(imageState === "update" || imageState === "new" ){
             getStoreImageUrl(nextImage).then((imageSrc)=>{
-                axios.put(`http://121.150.186.143:8000/article/privateArticle?imageState=${imageState}`,{
+                axios.put(`https://www.hokeys.com:431/article/privateArticle?imageState=${imageState}`,{
                     articleRowId : articleRowId,
                     writer : writer,
                     breakFast : breakFast,
@@ -165,7 +165,7 @@ export const putUpdateArticle = (articleRowId,preventImage,nextImage,breakFast,l
                 })
             })
         }else{
-            axios.put(`http://121.150.186.143:8000/article/privateArticle?imageState=${imageState}`,{
+            axios.put(`https://www.hokeys.com:431/article/privateArticle?imageState=${imageState}`,{
                     articleRowId : articleRowId,
                     breakFast : breakFast,
                     writer : writer,
@@ -186,7 +186,7 @@ const deleteArticleSuccess = createAction(ActionType.DELETE_ARTICLE);
 
 export const deleteArticle = (articleRowId,index)=>{
     return (dispatch,getState) =>{
-        axios.delete(`http://121.150.186.143:8000/article/privateArticle`,{
+        axios.delete(`https://www.hokeys.com:431/article/privateArticle`,{
             data : {
                 articleRowId : articleRowId
             }
@@ -200,7 +200,7 @@ export const deleteArticle = (articleRowId,index)=>{
 
 export const updateComment = (articleRowId,index,table,commentId,comment,setMode) =>{
     return (dispatch,getState) =>{
-        axios.put(`http://121.150.186.143:8000/article/comment`,{
+        axios.put(`https://www.hokeys.com:431/article/comment`,{
             where : table,
             comment : comment,
             commentId : commentId
@@ -212,7 +212,7 @@ export const updateComment = (articleRowId,index,table,commentId,comment,setMode
 
 export const deleteComment = (articleRowId,index,table,commentId) =>{
     return (dispatch,getState) =>{
-        axios.delete(`http://121.150.186.143:8000/article/comment`,{
+        axios.delete(`https://www.hokeys.com:431/article/comment`,{
             data : {
                 where : table,
                 commentId : commentId

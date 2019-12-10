@@ -19,7 +19,7 @@ class MyInfo extends Component {
     }
 
     render() {
-        const src = this.props.user.PROFILE_IMAGE ? this.props.user.PROFILE_IMAGE : 'https://react.semantic-ui.com/images/avatar/large/steve.jpg';
+        const src = this.props.user.PROFILE_IMAGE ? this.props.user.PROFILE_IMAGE : 'http://react.semantic-ui.com/images/avatar/large/steve.jpg';
         return (
             <div>
             <div className="myInfo">

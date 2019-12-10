@@ -23,7 +23,7 @@ class MyInfoPage extends Component {
         console.log(this.props);
         this.state = {
             IMAGES : [{
-                src : PROFILE_IMAGE ? PROFILE_IMAGE :'https://react.semantic-ui.com/images/avatar/large/steve.jpg'
+                src : PROFILE_IMAGE ? PROFILE_IMAGE :'http://react.semantic-ui.com/images/avatar/large/steve.jpg'
             }],
             NAME : NAME ? NAME  : "",
             JOB : JOB ? JOB : "",
@@ -63,7 +63,7 @@ class MyInfoPage extends Component {
     onDeleteImage = ()=> {
         this.setState({
             IMAGES: [{
-                src : 'https://react.semantic-ui.com/images/avatar/large/steve.jpg'
+                src : 'http://react.semantic-ui.com/images/avatar/large/steve.jpg'
             }]
         })
     }
@@ -193,7 +193,7 @@ class WhoFollowMe extends Component{
     render(){
         const {whoFollowMe, whoUnfollowMe} = this.props;
         const followAcconnt = whoFollowMe.map((item)=>{
-            const imageSrc = item.PROFILE_IMAGE ? item.PROFILE_IMAGE :  'https://react.semantic-ui.com/images/avatar/large/steve.jpg';
+            const imageSrc = item.PROFILE_IMAGE ? item.PROFILE_IMAGE :  'http://react.semantic-ui.com/images/avatar/large/steve.jpg';
             return (
                 <div className="followUnfollowRow">
                     <div className="followUnfollowRowImage">
@@ -209,7 +209,7 @@ class WhoFollowMe extends Component{
             )
         })
             const unfollowAcconnt = whoUnfollowMe.map((item)=>{
-                const imageSrc = item.PROFILE_IMAGE ? item.PROFILE_IMAGE :  'https://react.semantic-ui.com/images/avatar/large/steve.jpg';
+                const imageSrc = item.PROFILE_IMAGE ? item.PROFILE_IMAGE :  'http://react.semantic-ui.com/images/avatar/large/steve.jpg';
                 return (
                     <div className="followUnfollowRow">
                     <div className="followUnfollowRowImage">

@@ -14,7 +14,7 @@ export const postComment = (articleId,comment,index) =>{
 
         const commentWrtier = getState().USER.sign_in.user.ID;
 
-        axios.post('http://121.150.186.143:8000/article/comment',{
+        axios.post('https://www.hokeys.com:431/article/comment',{
             ARTICLE_ROW_ID : articleId,
             WRITER : commentWrtier,
             COMMENT : comment
@@ -34,7 +34,7 @@ export const postReComment = (articleId,commentId,comment,index) =>{
 
         const commentWrtier = getState().USER.sign_in.user.ID;
 
-        axios.post('http://121.150.186.143:8000/article/comment/recomment',{
+        axios.post('https://www.hokeys.com:431/article/comment/recomment',{
             COMMENT_ROW_ID : commentId,
             WRITER : commentWrtier,
             COMMENT : comment

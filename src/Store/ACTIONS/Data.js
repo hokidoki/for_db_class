@@ -6,10 +6,8 @@ export const publicDataReset = createAction(ActionType.RESET_PUBLIC_DATA);
 export const getPublicData = createAction(ActionType.GET_PUBLIC_DATA);
 
 export const getData = (keword) =>{
-    console.log("12")
-    console.log(keword)
     return (dispatch) =>{
-        axios.get(`http://121.150.186.143:8000/data?addressKeyword=${keword}`).then((result)=>{
+        axios.get(`https://www.hokeys.com:431/data?addressKeyword=${keword}`).then((result)=>{
             dispatch(getPublicData(result.data))
             console.log("hi")
         })

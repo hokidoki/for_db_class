@@ -19,7 +19,7 @@ export const createGroup = (groupName, groupComment) =>{
 
         const user = getState().USER.sign_in.user.ID;
         console.log(user)
-        axios.post('http://121.150.186.143:8000/group/create',{
+        axios.post('https://www.hokeys.com:431/group/create',{
             groupName : groupName,
             groupComment : groupComment,
             admin : user 
@@ -46,7 +46,7 @@ export const groupJoin = (GROUP_KEY, MEMBER_ROW_ID ,CHECK, index) => {
 
 
         if (!MEMBER_ROW_ID) {
-            axios.post('http://121.150.186.143:8000/group/join', {
+            axios.post('https://www.hokeys.com:431/group/join', {
                 USER_ID: userId,
                 GROUP_KEY: GROUP_KEY
             }).then((result) => {
@@ -62,7 +62,7 @@ export const groupJoin = (GROUP_KEY, MEMBER_ROW_ID ,CHECK, index) => {
                 dispatch(groupJoinFailed(err));
             })
         } else {
-            axios.put('http://121.150.186.143:8000/group/join', {
+            axios.put('https://www.hokeys.com:431/group/join', {
                 MEMBER_ROW_ID: MEMBER_ROW_ID,
                 REQUEST_CHECK_STATE: !CHECK
             }).then(() => {
@@ -90,7 +90,7 @@ export const searchMembers = (GROUP_KEY, SEARCH_KEWORD) => {
 
         dispatch(searchGroupMemberRequest())
         
-        axios.get(`http://121.150.186.143:8000/group/members?groupKey=${GROUP_KEY}&searchMemberKeword=${SEARCH_KEWORD}`).then((members) => {
+        axios.get(`https://www.hokeys.com:431/group/members?groupKey=${GROUP_KEY}&searchMemberKeword=${SEARCH_KEWORD}`).then((members) => {
                 
                 console.log(members)
                 dispatch(searchGroupMemberSuccess(members.data));
@@ -103,7 +103,7 @@ export const searchMembers = (GROUP_KEY, SEARCH_KEWORD) => {
 export const changeMemberLevel = (group_member_id, level,GROUP_KEY,id)=>{
     return (dispatch) =>{
         
-        axios.put(`http://121.150.186.143:8000/group/members`,{
+        axios.put(`https://www.hokeys.com:431/group/members`,{
             memberRowId : group_member_id,
             level : level
         }).then((members) => {
@@ -116,7 +116,7 @@ export const changeMemberLevel = (group_member_id, level,GROUP_KEY,id)=>{
 export const deleteGroup = (group_key) =>{
     return (dispatch,getState) =>{
         const userId = getState().USER.sign_in.user.ID;
-        axios.delete('http://121.150.186.143:8000/group',{
+        axios.delete('https://www.hokeys.com:431/group',{
             data : {
                 group_key : group_key,
                 userId : userId
@@ -130,7 +130,7 @@ export const deleteGroup = (group_key) =>{
 export const getJoinedGroup = () =>{
     return (dispatch,getState) =>{
         const userId = getState().USER.sign_in.user.ID;
-        axios.get(`http://121.150.186.143:8000/group/join?userId=${userId}`).then((result)=>{
+        axios.get(`https://www.hokeys.com:431/group/join?userId=${userId}`).then((result)=>{
             console.log(result);
             dispatch(getJoinedGroupSuccess(result.data))
         })
@@ -144,7 +144,7 @@ const getGroupArticlefailed = createAction(ActionType.GET_GROUP_ARTICLE_FAILED);
 export const getGroupArticle = (GROUP_KEY) =>{
     return (dispatch, getState) =>{
         dispatch(getGroupArticleRequest());
-        axios.get(`http://121.150.186.143:8000/group/article?where=${GROUP_KEY}`).then((result)=>{
+        axios.get(`https://www.hokeys.com:431/group/article?where=${GROUP_KEY}`).then((result)=>{
             dispatch(getGroupArticleSuccess(result.data));
             dispatch(push(`/main/group/${GROUP_KEY}`));
         }).catch((err)=>{
@@ -159,7 +159,7 @@ export const postGroupArticle = (GROUP_KEY,ARTICLE,IMAGE) =>{
         const writer = getState().USER.sign_in.user.ID;
         if(IMAGE){
             getStoreImageUrl(IMAGE).then((url)=>{
-                axios.post('http://121.150.186.143:8000/group/article',{
+                axios.post('https://www.hokeys.com:431/group/article',{
                     from : writer,
                     group_key : GROUP_KEY,
                     article : ARTICLE,
@@ -171,7 +171,7 @@ export const postGroupArticle = (GROUP_KEY,ARTICLE,IMAGE) =>{
                     })
             });            
         }else{
-            axios.post('http://121.150.186.143:8000/group/article',{
+            axios.post('https://www.hokeys.com:431/group/article',{
                     from : writer,
                     group_key : GROUP_KEY,
                     article : ARTICLE,
@@ -187,7 +187,7 @@ export const postGroupArticle = (GROUP_KEY,ARTICLE,IMAGE) =>{
 
 export const deleteGroupArticle = (POST_KEY,group_key) =>{
     return (dispatch, getState) =>{
-        axios.delete(`http://121.150.186.143:8000/group/article`,{
+        axios.delete(`https://www.hokeys.com:431/group/article`,{
             data : {
                 postKey : POST_KEY
             }
@@ -212,7 +212,7 @@ export const putGroupUpdateArticle = (postKey,group_key,preventImage,nextImage,a
         }
         if(imageState === "update" || imageState === "new" ){
             getStoreImageUrl(nextImage).then((imageSrc)=>{
-                axios.put(`http://121.150.186.143:8000/group/article`,{
+                axios.put(`https://www.hokeys.com:431/group/article`,{
                     postKey : postKey,
                     article : article,
                     image : {
@@ -224,7 +224,7 @@ export const putGroupUpdateArticle = (postKey,group_key,preventImage,nextImage,a
                 })
             })
         }else{
-                axios.put(`http://121.150.186.143:8000/group/article`,{
+                axios.put(`https://www.hokeys.com:431/group/article`,{
                     postKey : postKey,
                     article : article,
                     image : {

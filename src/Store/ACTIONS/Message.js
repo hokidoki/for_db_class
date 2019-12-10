@@ -11,7 +11,7 @@ export const sendMessage = (who, message) =>{
         dispatch(sendMessageRequest());
 
         const user= getState().USER.sign_in.user.ID;
-        axios.post('http://121.150.186.143:8000/message',{
+        axios.post('https://www.hokeys.com:431/message',{
             from : user,
             to : who,
             message : message
@@ -32,7 +32,7 @@ export const getMessage = (who) => {
     return (dispatch,getState) => {
         dispatch(getMessageRequest());
         const user= getState().USER.sign_in.user.ID;
-        axios.get(`http://121.150.186.143:8000/message?user=${user}&talkwith=${who}`).then((conversation)=>{
+        axios.get(`https://www.hokeys.com:431/message?user=${user}&talkwith=${who}`).then((conversation)=>{
             dispatch(getMessageSuccess(conversation.data));
         }).catch((err)=>{
             dispatch(getMessageFailed(err));    
@@ -47,7 +47,7 @@ const getGroupMessageFailed = createAction(ActionType.GET_GROUP_MESSAGE_FAILED);
 export const getGroupMessage = (where) => {
     return (dispatch,getState) => {
         dispatch(getGroupMessageRequest());
-        axios.get(`http://121.150.186.143:8000/group/message?where=${where}`).then((conversation)=>{
+        axios.get(`https://www.hokeys.com:431/group/message?where=${where}`).then((conversation)=>{
             dispatch(getGroupMessageSuccess(conversation.data));
         }).catch((err)=>{
             dispatch(getGroupMessageFailed(err));    
@@ -57,7 +57,7 @@ export const getGroupMessage = (where) => {
 
 export const sendGroupMessage = (where,message,user) => {
     return (dispatch,getState) => {
-        axios.post(`http://121.150.186.143:8000/group/message`,{
+        axios.post(`https://www.hokeys.com:431/group/message`,{
             from : user,
             group_key : where,
             message : message

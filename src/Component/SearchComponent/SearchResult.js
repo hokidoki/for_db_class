@@ -27,7 +27,7 @@ class SearchResult extends Component {
     }
     
     render() {
-      const src = this.props.profile_image ? this.props.profile_image : 'https://react.semantic-ui.com/images/avatar/large/steve.jpg';
+      const src = this.props.profile_image ? this.props.profile_image : 'http://react.semantic-ui.com/images/avatar/large/steve.jpg';
 
         return (
             <div className="SearchCard">
