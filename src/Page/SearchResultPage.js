@@ -53,6 +53,7 @@ class SearchResultPage extends Component {
                 comment = {item.comment}
                 index = {index}
                 mode = "search"
+                secret ={0}
                 ></ArticleCard>;
         }) : null;
        

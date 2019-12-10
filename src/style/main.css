@@ -88,7 +88,7 @@
     display: flex;
 }
 .articleImageSections{
-    height: 200px;
+    height: 250px;
     /* flex-grow: 1; */
 }
 #groupAticleDate{

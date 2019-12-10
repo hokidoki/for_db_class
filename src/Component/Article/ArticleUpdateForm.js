@@ -71,8 +71,7 @@ class UpdateEditor extends Component {
                     {
                         file: file,
                         src: reader.result
-                    },
-                    ...this.state.IMAGES
+                    }
                 ]
             })
             this.refs.image.value = "";

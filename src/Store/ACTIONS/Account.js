@@ -118,7 +118,8 @@ export const changeInfo = (nick, job, currentWeight, goalWeight, comment, propsI
         const userId = getState().USER.sign_in.user.ID;
         dispatch(signInRequest());
         let imageState = 'default';
-        alert(propsImage)
+        alert(propsImage);
+        alert(stateImage.src);
         if (propsImage !== stateImage.src && propsImage !==null) {
             imageState = "update";
         }
@@ -128,6 +129,8 @@ export const changeInfo = (nick, job, currentWeight, goalWeight, comment, propsI
         if (propsImage ===null && stateImage.src !== defaultSrc) {
             imageState = "new";
         }
+
+        alert(imageState)
         if (imageState === "update" || imageState === "new") {
             getStoreImageUrl(stateImage).then((imageSrc) => {
                 axios.put(`https://www.hokeys.com:431/user?imageState=${imageState}`, {
@@ -144,7 +147,7 @@ export const changeInfo = (nick, job, currentWeight, goalWeight, comment, propsI
                 })
             })
         } else {
-            let imageSrc = null;
+            let imageSrc = imageState === "delete" ? null : stateImage.src;
             axios.put(`https://www.hokeys.com:431/user?imageState=${imageState}`, {
                 userId: userId,
                 nick: nick,

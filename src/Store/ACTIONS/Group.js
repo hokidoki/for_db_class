@@ -204,14 +204,17 @@ export const putGroupUpdateArticle = (postKey,group_key,preventImage,nextImage,a
     return (dispatch,getState)=>{
         let imageState = "default";
         if(preventImage && !nextImage){
-            imageState= "delete";
-        } else if(preventImage &&  preventImage !== nextImage.src && nextImage.src){
+            imageState = "delete";
+        } else if(preventImage && nextImage && preventImage !== nextImage ){
             imageState = "update";
-        }else if(!preventImage && nextImage.src){
+        }else if(!preventImage && nextImage){
             imageState = "new";
         }
+        const dummy = {
+            src : nextImage
+        }
         if(imageState === "update" || imageState === "new" ){
-            getStoreImageUrl(nextImage).then((imageSrc)=>{
+            getStoreImageUrl(dummy).then((imageSrc)=>{
                 axios.put(`https://www.hokeys.com:431/group/article`,{
                     postKey : postKey,
                     article : article,

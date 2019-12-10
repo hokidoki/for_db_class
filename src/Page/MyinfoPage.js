@@ -20,7 +20,6 @@ class MyInfoPage extends Component {
 
         super(props);
         const {NAME ,PROFILE_IMAGE,JOB, CURRENT_WEIGHT,GOAL_WEIGHT,COMMENT } = this.props.USER;
-        console.log(this.props);
         this.state = {
             IMAGES : [{
                 src : PROFILE_IMAGE ? PROFILE_IMAGE :'http://react.semantic-ui.com/images/avatar/large/steve.jpg'
@@ -30,6 +29,19 @@ class MyInfoPage extends Component {
             CURRENTWEIGHT : CURRENT_WEIGHT ? CURRENT_WEIGHT : "",
             GOALWEIGHT : GOAL_WEIGHT ? GOAL_WEIGHT : "",
             COMMENT : COMMENT ? COMMENT : "",
+        }
+    }
+    componentWillReceiveProps(nextProps){
+        if(this.props.USER.PROFILE_IMAGE !== nextProps.USER.PROFILE_IMAGE){
+            let src = nextProps.USER.PROFILE_IMAGE;
+            if(!nextProps.USER.PROFILE_IMAGE){
+                src = 'http://react.semantic-ui.com/images/avatar/large/steve.jpg'
+            }
+            this.setState({
+                IMAGES : [{
+                    src : src
+                }],
+            })
         }
     }
 
@@ -60,6 +72,7 @@ class MyInfoPage extends Component {
             this.refs.image.value = "";
         }
     }
+    
     onDeleteImage = ()=> {
         this.setState({
             IMAGES: [{

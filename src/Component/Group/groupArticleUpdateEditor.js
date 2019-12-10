@@ -46,7 +46,7 @@ class GroupUpdateArticle extends Component {
     updateArticle = () =>{
         const {COMMENT,IMAGES} = this.state;
         const {postKey,image,setMode,where} = this.props;
-        this.props.putGroupUpdateArticle(postKey,where,image,IMAGES[0],COMMENT,setMode);
+        this.props.putGroupUpdateArticle(postKey,where,image,IMAGES[0].src,COMMENT,setMode);
     }
 
     onImageChage = (e) =>{
@@ -69,7 +69,6 @@ class GroupUpdateArticle extends Component {
                         file : file,
                         src : reader.result
                     },
-                    ...this.state.IMAGES
                 ]
             })
             this.refs.image.value = "";
@@ -82,7 +81,10 @@ class GroupUpdateArticle extends Component {
 
     onDeleteImage = index =>{
         this.setState({
-            IMAGES : this.state.IMAGES.filter((item,i)=> i === index)
+            IMAGES : [{
+                file : "",
+                src : null
+            }]
         })
     }
     render() {
@@ -104,7 +106,10 @@ class GroupUpdateArticle extends Component {
             <div className="EditorInputBox">
                     <div className="imageDiv">
                         <InvisibleUploadButton ref="image" type="file" onChange={this.onImageChage} />
-                        {list}
+                        {
+                            this.state.IMAGES[0].src ? list : null
+
+                        }
                     </div>
                     <div className="whatEatInput">
                         <div className="imageButton" id="forGroupArticleUpdateEditor">
@@ -112,7 +117,7 @@ class GroupUpdateArticle extends Component {
                             {/* <Checkbox style={{'marginLeft': "7px",'marginTop' : '5px','color' : 'snow'}}label="cheat mode" onChange={this.changeSecretMode}></Checkbox> */}
                             {/* <Button style={{ 'marginLeft': "7px", 'width': '100px' }} classNmae={this.state.SECRET === 0 ? "toSecret" : "toUnSecret"} name="SECRET" onClick={this.changeSecretMode}>비리 모드</Button> */}
                             {/* <button style={{ 'height': '38px', 'marginLeft': '0', 'marginTop': '-20px' }} id="addArticleButton"onClick={this.addArticle}>등록</button> */}
-                            <button id="addArticleButton"style={{'padding':'0','height' : '50px'}}className="changeInfoButton"onClick={this.updateArticle}>글쓰기</button>
+                            <button id="addArticleButton"style={{'padding':'0','height' : '50px'}}className="changeInfoButton"onClick={this.updateArticle}>변경하기</button>
                         </div>
                     </div>
                 </div>

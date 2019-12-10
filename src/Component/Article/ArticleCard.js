@@ -74,7 +74,7 @@ class ArticleCard extends Component {
             <label className="articleManageFunctions" onClick={this.setMode}>{this.state.MODE}</label>
             <label className="articleManageFunctions" onClick={this.deleteArticle}>삭제</label>
       </Fragment> : null;
-      const modeStyle = this.props.secret === 0 ?{
+      const modeStyle = this.props.secret === 0?{
         'backgroundColor' : '#1a1c22'
       } : {
         'backgroundColor' : '#324268'
@@ -99,7 +99,7 @@ class ArticleCard extends Component {
             </div>
             <div className="articleImageDiv" id="articleImageDiv">
               <div className="articleImageSections">
-              <Image src={this.props.image} size="medium" style={{'display' : 'inlineBlock'}}></Image>
+              <Image src={this.props.image} size="medium" style={{'display' : 'inlineBlock', 'maxHeight' : '100%'}}></Image>
               </div>
               <div className="articleSection">
                 <div>아침 : {this.props.breakFast}</div>
