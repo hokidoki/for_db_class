@@ -22,7 +22,6 @@ class GroupList extends Component {
     }
 
     render() {
-        console.log(this.props)
         const myAdminGroup = this.props.myAdminGroup.map((item,index)=>{
             return(<div className="myGroupDiv">
                 <label className="groupNameLabel" onClick={()=>{this.goGroupSite(item.group_id)}}>

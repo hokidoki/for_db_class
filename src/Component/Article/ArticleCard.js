@@ -210,7 +210,6 @@ class Comment extends Component{
   
 
   render(){
-    console.log(this.props.deleted)
     const updateDelete = this.props.user === this.props.writer ? 
     <Fragment>
       <label className="commentFunction"onClick={this.setUpdateMode}>

@@ -9,7 +9,6 @@ export const getData = (keword) =>{
     return (dispatch) =>{
         axios.get(`https://www.hokeys.com:431/data?addressKeyword=${keword}`).then((result)=>{
             dispatch(getPublicData(result.data))
-            console.log("hi")
         })
     }
 }

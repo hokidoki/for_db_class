@@ -8,7 +8,6 @@ class SearchGroupMember extends Component {
     
     search = () => {
         const { searchMemberKeyword } = this.state;
-        console.log("hello");   
         this.props.search(searchMemberKeyword);
     }
     onChange = (e)=>{

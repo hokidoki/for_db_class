@@ -18,7 +18,6 @@ export const createGroup = (groupName, groupComment) =>{
         dispatch(createGroupRequest());
 
         const user = getState().USER.sign_in.user.ID;
-        console.log(user)
         axios.post('https://www.hokeys.com:431/group/create',{
             groupName : groupName,
             groupComment : groupComment,
@@ -26,7 +25,6 @@ export const createGroup = (groupName, groupComment) =>{
         }).then((result)=>{
             dispatch(createGroupSuccess());
             dispatch(modal_close());
-            console.log(result)
             dispatch(getAdminGroupSuccess(result));
         }).catch((err)=>{
             dispatch(createGroupFailed(err));  
@@ -65,13 +63,12 @@ export const groupJoin = (GROUP_KEY, MEMBER_ROW_ID ,CHECK, index) => {
             axios.put('https://www.hokeys.com:431/group/join', {
                 MEMBER_ROW_ID: MEMBER_ROW_ID,
                 REQUEST_CHECK_STATE: !CHECK
-            }).then(() => {
+            }).then((result) => {
                 var action = {
                     index: index,
                     CHECK: !CHECK,
-                    MEMBER_ROW_ID: MEMBER_ROW_ID,
+                    ROW_ID: result.data[0],
                 }
-                console.log('a')
                 dispatch(groupJoinSuccess(action));
                 dispatch(getJoinedGroup());
             }).catch((err) => {
@@ -92,7 +89,6 @@ export const searchMembers = (GROUP_KEY, SEARCH_KEWORD) => {
         
         axios.get(`https://www.hokeys.com:431/group/members?groupKey=${GROUP_KEY}&searchMemberKeword=${SEARCH_KEWORD}`).then((members) => {
                 
-                console.log(members)
                 dispatch(searchGroupMemberSuccess(members.data));
             }).catch((err) => {
                 dispatch(searchGroupMemberFailed(err));
@@ -107,7 +103,6 @@ export const changeMemberLevel = (group_member_id, level,GROUP_KEY,id)=>{
             memberRowId : group_member_id,
             level : level
         }).then((members) => {
-                console.log(members)
                 dispatch(searchMembers(GROUP_KEY,id));
         })
     }
@@ -123,6 +118,7 @@ export const deleteGroup = (group_key) =>{
             }
         }).then((result)=>{
             dispatch(getAdminGroupSuccess(result))
+            dispatch(push('/main'))
         })
     }
 }
@@ -131,7 +127,6 @@ export const getJoinedGroup = () =>{
     return (dispatch,getState) =>{
         const userId = getState().USER.sign_in.user.ID;
         axios.get(`https://www.hokeys.com:431/group/join?userId=${userId}`).then((result)=>{
-            console.log(result);
             dispatch(getJoinedGroupSuccess(result.data))
         })
     }

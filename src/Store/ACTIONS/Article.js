@@ -62,8 +62,7 @@ export const getArticleThisMonth = (ID) =>{
         dispatch(getArticleThisMonthRequest());
         const firstDateOfthisMonth = (getState().CALLENDER.selected.selected.clone().startOf('month')).clone().format('YYYY[-]MM[-]DD');
         const lastDateOfThisMonth = (getState().CALLENDER.selected.selected.clone().endOf('month')).clone().format('YYYY[-]MM[-]DD');
-        console.log(firstDateOfthisMonth);
-        console.log(lastDateOfThisMonth);
+        
         axios.get(`https://www.hokeys.com:431/article?ID=${ID}&FIRST_DATE=${firstDateOfthisMonth}&LAST_DATE=${lastDateOfThisMonth}`).then((result)=>{
             dispatch(getArticleThisMonthSuccess({
                 userId : ID,
@@ -118,7 +117,6 @@ export const updatedArticle = (articleRowId,index,setMode) =>{
             index : index,
             updatedArticle : result.data[0]
         }))    
-        console.log(result)
         const comment = result.data[0].comment;
         dispatch(getUpdatedCommentSuccess({
             index : index,
@@ -146,7 +144,6 @@ export const putUpdateArticle = (articleRowId,preventImage,nextImage,breakFast,l
         }else if(!preventImage && nextImage.src){
             imageState = "new";
         }
-        console.log(index)
 
         if(imageState === "update" || imageState === "new" ){
             getStoreImageUrl(nextImage).then((imageSrc)=>{

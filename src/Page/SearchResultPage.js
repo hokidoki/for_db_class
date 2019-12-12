@@ -14,15 +14,14 @@ class SearchResultPage extends Component {
         })
     }
     render() {
-        console.log(this.props)
         const card = this.props.SearchResult? this.props.SearchResult.map((item,index)=>{
             const {NAME, ID,COMMENT,CHECK,ROW_ID,isLoading} = item;
             
             return <SearchResult profile_image = {item.PROFILE_IMAGE} name={NAME} id={ID} rowId={ROW_ID} comment={COMMENT} isLoading={isLoading} index={index} check={CHECK}></SearchResult>
         }) : null;  
         const groupCard = this.props.GroupResult? this.props.GroupResult.map((item,index)=>{
-            console.log(item);
             const {group_id,group_name,group_master,group_comment,created_at,isLoading,check,member_row_id} = item;
+            const toggle = item.check === null || item.check === 0 || item.check === false? false : true;
             const {user} = this.props;
             return <SearchResult user={user} 
             group_master={group_master} 
@@ -34,7 +33,7 @@ class SearchResultPage extends Component {
             isLoading={isLoading} 
             index={index} 
             member_row_id ={member_row_id}
-            check ={check}></SearchResult>
+            check ={toggle}></SearchResult>
         }) : null;  
         const articleCard = this.props.ArticleResult ? this.props.ArticleResult.map((item,index)=>{
             return <ArticleCard 

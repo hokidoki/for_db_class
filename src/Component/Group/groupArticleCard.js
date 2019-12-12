@@ -60,7 +60,6 @@ class ArticleCard extends Component {
     } : {
         'backgroundColor': 'gray'
       };
-      console.log(this.props)
     return (
       <div>
         <div className="articleCard" style={modeStyle}>

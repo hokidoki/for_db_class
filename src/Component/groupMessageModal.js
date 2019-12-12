@@ -37,7 +37,6 @@ class GroupMessageModal extends Component {
         const { message } = this.state;
         const { user,where } = this.props; 
         const key = where.group_id ? where.group_id : where.group_key;
-        console.log(key)
         this.props.sendGroupMessage(key,message,user);
         this.setState({
             message : ""
@@ -60,8 +59,7 @@ class GroupMessageModal extends Component {
                 )
         })
         const {where} = this.props;
-        console.log(this.props.where)
-        console.log(this.props);
+     
         return (
             <div className="modalOverlay">
             <div className="messageModal">

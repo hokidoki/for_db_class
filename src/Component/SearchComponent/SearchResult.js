@@ -12,6 +12,9 @@ class SearchResult extends Component {
         friend_row_od : null,
         isFriend : false
     }
+    componentWillUnmount(){
+      console.log("it un")
+    }
 
     onClick = ()=>{
         const {id,rowId,index,check,isLoading} =this.props;
@@ -28,7 +31,6 @@ class SearchResult extends Component {
     
     render() {
       const src = this.props.profile_image ? this.props.profile_image : 'http://react.semantic-ui.com/images/avatar/large/steve.jpg';
-
         return (
             <div className="SearchCard">
                 <Card.Group>

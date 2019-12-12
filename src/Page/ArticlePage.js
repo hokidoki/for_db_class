@@ -21,7 +21,6 @@ class ArticlePage extends Component {
     
     render() {
         const {ARTICLE, COMMENT,USER} = this.props;
-        console.log(this.props)
         const card = ARTICLE.map((item,index)=>{
 
             if(item.deleted){

@@ -26,13 +26,11 @@ class DataPage extends Component {
 
     search = () => {
         const {searchAddressKeyword} =this.state;
-        console.log("hi")
         this.props.getData(searchAddressKeyword);
     }
   
     render() {
         const searchResult = this.props.searchResult.map((item) => {
-            console.log(item)
             return (
                 <Card style={{'width' : '100%'}}>
                     <Card.Content>

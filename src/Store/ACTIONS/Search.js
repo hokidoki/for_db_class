@@ -20,7 +20,6 @@ export const search = (searchKeword) =>{
             for(let gi = 0; gi < result.data.group.length; gi++){
                 result.data.group[gi].isLoading = false;
             }
-            console.log(result)
             dispatch(searchSuccess(result));
             dispatch(push('/main/search'));
         }).catch((err)=>{

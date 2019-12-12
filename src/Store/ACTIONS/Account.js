@@ -13,8 +13,7 @@ export const logOut = createAction(ActionType.LOGOUT);
 
 export const signUp = (ID, PASSWORD, NAME, BIRTH, JOB, CURRENTWEIGHT, GOALWEIGHT, COMMENT, GENDER) => {
     return (dispatch, getState) => {
-        // const dateType = BIRTH.substr(0,4)+'-'+BIRTH.substr(4,2)+'-'+BIRTH.substr(6,2);
-        // console.log()
+       
         dispatch(signUpRequest());
 
         axios.post('https://www.hokeys.com:431/signup', {
@@ -31,7 +30,6 @@ export const signUp = (ID, PASSWORD, NAME, BIRTH, JOB, CURRENTWEIGHT, GOALWEIGHT
             dispatch(signUpSuccess());
             dispatch(signIn(ID,PASSWORD))
             // dispatch(signInSuccess(result.data[0]));
-            console.log(result)
             dispatch(push('/main'));
         }).catch((err) => {
             dispatch(signUpFailed());
@@ -49,7 +47,6 @@ export const signIn = (ID, PASSWORD) => {
             ID: ID,
             PASSWORD: PASSWORD
         }).then((result) => {
-            console.log(result)
             if (result.data[0]) {
                 dispatch(signInSuccess(result.data[0]));
                 dispatch(push('/main'));
@@ -118,8 +115,7 @@ export const changeInfo = (nick, job, currentWeight, goalWeight, comment, propsI
         const userId = getState().USER.sign_in.user.ID;
         dispatch(signInRequest());
         let imageState = 'default';
-        alert(propsImage);
-        alert(stateImage.src);
+        
         if (propsImage !== stateImage.src && propsImage !==null) {
             imageState = "update";
         }
@@ -130,7 +126,6 @@ export const changeInfo = (nick, job, currentWeight, goalWeight, comment, propsI
             imageState = "new";
         }
 
-        alert(imageState)
         if (imageState === "update" || imageState === "new") {
             getStoreImageUrl(stateImage).then((imageSrc) => {
                 axios.put(`https://www.hokeys.com:431/user?imageState=${imageState}`, {
@@ -142,7 +137,6 @@ export const changeInfo = (nick, job, currentWeight, goalWeight, comment, propsI
                     comment: comment,
                     profileImageSrc: imageSrc
                 }).then((result) => {
-                    console.log(result.data[0])
                     dispatch(change_info(result.data[0]));
                 })
             })
@@ -169,7 +163,6 @@ export const getWhoFollowMe =() =>{
     return (dispatch,getState) =>{
         const userId = getState().USER.sign_in.user.ID;
         axios.get(`https://www.hokeys.com:431/user/whoFollowMe?userId=${userId}`).then((peoples)=>{
-            console.log(peoples);
             dispatch(getWhoFollowMeSucces(peoples.data));
         }).catch((err)=>{
             // alert(err)

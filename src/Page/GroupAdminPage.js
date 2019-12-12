@@ -17,7 +17,6 @@ class GroupAdminPage extends Component {
     componentDidMount() {
         const { USER, MANAGE_GROUP, match } = this.props;
         const { index, where } = match.params;
-        console.log(this.props)
         if (MANAGE_GROUP[index].group_master === USER && MANAGE_GROUP[index].group_id === where) {
 
         } else {
@@ -55,9 +54,7 @@ class GroupAdminPage extends Component {
     render() {
         const { match } = this.props;
         const { where } = match.params;
-        console.log(this.props.SEARCH_GROUP_MEMBER)
         const searchResult = this.props.SEARCH_GROUP_MEMBER.map((item) => {
-            console.log(this.props.SEARCH_GROUP_MEMBER)
 
             return (
                 <Card style={{'width' : '100%'}}>
