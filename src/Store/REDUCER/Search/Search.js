@@ -20,6 +20,7 @@ export default handleActions({
         NAME : state.result[action.payload].NAME,
         ROW_ID : state.result[action.payload].ROW_ID,
         CHECK : state.result[action.payload].CHECK,
+        COMMENT : state.result[action.payload].COMMENT,
         PROFILE_IMAGE : state.result[action.payload].PROFILE_IMAGE,
         isLoading : true
     } ,...state.result.slice(action.payload+1,state.result.length)], isLoading : false, error : null})},
@@ -30,6 +31,7 @@ export default handleActions({
         NAME : state.result[action.payload.index].NAME,
         ROW_ID : action.payload.ROW_ID,
         CHECK : action.payload.CHECK,
+        COMMENT : state.result[action.payload.index].COMMENT,
         PROFILE_IMAGE : state.result[action.payload.index].PROFILE_IMAGE,
         isLoading : false
     } ,...state.result.slice(action.payload.index+1,state.result.length)], isLoading : false, error : null})},

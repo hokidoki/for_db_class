@@ -12,9 +12,7 @@ class SearchResult extends Component {
         friend_row_od : null,
         isFriend : false
     }
-    componentWillUnmount(){
-      console.log("it un")
-    }
+   
 
     onClick = ()=>{
         const {id,rowId,index,check,isLoading} =this.props;
@@ -36,7 +34,6 @@ class SearchResult extends Component {
                 <Card.Group>
                   <Card id="ui_card">
                   <Card.Content >
-                  {this.props.mode === "groupCard" ? `개설 일자 : ${this.props.created_at}` :this.props.id}
                   {this.props.mode === "groupCard" ? null :<Image
           floated='right'
           size='mini'
